@@ -5,12 +5,17 @@
 
 ## Overview
 
-This will be a kitchen helping utility. begining with a user login/create account experience. contiuing with a recipie finding, saving, and creating functionality. there will be implementation of a music feature bringing music themed playlists from spotify based on the recipe you are cooking. the user will aslo be able to view videos of popular chefs from youtube making the dish of choice from their box.
+A not so simple kitchen life helper app for mobile tablet and desktop use.
 
 ## Getting Started
 
 1. clone Repo to local.
-1. install the Dependancies useing 'npm i' or individualy:
+1. install the Dependancies useing 'npm i' or individualy
+1. create a postgress database for the project for local testing and link the .sql files.
+
+## Architecture
+
+Currently using:
 
 * "cors": "^2.8.5",
 * "dotenv": "^8.2.0",
@@ -20,26 +25,19 @@ This will be a kitchen helping utility. begining with a user login/create accoun
 * "pg": "^8.4.1",
 * "superagent": "^6.1.0"
 
-1. create a postgress database for the project for local testing and link the .sql files in order:
+* heroku (deployment)
 
-* schema
-
-## Architecture
-
-Currently using:
-
-* node.js
-  * express
-  * cors
-  * ejs
-* JavaScript
-* heroku
-* superAgent
-* postgres
+* javascript
+* css
+* html
 
 ## Change Log
 
 * version--0.0.2--10-08-2020 12:00pm PST  Design plan in place, theme to be decided, documentation in place.
+
+## Project Scope
+
+This will be a kitchen helping utility. begining with a user login/create account experience. contiuing with a recipie finding, saving, and creating functionality. there will be implementation of a music feature bringing music themed playlists from spotify based on the recipe you are cooking. the user will aslo be able to view videos of popular chefs from youtube making the dish of choice from their box.
 
 ## planed feature list
 
