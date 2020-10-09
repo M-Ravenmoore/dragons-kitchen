@@ -11,6 +11,7 @@
 * Start time: -:-- pm
 * Finish time: -:--pm
 * Total time on work: - hours -- min
+* comments or notes:
 
 ## log
 
@@ -21,4 +22,13 @@
 * Start time: 4:15 pm
 * Finish time: 9:45pm
 * Total time on work: 5 hours 30 min
+* comments or notes:
 
+### Log Entry 02
+
+* Name of feature worked on: server build and initilization
+* Description of work done: built a express server and database for local work. built userdata table started and schema renamed as such, started the index.ejs page look.
+* Start time: 11:45 PST
+* Finish time: 13:07 PST
+* Total time on work: 1 hours 20 min
+* comments or notes:
