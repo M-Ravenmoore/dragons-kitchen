@@ -1,7 +1,7 @@
 {
   "name": "the-dragons-kitchen",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.2",
+  "description": "A Kitchen helper and more",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/M-Ravenmoore/the-dragons-kitchen.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Matt Ravenmoore",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/M-Ravenmoore/the-dragons-kitchen/issues"

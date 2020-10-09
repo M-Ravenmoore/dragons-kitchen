@@ -41,6 +41,27 @@ Currently using:
 
 * version--0.0.2--10-08-2020 12:00pm PST  Design plan in place, theme to be decided, documentation in place.
 
+## planed feature list
+
+* user login and accounts
+* recipe db table per user
+* recipe finder with multipul options for getting meals including:
+  * random meal (up to 3)
+  * meal by main ingrediant (max 10)
+  * meal by xx
+* shopping list maker (from ingrediant lists)
+* expand shoping list for meal planning future feature
+* connect to spotify via account page
+  * if connected on cookit page generate 5 playlists based on some aspect of the meal
+* have top 5 video results from youtube display below directions or in sidebar durring cook this.
+* timer with mobile compatiblity
+* top 10 site searches section on home
+* seasonal sugestion section on home
+
+### **streach goal**
+
+* db of factoids food and regon related for use in the cook me page or other places in the app.
+
 ## Site layout
 
 a general site plan
