@@ -43,13 +43,13 @@ Currently using:
 
 
 ## Site layout
-![site map](/readme-img/sitemap.png "Sitemap")
-![mobile](/readme-img/mobile.png "mobile wireframe")
-![alt text](/readme-img/desktop.png "Desktop wireframe")
+![site map](./readme-img/sitemap.png "Sitemap")
+![mobile](./readme-img/mobile.png "mobile wireframe")
+![alt text](./readme-img/desktop.png "Desktop wireframe")
 
 ## work log
 
 [Worklog](worklog.md)
-![Style Guide](/readme-img/style-guide.png "style-guide")
+![Style Guide](./readme-img/style-guide.png "style-guide")
 
 ## Credits and Collaborations
