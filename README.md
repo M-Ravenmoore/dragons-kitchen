@@ -37,28 +37,28 @@ Currently using:
 
 ## Project Scope
 
-This will be a kitchen helping utility. begining with a user login/create account experience. contiuing with a recipie finding, saving, and creating functionality. there will be implementation of a music feature bringing music themed playlists from spotify based on the recipe you are cooking. the user will aslo be able to view videos of popular chefs from youtube making the dish of choice from their box.
+This will be a kitchen helping utility. Beginning with a user login/create account experience. continuing with a recipe finding, saving, and creating functionality. there will be implementation of a music feature bringing music themed playlists from spotify based on the recipe you are cooking. the user will aslo be able to view videos of popular chefs from youtube making the dish of choice from their box.
 
-## planed feature list
+## Planned Feature List
 
 * user login and accounts
 * recipe db table per user
-* recipe finder with multipul options for getting meals including:
+* recipe finder with multiple options for getting meals including:
   * random meal (up to 3)
-  * meal by main ingrediant (max 10)
+  * meal by main ingredient (max 10)
   * meal by xx
-* shopping list maker (from ingrediant lists)
-* expand shoping list for meal planning future feature
+* shopping list maker (from ingredient lists)
+* expand shopping list for meal planning future feature
 * connect to spotify via account page
   * if connected on cookit page generate 5 playlists based on some aspect of the meal
-* have top 5 video results from youtube display below directions or in sidebar durring cook this.
+* have top 5 video results from youtube display below directions or in sidebar during cook this.
 * timer with mobile compatiblity
 * top 10 site searches section on home
 * seasonal sugestion section on home
 
-### **streach goal**
+### **stretch goal**
 
-* db of factoids food and regon related for use in the cook me page or other places in the app.
+* db of factoids food and region related for use in the cook me page or other places in the app.
 
 ## Site layout
 
@@ -66,7 +66,7 @@ a general site plan
 
 ![site map](./readme-img/sitemap.png "Sitemap")
 
-the mobil looks sholuld end up like this:
+the mobile looks should end up like this:
 ![mobile](./readme-img/mobile.png "mobile wireframe")
 the desktop version should look close to this:
 ![alt text](./readme-img/desktop.png "Desktop wireframe")
