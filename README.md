@@ -33,13 +33,18 @@ Currently using:
 
 ## Change Log
 
-* version--0.0.2--10-08-2020 12:00pm PST  Design plan in place, theme to be decided, documentation in place.
+* version--0.0.2 10-08-2020 12:00 PST  Design plan in place, theme to be decided, documentation in place.
+* version--0.1.0 10-09-2020 15:00 PST  CSS prof of life server working and db talking.
 
 ## Project Scope
 
 This will be a kitchen helping utility. Beginning with a user login/create account experience. continuing with a recipe finding, saving, and creating functionality. there will be implementation of a music feature bringing music themed playlists from spotify based on the recipe you are cooking. the user will aslo be able to view videos of popular chefs from youtube making the dish of choice from their box.
 
 ## Planned Feature List
+
+### MVP
+
+I aim to achive my MVP goal on or before noon 10-14-2020
 
 * user login and accounts
 * recipe db table per user
@@ -48,6 +53,9 @@ This will be a kitchen helping utility. Beginning with a user login/create accou
   * meal by main ingredient (max 10)
   * meal by xx
 * shopping list maker (from ingredient lists)
+
+### **stretch goals**
+
 * expand shopping list for meal planning future feature
 * connect to spotify via account page
   * if connected on cookit page generate 5 playlists based on some aspect of the meal
@@ -55,9 +63,6 @@ This will be a kitchen helping utility. Beginning with a user login/create accou
 * timer with mobile compatiblity
 * top 10 site searches section on home
 * seasonal sugestion section on home
-
-### **stretch goal**
-
 * db of factoids food and region related for use in the cook me page or other places in the app.
 
 ## Site layout
