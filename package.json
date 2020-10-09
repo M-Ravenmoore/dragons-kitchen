@@ -1,0 +1,29 @@
+{
+  "name": "the-dragons-kitchen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-Ravenmoore/the-dragons-kitchen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/M-Ravenmoore/the-dragons-kitchen/issues"
+  },
+  "homepage": "https://github.com/M-Ravenmoore/the-dragons-kitchen#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "pg": "^8.4.1",
+    "superagent": "^6.1.0"
+  }
+}
