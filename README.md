@@ -1,7 +1,7 @@
 # the-dragons-kitchen
 
 **Author**: Matt Ravenmoore
-**Current Version**: 0.0.1
+**Current Version**: 0.0.2
 
 ## Overview
 
@@ -39,17 +39,24 @@ Currently using:
 
 ## Change Log
 
-09-21-2020 2:15pm PST - Application now has a fully-functional basic express server, with heroku deployment and proof of life route.
-
+* version--0.0.2--10-08-2020 12:00pm PST  Design plan in place, theme to be decided, documentation in place.
 
 ## Site layout
+
+a general site plan
+
 ![site map](./readme-img/sitemap.png "Sitemap")
+
+the mobil looks sholuld end up like this:
 ![mobile](./readme-img/mobile.png "mobile wireframe")
+the desktop version should look close to this:
 ![alt text](./readme-img/desktop.png "Desktop wireframe")
 
 ## work log
 
 [Worklog](worklog.md)
+
+this style guide is a template to be worked on as i get ideas:
 ![Style Guide](./readme-img/style-guide.png "style-guide")
 
 ## Credits and Collaborations
