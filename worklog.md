@@ -32,3 +32,12 @@
 * Finish time: 13:07 PST
 * Total time on work: 1 hours 20 min
 * comments or notes:
+
+### Log Entry 03
+
+* Name of feature worked on: Home Page and slide show
+* Description of work done: Created some partials for views. and created slide show for future use. using js and css.
+* Start time: 14:45 PST
+* Finish time: 16:55 PST
+* Total time on work: 2 hours 10 min
+* comments or notes: used some refeances to build a small automatic slide show using js loop and css for effects.
