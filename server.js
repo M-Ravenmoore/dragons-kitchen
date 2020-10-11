@@ -25,11 +25,19 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverRide('_method'));
 
 
-app.get('/', homeHandle);
+app.get('/', homeRender);
+app.get('/join', joinRender);
+app.post('/join', newUserSave);
 
 
-function homeHandle(request,response){
+function homeRender(request,response){
   response.status(200).render('index.ejs');
+}
+function joinRender(request,response){
+  response.status(200).render('pages/join.ejs');
+}
+function newUserSave(request,response){
+  console.log(request.body);
 }
 
 

@@ -9,15 +9,9 @@
   <body>
 
     <header>
-      <div class="user-menu">
-        <a href=""><i class="fas fa-user-circle"></i></a> 
-      </div>
-      <article>
-        <h1>TDK: The Dragons Kitchen</h1>
-      </article>
-      <div class="navigation-menu">
-        <a href=""><i class="fas fa-bars"></i></a>
-      </div>
+      <%- include('partials/user-nav.ejs') %>
+      <h1>TDK: The Dragons Kitchen</h1>
+      <%- include('partials/ham-nav.ejs')%>
     </header>
 
     <main>
@@ -60,7 +54,7 @@
 
         <!-- linked btn to create account page -->
         <div>
-          <button>Come Join The Dragons In the Kitchen</button>
+          <a href="/join"><button>Come Join The Dragons In the Kitchen</button></a>
         </div>
       </section>
       <section class="second-row">
@@ -69,10 +63,11 @@
 
       <footer>
       <!-- make sticky -->
-      <%- include('partials/navigation.ejs') %>
+        <%- include('partials/navigation.ejs') %>
       </footer>
 
     </main>
     <script src="../js/slideshow.js"></script>
+    <script src="../js/nav.js"></script>
   </body>
 </html>
