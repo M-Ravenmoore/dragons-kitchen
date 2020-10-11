@@ -41,3 +41,12 @@
 * Finish time: 16:55 PST
 * Total time on work: 2 hours 10 min
 * comments or notes: used some refeances to build a small automatic slide show using js loop and css for effects.
+
+### Log Entry 05
+
+* Name of feature worked on: User data and profiles
+* Description of work done: Got database setup and taking in user data from new user form. can get user data out of db and append a page with it.
+* Start time: 18:30 PST
+* Finish time: 21:30 PST
+* Total time on work: 3 hours -- min
+* comments or notes: partialy working can make users cant use user info in pages yet.

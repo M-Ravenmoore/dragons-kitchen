@@ -36,6 +36,8 @@ Currently using:
 * version--0.0.2 10-08-2020 12:00 PST  Design plan in place, theme to be decided, documentation in place.
 * version--0.1.0 10-09-2020 15:00 PST  CSS prof of life server working and db talking.
 * version--0.2.0 10-10-2020 16:55 PST Home page has some basic content and a working slideshow with place holder images.
+* version--0.2.1 10-10-2020 21:45 PST the web app can now store user informations and retrive user infromation from the database. user funtionality still in progress.
+
 
 ## Project Scope
 

@@ -36,8 +36,30 @@ function homeRender(request,response){
 function joinRender(request,response){
   response.status(200).render('pages/join.ejs');
 }
+
+let userInfoObject;
+// becomes login handler for existing users compairs agains username and returns user info object.
+function isLogedin(request,response){
+  const id = request.params.id;
+  console.log(request.params)
+  const safeValues = [id];
+  const SQL = 'SELECT * FROM userdata WHERE id=$1;';
+  client.query(SQL,safeValues)
+    .then(results =>{
+      const data = results.rows[0];
+      response.status(200).render('index.ejs',{userinfo : data})
+    })
+}
 function newUserSave(request,response){
-  console.log(request.body);
+  console.log(request.body)
+  const { userName,userPassword, userEmail} = request.body;
+  const safeValues = [userName,userPassword,userEmail];
+  const SQL = `INSERT INTO userdata (username,password,useremail) VALUES ($1,$2,$3) RETURNING id;`;
+  client.query(SQL,safeValues)
+    .then(result => {
+      response.status(200).redirect(`/`);
+    })
+
 }
 
 
