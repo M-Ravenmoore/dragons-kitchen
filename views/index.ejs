@@ -17,11 +17,18 @@
     <main>
 
       <div id="searchbar">
-        <form>
+        <form action="/searchRecipies" method="POST">
           <feildset>
-            <input type="text" id="search-recipes" name="search-recipes" placeholder="Search for a Recipe"></input>
-            <button id="search" type="submit">search</button>
-          </feildset>
+            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe"></input>
+            <label for="search-select">Hunt by:</label>
+              <select name="type" id="search-recipes" placeholder="Select a type">
+                <option value="query">Recipe</option>
+                <option value="cuisine">Cuisine</option>
+
+              </select>
+
+            </feildset>
+            <button type="submit">search</button>
           </form>
       </div>
 

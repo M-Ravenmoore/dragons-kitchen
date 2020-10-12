@@ -45,8 +45,11 @@ app.use(auth(config));
 // route landing
 
 app.get('/', homeHandler);
-app.get('/profile', requiresAuth(), profileHandler)
+app.get('/profile', requiresAuth(), profileHandler);
 app.get('/about', aboutHandler);
+app.post('/searchRecipies', getRecipies);
+app.get('/error', errorHandler)
+app.use('*', errorHandler);
 
 // let userStatus;
 
@@ -67,6 +70,48 @@ function aboutHandler(request,response){
   response.status(200).send(`you are hee and a about page is coming`);
 }
 
+function getRecipies (request,response){
+  console.log(request.body);
+  const queryContent = request.body.content;
+  const queryType = request.body.type;
+
+  let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOON_API_KEY}&q=&number=5`;
+  if (queryType === 'query'){ url += `&query=${queryContent}`}
+  if (queryType === 'cuisine'){url += `&query=${queryContent}`}
+  superagent(url)
+    .then(recipes => {
+      const recipeArr = recipes.body.results;
+      const recipeItems = recipeArr.map(recipe => new Recipe(recipe));
+      
+      console.log('this is recipeItems',recipeItems)
+      response.status(200).render('pages/search/show',{recipies : recipeItems})
+
+
+
+
+    })
+
+  console.log(request.oidc.user);
+}
+
+
+function errorHandler(request, response) {
+
+  app.use((err, req, res, next) => {
+    res.status(500).render('500error.ejs',{error: err, error_Msg: err.message});
+  });
+  response.status(404).render('404error.ejs',{error: err, error_Msg: err.message});
+}
+
+// constructor
+
+function Recipe (recipe) {
+  this.id = recipe.id;
+  this.title = recipe.title;
+  this.image = recipe.image ? recipe.image.replace(/^http:\/\//i, 'https://') : 'tempimg.jpg';
+  this.imageType = recipe.imageType ? recipe.imageType : 'jpg';
+
+}
 
 
 // connect to db and port
