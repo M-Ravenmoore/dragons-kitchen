@@ -18,3 +18,8 @@ i feel i did a lot of solid work in my views today got some simple js working wi
 all in all a good programing day i got a lot of headway to my auth system. need to make a login prompt for existing users either a page or a on page prompt that changes.... that is something to look in to is chaning an element on login..
 
 i think tomorrow will be api calls for the recipes and userdata handling.
+
+
+10/11/2020
+
+Today was a better day than yesterday on this. after doing user auth the hard and long way my self with a db on psql i moved my auth process to auth0 with relitive ease. took me about 4 hours to get my head around it though im excited to say i have good working (ithink) auth process through them the trick will be how to intigrate spotifys client id. so i can hit thier api for music later... but i have other things to focus on first... to day set me up to work forward and get my api and major site functionality in tomorrow and tuseday. followed and paired with css work to clean this up and potentialy have a MVP with in time line.
