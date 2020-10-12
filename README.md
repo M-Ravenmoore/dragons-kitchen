@@ -68,6 +68,7 @@ I aim to achive my MVP goal on or before noon 10-14-2020
 
 ### **stretch goals**
 
+* api hit reducing logic for the search using a searchcache db(or array)that clears on site load.
 * expand shopping list for meal planning future feature
 * connect to spotify via account page
   * if connected on cookit page generate 5 playlists based on some aspect of the meal

@@ -19,20 +19,22 @@
       <div id="searchbar">
         <form action="/searchRecipies" method="POST">
           <feildset>
-            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe"></input>
+            <label for="search-recipes">Hunt for Recipies:</label>
+            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe" default=""></input>
             <label for="search-select">Hunt by:</label>
               <select name="type" id="search-recipes" placeholder="Select a type">
                 <option value="query">Recipe</option>
                 <option value="cuisine">Cuisine</option>
-
               </select>
+            <label for="result-count">Return with:</label>
+            <input type="number" id="result-count" name="count" default="2" min="2" max="25">
 
             </feildset>
             <button type="submit">search</button>
           </form>
       </div>
 
-      <section class="first-row">
+      <section class="first-row"> 
         <div class="slideshow-container">
           <div class="homeSlide fade">
             <h6 class="slide-count">1 / 3</h6>
