@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Join TDK</title>
+    <%- include('../partials/head') %>
+  </head>
+
+  <body>
+    <header>
+      <%- include('../partials/user-nav.ejs') %>
+      <h1>Join The Dragons Kitchen</h1>
+      <%- include('../partials/ham-nav.ejs')%>
+    </header>
+    <main>
+      <section>
+        <article>
+          Fill out the form below to join the hungry human masses in The Dragons Kitchen.
+        </article>
+        <form action="/join" method="POST">
+          <fieldset>
+            <h4>User Name:</h4>
+            <input type="text" name="userName" id="user-name" placeholder="User name"></input>
+            <h4>Password:</h4>
+            <input type="password" name="userPassword" id="user-password" placeholder="password"></input>
+            <h4>User Email:</h4>
+            <input type="email" name="userEmail" id="user-email" placeholder="youremail@domain.com"></input>
+            <button type="submit">JOIN!</button>
+            
+          </fieldset>
+        </form>
+      </section>
+
+      <footer>
+      <!-- make sticky -->
+        <%- include('../partials/navigation.ejs') %>
+      </footer>
+
+    </main>
+    <script src="../js/nav.js"></script>
+  </body>
+</html>
