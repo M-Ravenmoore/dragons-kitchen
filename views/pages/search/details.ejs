@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TDK:The Dragons Kitchen</title>
+    <title>TDK:Result Details</title>
     <%- include('../../partials/head.ejs')%>
   </head>
   <body>
 
     <header>
       <%- include('../../partials/user-nav.ejs') %>
-      <h1>TDK: The Dragons Kitchen</h1>
+      <h1>TDK: Result Details</h1>
       <%- include('../../partials/ham-nav.ejs')%>
     </header>
 
     <main>
       <section class="api-results">
         <% recipies.forEach(recipe =>{ %>
-          <div class="card">
+          <div class="recipe-card">
             <h3 class="recipe-name">Dish Name:<%= recipe.title %></h3>
             <img class="recipe-image" src="<%= recipe.image %>">
-            <a href="/recipeDetails/<%= recipe.id %>"><button>Inspect Recipe</button></a>
           </div>
         <% }) %>
       </section>
