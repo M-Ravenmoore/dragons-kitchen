@@ -9,19 +9,13 @@
   <body>
 
     <header>
-
+      <%- include('partials/user-nav.ejs') %>
       <h1>TDK: The Dragons Kitchen</h1>
       <%- include('partials/ham-nav.ejs')%>
     </header>
 
     <main>
-      <div id="welcome-bar">
-        <% if(userinfo){ %>
-        <h3>welcome back to the Kitchen <%= userinfo.username %></h3>
-        <% } else{ %>
-          <h3>welcome to the Kitchen</h3>
-        <% } %>
-      </div
+
       <div id="searchbar">
         <form>
           <feildset>

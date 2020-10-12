@@ -50,3 +50,17 @@
 * Finish time: 21:30 PST
 * Total time on work: 3 hours -- min
 * comments or notes: partialy working can make users cant use user info in pages yet.
+
+### Log Entry 06 
+
+* Name of feature worked on: implementing  Auth0
+* Description of work done: researching auth o and getting familiar so my users are secure when logging in to my app. got auth0 account set up and it intigrated for user login and log out and dtata moving around.
+* Start time: 14:30 PST
+* Finish time: 17:15 PST
+* Total time on work: 2 hours 45 min
+* comments or notes: 
+this is what lets you see loged in status put at any point for testing auth through auth0 points.
+    userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  console.log(userStatus);
+  and this is how we get user data after login
+  console.log(request.oidc.user)
