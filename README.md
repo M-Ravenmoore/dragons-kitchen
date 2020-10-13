@@ -47,6 +47,7 @@ Languages:
 * version--0.2.1 10-10-2020 21:45 PST the web app can now store user informations and retrive user infromation from the database. user funtionality still in progress.
 * version--0.3.0 10-11-2020 17:15 PST The web app now more securely deals with user auth via Auth0, interface and account see more below.
 * version--0.4.1 10-11-2020 22:00 PST TDK now has error catching, and can get back a list of recipes from the api and display them.
+* version--0.4.2 10-12-2020 22:30 PST TKD now will show results and details road paved for storage and retrival.
 
 ## Project Scope
 
@@ -101,7 +102,6 @@ this style guide is a template to be worked on as i get ideas:
 w3 schools
 
 [slideshow frame work and js](https://www.w3schools.com/howto/howto_js_slideshow.asp)
-
 
 apis and auth handlers
 [spoonacular](spoonacular.com/food-api)

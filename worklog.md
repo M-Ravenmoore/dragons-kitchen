@@ -70,3 +70,9 @@ this is what lets you see loged in status put at any point for testing auth thro
 * Finish time: 21:45 PST
 * Total time on work: 4 hours 20 min
 * comments or notes: currently looking at next steps got stuck with too much data will move forward soon.
+
+### Log Entry 09
+
+* Name of feature worked on: search results details added and ready for storage and heroku app ready for implementation
+* Description of work done: lots of data parsing today
+* DAY LONG PROCESS TOYDAY 8 hours with many breaks
