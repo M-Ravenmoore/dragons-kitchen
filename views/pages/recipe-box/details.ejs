@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TDK:Result Details</title>
+    <%- include('../../partials/head.ejs')%>
+  </head>
+  <body>
+
+    <header>
+      <%- include('../../partials/user-nav.ejs') %>
+      <h1>TDK: Result Details</h1>
+      <%- include('../../partials/ham-nav.ejs')%>
+    </header>
+
+    <main>
+      <section class="recipe-card">
+        <%- include('../../partials/recipe-card-header.ejs') %>
+        <div class="recipe-card-body">
+          <h3 class="card-title">Ingredients</h3>
+          <ul class="ingredients">
+            <%- recipe.ingredients %>
+          </ul>
+          <h3>Instructions</h3>
+          <p class="recipe-instructions">
+            <ul>
+
+              <%- recipe.instructions %></p>
+            </ul>
+        </div>
+      </section>
+      <section class="btn-bar">
+        <button class="delete-btn" value="Delete">Delete Me</button>
+  
+      </section>
+
+      
+      <footer>
+        <!-- make sticky -->
+          <%- include('../../partials/navigation.ejs') %>
+      </footer>
+    </main>
+
+    <script src="../../js/nav.js"></script>
+  </body>
+</html>
