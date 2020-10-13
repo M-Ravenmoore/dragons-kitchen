@@ -17,6 +17,8 @@ A not so simple kitchen life helper app for mobile tablet and desktop use.
 
 Currently using:
 
+dependancies:
+
 * "cors": "^2.8.5",
 * "dotenv": "^8.2.0",
 * "ejs": "^3.1.5",
@@ -24,8 +26,14 @@ Currently using:
 * "method-override": "^3.0.0",
 * "pg": "^8.4.1",
 * "superagent": "^6.1.0"
+* "express-openid-connect"
+
+AIPs and Other:
 
 * heroku (deployment)
+* Auth0: user authentication portal and db.
+
+Languages:
 
 * javascript
 * css
@@ -33,7 +41,13 @@ Currently using:
 
 ## Change Log
 
-* version--0.0.2--10-08-2020 12:00pm PST  Design plan in place, theme to be decided, documentation in place.
+* version--0.0.2 10-08-2020 12:00 PST  Design plan in place, theme to be decided, documentation in place.
+* version--0.1.0 10-09-2020 15:00 PST  CSS prof of life server working and db talking.
+* version--0.2.0 10-10-2020 16:55 PST Home page has some basic content and a working slideshow with place holder images.
+* version--0.2.1 10-10-2020 21:45 PST the web app can now store user informations and retrive user infromation from the database. user funtionality still in progress.
+* version--0.3.0 10-11-2020 17:15 PST The web app now more securely deals with user auth via Auth0, interface and account see more below.
+* version--0.4.1 10-11-2020 22:00 PST TDK now has error catching, and can get back a list of recipes from the api and display them.
+* version--0.4.2 10-12-2020 22:30 PST TKD now will show results and details road paved for storage and retrival.
 
 ## Project Scope
 
@@ -41,13 +55,21 @@ This will be a kitchen helping utility. Beginning with a user login/create accou
 
 ## Planned Feature List
 
+### MVP
+
+I aim to achive my MVP goal on or before noon 10-14-2020
+
 * user login and accounts
-* recipe db table per user
+* recipe db table with attachment to account
 * recipe finder with multiple options for getting meals including:
   * random meal (up to 3)
   * meal by main ingredient (max 10)
   * meal by xx
 * shopping list maker (from ingredient lists)
+
+### **stretch goals**
+
+* api hit reducing logic for the search using a searchcache db(or array)that clears on site load.
 * expand shopping list for meal planning future feature
 * connect to spotify via account page
   * if connected on cookit page generate 5 playlists based on some aspect of the meal
@@ -55,9 +77,6 @@ This will be a kitchen helping utility. Beginning with a user login/create accou
 * timer with mobile compatiblity
 * top 10 site searches section on home
 * seasonal sugestion section on home
-
-### **stretch goal**
-
 * db of factoids food and region related for use in the cook me page or other places in the app.
 
 ## Site layout
@@ -79,3 +98,11 @@ this style guide is a template to be worked on as i get ideas:
 ![Style Guide](./readme-img/style-guide.png "style-guide")
 
 ## Credits and Collaborations
+
+w3 schools
+
+[slideshow frame work and js](https://www.w3schools.com/howto/howto_js_slideshow.asp)
+
+apis and auth handlers
+[spoonacular](spoonacular.com/food-api)
+[auth0](auth0.com)

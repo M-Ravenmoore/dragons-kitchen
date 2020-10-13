@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TDK:The Dragons Kitchen</title>
+    <%- include('../../partials/head.ejs')%>
+  </head>
+  <body>
+
+    <header>
+      <%- include('../../partials/user-nav.ejs') %>
+      <h1>TDK: The Dragons Kitchen</h1>
+      <%- include('../../partials/ham-nav.ejs')%>
+    </header>
+
+    <main>
+      <section class="api-results">
+        <% resultItems.forEach(result =>{ %>
+          <div class="card">
+            <h3 class="recipe-name">Dish Name:<%= result.title %></h3>
+            <img class="recipe-image" src="<%= result.image %>">
+            <a href="/recipeDetails/:<%= result.id %>"><button>Inspect Recipe</button></a>
+          </div>
+        <% }) %>
+      </section>
+
+      
+      <footer>
+        <!-- make sticky -->
+          <%- include('../../partials/navigation.ejs') %>
+      </footer>
+    </main>
+
+    <script src="../../js/nav.js"></script>
+  </body>
+</html>

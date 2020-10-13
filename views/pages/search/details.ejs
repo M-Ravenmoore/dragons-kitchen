@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TDK:Result Details</title>
+    <%- include('../../partials/head.ejs')%>
+  </head>
+  <body>
+
+    <header>
+      <%- include('../../partials/user-nav.ejs') %>
+      <h1>TDK: Result Details</h1>
+      <%- include('../../partials/ham-nav.ejs')%>
+    </header>
+
+    <main>
+      <section class="recipe-card">
+          <div class="recipe-card-header">
+            <img class="recipe-image" src="<%= recipe.image %>">
+            <h3 class="recipe-name">Dish Name:<%= recipe.title %></h3>
+            <p class="recipe-time">time to cook: <%= recipe.time %></p>
+            <p class="recipe-vegetarian">is vegetarian: <%= recipe.vegetarian %></p>
+            <p class="recipe-vegan">is vegan: <%= recipe.vegan %></p>
+            <p class="recipe-gluten">is gluten: <%= recipe.gluten %></p>
+            <p class="recipe-source">source: <a href= "<%=recipe.sourceUrl %>" > <%= recipe.sourceName %></a></p>
+          </div>
+          <div class="recipe-card-body">
+            <h3 class="card-title">Ingredients</h3>
+            <ul class="ingredients">
+            <% recipe.ingredients.forEach(ingredient =>{ %>
+              <li><%= ingredient.string %></li>
+            <% })%>
+            </ul>
+            <%- recipe.instructionsList %>
+            <ul class="directions">
+              
+            </ul>
+          </div>
+          <div id="recipe-save-form">
+            <form action="/recipeBox" method="POST">
+              <fieldset>
+                <input type="hidden" name="spoon_id" value="<%= recipe.id %>"></input>
+                <input type="hidden" name="img_url" value="<%= recipe.image %>"></input>
+                <input type="hidden" name="title" value="<%= recipe.title %>"></input>
+                <input type="hidden" name="time" value="<%= recipe.time %>"></input>
+                <input type="hidden" name="vegetarian" value="<%= recipe.vegetarian %>"></input>
+                <input type="hidden" name="vegan" value="<%= recipe.vegan %>"></input>
+                <input type="hidden" name="gluten" value="<%= recipe.gluten %>"></input>
+                <input type="hidden" name="source_url" value="<%= recipe.sourceUrl %>"></input>
+                <input type="hidden" name="source_name" value="<%= recipe.sourceName %>"></input>
+                <input type="hidden" name="ingredients" value="<% recipe.ingredients.forEach(ingredient =>{ %>
+                  <li><%= ingredient.string %></li>
+                <% })%>"></input>
+
+                <input type="hidden" name="directions-raw" value="<%- recipe.instructionsList %>"></input>
+                <input type="submit" value="Save this recipe">
+        
+              </fieldset>
+
+            </form>
+
+          </div>
+        </section>
+
+      
+      <footer>
+        <!-- make sticky -->
+          <%- include('../../partials/navigation.ejs') %>
+      </footer>
+    </main>
+
+    <script src="../../js/nav.js"></script>
+  </body>
+</html>
