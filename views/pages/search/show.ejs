@@ -14,11 +14,11 @@
 
     <main>
       <section class="api-results">
-        <% recipies.forEach(recipe =>{ %>
+        <% resultItems.forEach(result =>{ %>
           <div class="card">
-            <h3 class="recipe-name">Dish Name:<%= recipe.title %></h3>
-            <img class="recipe-image" src="<%= recipe.image %>">
-            <a href="/recipeDetails/<%= recipe.id %>"><button>Inspect Recipe</button></a>
+            <h3 class="recipe-name">Dish Name:<%= result.title %></h3>
+            <img class="recipe-image" src="<%= result.image %>">
+            <a href="/recipeDetails/:<%= result.id %>"><button>Inspect Recipe</button></a>
           </div>
         <% }) %>
       </section>

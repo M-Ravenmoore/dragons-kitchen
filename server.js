@@ -49,6 +49,8 @@ app.get('/profile', requiresAuth(), profileHandler);
 app.get('/about', aboutHandler);
 app.post('/searchRecipies',requiresAuth(), getRecipies);
 app.get('/recipeDetails/:id', getRecipeDetails)
+app.post('/recipeBox', savedRecipe)
+
 
 // error proccessing
 app.get('/error', errorHandler)
@@ -57,7 +59,7 @@ app.use('*', errorHandler);
 
 // universals
 
-let spoonResultsCache;
+
 
 // ROUTE hanndling
 
@@ -89,21 +91,37 @@ function getRecipies (request,response){
   if (queryType === 'query'){ url += `&query=${queryContent}`}
   if (queryType === 'cuisine'){url += `&query=${queryContent}`}
   superagent(url)
-    .then(recipies => {
-      const recipeArr = recipies.body.results;
-      const recipeItems = recipeArr.map(recipe => new Recipe(recipe));
-      spoonResultsCache = recipeItems;
+    .then(results => {
+      const resultsArr = results.body.results;
+      const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
       // console.log('this is recipeItems',recipeItems)
-      response.status(200).render('pages/search/show',{recipies : recipeItems})
+      response.status(200).render('pages/search/show',{resultItems : sendableResults})
     })
 }
-// function searchDatabaseSave (request,response){
-
-// }
 
 function getRecipeDetails (request,response){
-  console.log('im a dragon',spoonResultsCache)
-  response.status(200).send('this will be something soon')
+  const spoonId = request.params.id.slice(1);
+  console.log(spoonId)
+  let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
+  superagent(url)
+    .then(recipeDetails =>{
+      // console.log(recipeDetails.body);
+      const recipe = recipeDetails.body;
+      const sendableRecipe = new Recipe(recipe)
+      console.log(sendableRecipe)
+      response.status(200).render('pages/search/details.ejs',{recipe : sendableRecipe})
+    })
+
+}
+function savedRecipe(request,response){
+  console.log(request.body)
+  // const SQL = 'INSERT INTO recipies () VALUES () RETURNING id;'
+  // const saveValues =[]
+  // cliet.query(SQL, safeValues)
+  //  .then(result => {
+    // response.status(200).redirect(`/recipeBox/${result.rows[0].spoon_id}`)
+  // })
+  response.status(200).send('soontocome')
 }
 
 
@@ -118,24 +136,42 @@ function errorHandler(request, response) {
 
 // constructors
 
-function Recipe (recipe) {
-  this.id = recipe.id;
-  this.title = recipe.title ? recipe.title : 'Dragon Ash';
-  this.image = recipe.image ? recipe.image.replace(/^http:\/\//i, 'https://') : 'tempimg.jpg';
-  this.imageType = recipe.imageType ? recipe.imageType : 'jpg';
-  this.vegetarian = recipe.vegetarian ? recipe.vegetarian : 'not listed';
-  this.vegan = recipe.vegan ? recipe.vegan : 'not listed';
-  this.gluten = recipe.gluten ? recipe.gluten : 'not listed';
-  this.cheap = recipe.cheap ? recipe.cheep : 'not listed';
-  this.time = recipe.readyInMinutes ? recipe.readyInMinutes : 'not listed';
-  this.servings = recipe.servings ? recipe.servings : 'not listed';
-  this.summary = recipe.summary? recipe.summary : 'not listed';
-  this.creditName = recipe.creditsText;
-  this.creditUrl = recipe.sourceUrl;
-  this.license = recipe.license;
+function ResultItem (result) {
+  this.id = result.id;
+  this.title = result.title ? result.title : 'Dragon Ash';
+  this.image = result.image ? result.image.replace(/^http:\/\//i, 'https://') : 'tempimg.jpg';
+  this.vegetarian = result.vegetarian ? result.vegetarian : 'not listed';
+  this.vegan = result.vegan ? result.vegan : 'not listed';
+  this.gluten = result.gluten ? result.gluten : 'not listed';
+  this.time = result.readyInMinutes ? result.readyInMinutes : 'not listed';
+  this.servings = result.servings ? result.servings : 'not listed';
 }
 
+function Recipe (recipeData) {
+  this.id =recipeData.id;
+  this.title = recipeData.title;
+  this.time = recipeData.readyInMinutes;
+  this.servings = recipeData.servings;
+  this.image = recipeData.image;
+  this.vegetarian = recipeData.vegetarian;
+  this.vegan = recipeData.vegan ? recipeData.vegan : 'not listed';
+  this.gluten = recipeData.gluten ? recipeData.gluten : 'not listed';
+  this.summary = recipeData.summary;
+  this.instructionsList = recipeData.instructions;
+  this.wine = recipeData.winePairing;
+  this.ingredients = recipeData.extendedIngredients.map(ingredients => new Ingredient(ingredients));
+  this.credit = recipeData.creditsText;
+  this.sourceName = recipeData.sourceName;
+  this.sourceUrl = recipeData.sourceUrl;
+}
 
+function Ingredient(ingredients){
+  this.id = ingredients.id;
+  this.name = ingredients.originalName;
+  this.amount = ingredients.amount;
+  this.unit = ingredients.unit;
+  this.string = ingredients.originalString;
+}
 
 
 // connect to db and port
