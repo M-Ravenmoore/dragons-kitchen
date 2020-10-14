@@ -49,7 +49,7 @@
   width: 15px;
   margin: 0 2px;
   display: inline-block;
-  background-color: green;
+  background-color: rgba(5, 107, 12)
 }
 
 .active, .dot:hover {
@@ -72,15 +72,4 @@
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
-}
-
-
-/*Hamburger menu nav*/
-.topnav .user-nav {
-  overflow: hidden;
-  background-color: #333;
-  position: relative;
-}
-.topnav #myLinks .user-nav #navLinks{
-  display: none;
 }
