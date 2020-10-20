@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TDK:New recipe</title>
+    <%- include('../../partials/head.ejs')%>
+  </head>
+  <body>
+
+    <header>
+      <%- include('../../partials/user-nav.ejs') %>
+      <h1>TDK: New Recipe</h1>
+      <%- include('../../partials/ham-nav.ejs')%>
+    </header>
+
+    <main>
+
+      <section>
+        <div id="recipe-save-form">
+          <form action="/recipeBox" method="POST">
+            <fieldset id="add-details">
+              <input type="text" name="image" placeholder="image"></input>
+              <input type="text" name="title" placeholder="title"></input>
+              <input type="number" name="servings" placeholder="4"></input>
+              <input type="number" name="cook_time_hours" placeholder="hours as num"></input>
+              <input type="number" name="cook_time_min" placeholder="min as num"></input>
+              <label for='vegetarian-box'>vegetarian</label>
+              <input type="checkbox" id= "vegetarian-box" name="vegetarian" ></input>
+              <label for='vegan-box'>vegan</label>
+              <input type="checkbox" name="vegan" id="vegan-box"></input>
+              <input type="url" name="source_url" placeholder="https://recipesource.com" ></input>
+              <input type="text" name="source_name" placeholder="source Name" ></input>
+            </fieldset>
+            <!-- need to decide how to take in unique info and make it array of objects to then json and put in db. -->
+            <%- include('../../partials/ingredient-form.ejs') %>
+            <feildset> 
+
+              <input type="text" name="instructions"></input>
+              
+            </fieldset>
+            <input type="submit" value="Save this recipe">
+
+          </form>
+
+        </div>
+      </section>
+
+      
+      <footer>
+        <!-- make sticky -->
+          <%- include('../../partials/navigation.ejs') %>
+      </footer>
+    </main>
+    <script src="../../js/nav.js"></script>
+    <script src="../../js/recipe-form.js"></script>
+  </body>
+</html>

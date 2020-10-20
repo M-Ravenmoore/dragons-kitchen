@@ -18,7 +18,7 @@
       <div class="recipe-card-body">
         <h3 class="card-title">Ingredients</h3>
         <ul class="ingredients">
-        <% recipe.ingredients.forEach(ingredient =>{ %>
+        <% ingredientsObject.map(ingredient =>{ %>
           <li><%= ingredient.string %></li>
         <% })%>
         </ul>
@@ -39,9 +39,10 @@
               <input type="hidden" name="vegan" value="<%= recipe.vegan %>"></input>
               <input type="hidden" name="source_url" value="<%= recipe.sourceUrl %>"></input>
               <input type="hidden" name="source_name" value="<%= recipe.source_name %>"></input>
-              <input type="hidden" name="ingredients" value="<% recipe.ingredients.forEach(ingredient =>{ %>
-                <li><%= ingredient.string %></li>
-              <% })%>"></input>
+
+              <!-- BROKEN todo(#) figure out how to store ingredient data so it is usefull and not too messy and apply to this form plan is 4 columns for data points with arrays for each recipe of their ingredients pulled via .map -->
+              <input type="text" name="ingredients" value="<%= recipe.ingredientsList  %>">
+              
 
               <input type="hidden" name="instructions" value="<%- recipe.instructionsList %>"></input>
               

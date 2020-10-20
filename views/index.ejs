@@ -13,17 +13,18 @@
       <h1 class="headline">The Dragons Kitchen</h1>
     </header>
     
-    <main>10-08-2020 12:00
+    <main>
       <section class="nav-bar">
         <%- include('partials/header.ejs') %>
       </section>
-      10-08-2020 12:00>
+
+      <div id="searchbar">
         <form action="/searchRecipies" method="POST">
           <feildset>
             <label for="search-recipes">Hunt for Recipies:</label>
-            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe" default=""></input>
+            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe" default="lamb"></input>
             <label for="search-select">Hunt by:</label>
-              <select name="type" id="search-recipes" placeholder="Select a type">
+              <select name="type" id="search-select" placeholder="Select a type">
                 <option value="query">Recipe</option>
                 <option value="cuisine">Cuisine</option>
               </select>
@@ -31,7 +32,7 @@
             <input type="number" id="result-count" name="count" default="2" min="2" max="25">
 
             </feildset>
-            10-08-2020 12:00      <button type="submit">search</button>
+            <button type="submit">search</button>
           </form>
       </div>
 
@@ -39,7 +40,9 @@
         <div class="slideshow-container">
           <div class="homeSlide fade">
             <h6 class="slide-count">1 / 3</h6>
-            10-08-2020 12:00   </div>
+            <img class="slide-image" src="../img/test1.jpg" style="width:100%">
+            <h6 class="slide-caption">Caption goes here</h6>
+          </div>
           <div class="homeSlide fade">
             <h6 class="slide-count">2 / 3</h6>
             <img class="slide-image" src="../img/test2.jpg" style="width:100%">
