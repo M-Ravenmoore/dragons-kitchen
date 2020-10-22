@@ -2,5 +2,42 @@
   box-sizing: border-box;
 }
 body{
-  background-color: blueviolet;
+  margin: auto;
+  width: 480px;
+  background-color: rgba(91, 11, 11);
+  color: #ddceb8;
+  border:3px ridge rgba(5, 107, 12);
+
+}
+main{
+  background-color: rgba(0,0,0,0.375);
+}
+a{
+  columns: #056b0c;
+}
+a:hover{
+  color:#ddceb8;
+}
+a:visited{
+  color: #ddceb8
+}
+nav ul{
+  display: flex;
+}
+header{
+  background-color: #6B0564;
+  display:flex;
+  
+}
+
+.nav-bar{
+  display:flex;
+  justify-content: space-between;
+  border-bottom: ridge 2.5px #056b0c;
+  border-top: ridge 2.5px #056b0c;
+}
+h1{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 36pt;
 }

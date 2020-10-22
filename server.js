@@ -25,12 +25,12 @@ client.on('error', error => {
 });
 
 // config for Auth
-const config = {
+const auth0Config = {
   authRequired: false,
   auth0Logout: true,
-  secret: process.env.SECRET,
+  secret: process.env.AUTH_SECRET,
   baseURL: process.env.BASE_URL,
-  clientID: process.env.CLIENT_ID,
+  clientID: process.env.AUTH_CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL
 };
 
@@ -40,7 +40,8 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverRide('_method'));
 
-app.use(auth(config));
+
+app.use(auth(auth0Config));
 
 
 // route landing
@@ -49,8 +50,12 @@ app.get('/profile', requiresAuth(), profileHandler);
 app.get('/about', aboutHandler);
 app.post('/searchRecipies',requiresAuth(), getRecipies);
 app.get('/recipeDetails/:id', getRecipeDetails)
-app.post('/recipeBox', savedRecipe)
-
+app.get('/recipeBox', requiresAuth(), recipeBoxHandler)
+app.post('/recipeBox', savedRecipe);
+app.get('/recipeBox/:id', recipeBoxDetail);
+// app.get('/edit/:id' recipeEditForm);
+app.get('/newRecipe', newRecipeCreate)
+app.post('/newRecipe', userSavedRecipe)
 
 // error proccessing
 app.get('/error', errorHandler)
@@ -59,42 +64,49 @@ app.use('*', errorHandler);
 
 // universals
 
-
-
-// ROUTE hanndling
-
 function homeHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(userStatus);
   console.log(request.oidc.user)
   response.status(200).render('index.ejs');
 }
-
 function profileHandler(request,response){
   response.status(200).send(JSON.stringify(request.oidc.user));
 }
-
 function aboutHandler(request,response){
   console.log(request.oidc.user)
   response.status(200).send(`you are hee and a about page is coming`);
 }
 
+function newRecipeCreate(request,response){
+  let ingredientNum = 2;
+
+  let instructionsNum = 5;
+
+
+  console.log(request.oidc.user)
+  response.status(200).render('pages/recipe-box/new.ejs',{
+    lineCount: ingredientNum,
+    instructionsLineCount : instructionsNum})
+}
+
+
+
+// Working route handdling
+
 function getRecipies (request,response){
   console.log(request.oidc.user);
-  console.log(request.body);
   const queryContent = request.body.content;
   const queryType = request.body.type;
   const queryCount = request.body.count;
-  
   let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOON_API_KEY}&
-  instructionsRequired=true&addRecipeInformation=true&limitLicense=true&number=${queryCount}&analyzedInstructions`;
+  instructionsRequired=true&addRecipeInformation=true&number=${queryCount}&analyzedInstructions`;
   if (queryType === 'query'){ url += `&query=${queryContent}`}
   if (queryType === 'cuisine'){url += `&query=${queryContent}`}
   superagent(url)
     .then(results => {
       const resultsArr = results.body.results;
       const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
-      // console.log('this is recipeItems',recipeItems)
       response.status(200).render('pages/search/show',{resultItems : sendableResults})
     })
 }
@@ -102,34 +114,115 @@ function getRecipies (request,response){
 function getRecipeDetails (request,response){
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
-  let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
-  superagent(url)
-    .then(recipeDetails =>{
-      // console.log(recipeDetails.body);
-      const recipe = recipeDetails.body;
-      const sendableRecipe = new Recipe(recipe)
-      console.log(sendableRecipe)
-      response.status(200).render('pages/search/details.ejs',{recipe : sendableRecipe})
+  const user = [request.oidc.user.email];
+  let safeValues = [spoonId];
+  const SQL = 'SELECT * FROM recipies WHERE $1=spoon_id'
+  client.query(SQL,safeValues)
+    .then(results =>{
+      if(results.rowCount !== 0){
+        results.rows[0].saved_by.forEach(savedUser =>{
+          if(user === savedUser){
+            response.status(200).redirect('/recipeBox');
+          }else{
+            const savedRecipe= results.rows[0];
+            console.log('this is tdk recipe',savedRecipe);
+            response.status(200).render(`pages/search/details.ejs`,{
+              recipe : savedRecipe
+            });
+          }
+        })
+      }else{
+        let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
+        superagent(url)
+          .then(recipeDetails =>{
+            // console.log(recipeDetails.body.extendedIngredients);
+            const recipe = recipeDetails.body;
+            const sendableRecipe = new Recipe(recipe);
+            console.log(sendableRecipe);
+            response.status(200).render('pages/search/details.ejs',{
+              recipe : sendableRecipe});
+          })
+      }
     })
-
 }
+
 function savedRecipe(request,response){
-  console.log(request.body)
-  // const SQL = 'INSERT INTO recipies () VALUES () RETURNING id;'
-  // const saveValues =[]
-  // cliet.query(SQL, safeValues)
-  //  .then(result => {
-    // response.status(200).redirect(`/recipeBox/${result.rows[0].spoon_id}`)
-  // })
-  response.status(200).send('soontocome')
+  const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url} = request.body;
+  const user = [request.oidc.user.email];
+  const CHECKDB = 'SELECT saved_by FROM recipies WHERE $1 = spoon_id;';
+  const checkValues = [spoon_id];
+  client.query(CHECKDB,checkValues)
+    .then(results =>{
+      if(results.rowCount !== 0){
+        results.rows[0].saved_by.forEach(savedUser =>{
+          if(user !== savedUser){
+            const UPDATE = `UPDATE recipies SET saved_by = array_append(saved_by,'${user}') WHERE $1 = spoon_id;`;
+            client.query(UPDATE, checkValues)
+              .then(results)
+            response.status(200).redirect(`/recipeBox`)
+          }
+        });
+      }else{
+        console.log('dragonstoreing')
+        const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING id;'
+        const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url, user]
+        client.query(SQL, safeValues)
+          .then(results => {
+            response.status(200).redirect(`/recipeBox`)
+          })
+      }
+    })
 }
 
+function userSavedRecipe(request,response){
+  const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions} = request.body;
+
+  // console.log("dragons request data",request.body)
+  const user = [request.oidc.user.email];
+  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id;'
+  const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,user, user]
+  client.query(SQL, safeValues)
+    .then(results => {
+      console.log(results.rows)
+      response.status(200).redirect(`/recipeBox`)
+    })
+}
+
+function recipeBoxHandler(request,response){
+  const SQL = 'SELECT title , image, servings, id FROM recipies WHERE $1 = ANY(saved_by)';
+  let safeValues = [request.oidc.user.email];
+  client.query(SQL,safeValues)
+    .then(recipies =>{
+      let recipeCount = recipies.rowCount;
+      const savedRecipesArr =recipies.rows;
+      // console.log('return from db 1',recipies.rows[0])
+      response.status(200).render('pages/recipe-box/recipebox.ejs',{
+        recipeTotal : recipeCount,
+        savedRecipesList :savedRecipesArr
+      });
+    })
+}
+
+function recipeBoxDetail(request,response){
+  console.log(request.params)
+  const id = request.params.id;
+  const SQL = 'SELECT * FROM recipies WHERE id=$1;';
+  const safeValues = [id];
+  client.query(SQL,safeValues)
+    .then(recipe => {
+      // console.log('Return from db2',recipe.rows)
+      const savedRecipe = recipe.rows[0];
+      console.log('this is db recipe;',savedRecipe)
+      response.render('pages/recipe-box/details.ejs',{
+        recipe:savedRecipe
+      })
+    })
+}
 
 function errorHandler(request, response) {
-
   app.use((err, req, res, next) => {
     console.log(err)
-    res.status(500).render('500error.ejs',{error: err, error_Msg: err.message});
+    response.status(500).render('500error.ejs',{error: err, error_Msg: err.message});
   });
   response.status(404).render('404error.ejs');
 }
@@ -137,42 +230,32 @@ function errorHandler(request, response) {
 // constructors
 
 function ResultItem (result) {
-  this.id = result.id;
-  this.title = result.title ? result.title : 'Dragon Ash';
+  this.spoon_id = result.id;
+  this.title = result.title;
   this.image = result.image ? result.image.replace(/^http:\/\//i, 'https://') : 'tempimg.jpg';
-  this.vegetarian = result.vegetarian ? result.vegetarian : 'not listed';
-  this.vegan = result.vegan ? result.vegan : 'not listed';
-  this.gluten = result.gluten ? result.gluten : 'not listed';
+  this.vegetarian = `${result.vegetarian}`;
+  this.vegan = `${result.vegan}`;
   this.time = result.readyInMinutes ? result.readyInMinutes : 'not listed';
   this.servings = result.servings ? result.servings : 'not listed';
 }
 
 function Recipe (recipeData) {
-  this.id =recipeData.id;
+  this.spoon_id =recipeData.id;
   this.title = recipeData.title;
-  this.time = recipeData.readyInMinutes;
-  this.servings = recipeData.servings;
+  this.time = recipeData.readyInMinutes ? recipeData.readyInMinutes : 'not listed';
+  this.servings = recipeData.servings ? recipeData.servings : 'not listed';
   this.image = recipeData.image;
-  this.vegetarian = recipeData.vegetarian;
-  this.vegan = recipeData.vegan ? recipeData.vegan : 'not listed';
-  this.gluten = recipeData.gluten ? recipeData.gluten : 'not listed';
-  this.summary = recipeData.summary;
+  this.vegetarian = `${recipeData.vegetarian}`;
+  this.vegan = `${recipeData.vegan}`;
   this.instructionsList = recipeData.instructions;
-  this.wine = recipeData.winePairing;
-  this.ingredients = recipeData.extendedIngredients.map(ingredients => new Ingredient(ingredients));
+  this.wine = recipeData.winePairing ? recipeData.winePairing : 'not listed';
+  this.ingredients_name = recipeData.extendedIngredients.map(ingredient => ingredient.name);
+  this.ingredients_unit = recipeData.extendedIngredients.map(ingredient => ingredient.unit);
+  this.ingredients_amount = recipeData.extendedIngredients.map(ingredient => ingredient.amount);
   this.credit = recipeData.creditsText;
-  this.sourceName = recipeData.sourceName;
-  this.sourceUrl = recipeData.sourceUrl;
+  this.source_name = recipeData.sourceName;
+  this.source_url = recipeData.sourceUrl;
 }
-
-function Ingredient(ingredients){
-  this.id = ingredients.id;
-  this.name = ingredients.originalName;
-  this.amount = ingredients.amount;
-  this.unit = ingredients.unit;
-  this.string = ingredients.originalString;
-}
-
 
 // connect to db and port
 client.connect()

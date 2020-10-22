@@ -1,0 +1,11 @@
+<li id="ingredient-item">
+  <input type="number" name="ingredient_amount" placeholder="1"></input>
+
+  <!--TODO(#): replace this select with a partial that loops over a table in our db of measure types. fill db with a stock sql file. so it can be maintained. -->
+  <select name="ingredient_unit" id="ingredient-measure" placeholder="Select a type">
+    <option value="cup">Cup</option>
+    <option value="Tbsp">Tablespoon(Tbsp)</option>
+  </select>
+  <input type="text" name="ingredient_name" placeholder="ingredient"></input>
+  <input type="textbox" name="ingredient_prep" placeholder="Prep Notes"></input>
+</li>

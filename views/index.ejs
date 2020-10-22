@@ -9,20 +9,22 @@
   <body>
 
     <header>
-      <%- include('partials/user-nav.ejs') %>
-      <h1>TDK: The Dragons Kitchen</h1>
-      <%- include('partials/ham-nav.ejs')%>
+      <img src="../img/tdklogo.png"width="90px">
+      <h1 class="headline">The Dragons Kitchen</h1>
     </header>
-
+    
     <main>
+      <section class="nav-bar">
+        <%- include('partials/header.ejs') %>
+      </section>
 
       <div id="searchbar">
         <form action="/searchRecipies" method="POST">
           <feildset>
             <label for="search-recipes">Hunt for Recipies:</label>
-            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe" default=""></input>
+            <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe" default="lamb"></input>
             <label for="search-select">Hunt by:</label>
-              <select name="type" id="search-recipes" placeholder="Select a type">
+              <select name="type" id="search-select" placeholder="Select a type">
                 <option value="query">Recipe</option>
                 <option value="cuisine">Cuisine</option>
               </select>

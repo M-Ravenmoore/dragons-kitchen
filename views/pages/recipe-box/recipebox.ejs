@@ -13,12 +13,15 @@
     </header>
 
     <main>
-      <section class="api-results">
-        <% resultItems.forEach(result =>{ %>
+      <div>
+        <a href="/newRecipe"><button>Create Recipe</button></a>
+      </div>
+      <section class="recipebox-list">
+        <% savedRecipesList.forEach(recipe =>{ %>
           <div class="card">
-            <h3 class="recipe-name">Dish Name:<%= result.title %></h3>
-            <img class="recipe-image" src="<%= result.image %>">
-            <a href="/recipeDetails/:<%= result.spoon_id %>"><button>Inspect Recipe</button></a>
+            <h3 class="recipe-name">Dish Name:<%= recipe.title %></h3>
+            <img class="recipe-image" src="<%= recipe.image %>">
+            <a href="/recipeBox/<%= recipe.id %>"><button>Inspect Recipe</button></a>
           </div>
         <% }) %>
       </section>

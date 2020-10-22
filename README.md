@@ -48,6 +48,8 @@ Languages:
 * version--0.3.0 10-11-2020 17:15 PST The web app now more securely deals with user auth via Auth0, interface and account see more below.
 * version--0.4.1 10-11-2020 22:00 PST TDK now has error catching, and can get back a list of recipes from the api and display them.
 * version--0.4.2 10-12-2020 22:30 PST TKD now will show results and details road paved for storage and retrival.
+* version--0.4.4 10-13-2020 22:05 PST TKD has the start to a style and look work in progres.
+* version--0.5.1 10-22-2020 01:00 PST TKD can now store usersaved recipes to dependant accounts with no repeating in the db.
 
 ## Project Scope
 
@@ -55,49 +57,30 @@ This will be a kitchen helping utility. Beginning with a user login/create accou
 
 ## Planned Feature List
 
-### MVP
-
-I aim to achive my MVP goal on or before noon 10-14-2020
-
-* user login and accounts
-* recipe db table with attachment to account
-* recipe finder with multiple options for getting meals including:
-  * random meal (up to 3)
-  * meal by main ingredient (max 10)
-  * meal by xx
-* shopping list maker (from ingredient lists)
-
-### **stretch goals**
-
-* api hit reducing logic for the search using a searchcache db(or array)that clears on site load.
-* expand shopping list for meal planning future feature
-* connect to spotify via account page
-  * if connected on cookit page generate 5 playlists based on some aspect of the meal
-* have top 5 video results from youtube display below directions or in sidebar during cook this.
-* timer with mobile compatiblity
-* top 10 site searches section on home
-* seasonal sugestion section on home
-* db of factoids food and region related for use in the cook me page or other places in the app.
+[features INFO](./readme/features.md)
 
 ## Site layout
 
 a general site plan
 
-![site map](./readme-img/sitemap.png "Sitemap")
+![site map](./readme/readme-img/sitemap.png "Sitemap")
 
 the mobile looks should end up like this:
-![mobile](./readme-img/mobile.png "mobile wireframe")
+![mobile](./readme/readme-img/mobile.png "mobile wireframe")
 the desktop version should look close to this:
-![alt text](./readme-img/desktop.png "Desktop wireframe")
+![alt text](./readme/readme-img/desktop.png "Desktop wireframe")
 
 ## work log
 
-[Worklog](worklog.md)
+[Worklog](./readme/worklog.md)
 
 this style guide is a template to be worked on as i get ideas:
-![Style Guide](./readme-img/style-guide.png "style-guide")
+![Style Guide](./readme/readme-img/style-guide.png "style-guide")
 
 ## Credits and Collaborations
+
+Logo design by Jeremy Odden 2020,
+image attribution for smoke in logo Designed by pch.vector
 
 w3 schools
 
