@@ -28,7 +28,7 @@ client.on('error', error => {
 const auth0Config = {
   authRequired: false,
   auth0Logout: true,
-  secret: process.env.SECRET,
+  secret: process.env.AUTH_SECRET,
   baseURL: process.env.BASE_URL,
   clientID: process.env.AUTH_CLIENT_ID,
   issuerBaseURL: process.env.ISSUER_BASE_URL
@@ -96,7 +96,6 @@ function newRecipeCreate(request,response){
 
 function getRecipies (request,response){
   console.log(request.oidc.user);
-  console.log(request.body);
   const queryContent = request.body.content;
   const queryType = request.body.type;
   const queryCount = request.body.count;
@@ -108,12 +107,10 @@ function getRecipies (request,response){
     .then(results => {
       const resultsArr = results.body.results;
       const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
-      // console.log('this is recipeItems',recipeItems)
       response.status(200).render('pages/search/show',{resultItems : sendableResults})
     })
 }
 
-// TODO(#)add update saved by array to include new user add
 function getRecipeDetails (request,response){
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
@@ -122,13 +119,18 @@ function getRecipeDetails (request,response){
   const SQL = 'SELECT * FROM recipies WHERE $1=spoon_id'
   client.query(SQL,safeValues)
     .then(results =>{
-      if(results.rowCount >= 1){
-        console.log('results are:',results.rows[0]);
-        let id = results.rows[0].id;
-        const UPDATE = `UPDATE recipies SET saved_by = array_append(saved_by,${user});`;
-        client.query(UPDATE)
-          .then(results)
-        response.status(200).redirect(`/recipeBox/${id}`)
+      if(results.rowCount !== 0){
+        results.rows[0].saved_by.forEach(savedUser =>{
+          if(user === savedUser){
+            response.status(200).redirect('/recipeBox');
+          }else{
+            const savedRecipe= results.rows[0];
+            console.log('this is tdk recipe',savedRecipe);
+            response.status(200).render(`pages/search/details.ejs`,{
+              recipe : savedRecipe
+            });
+          }
+        })
       }else{
         let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
         superagent(url)
@@ -145,22 +147,36 @@ function getRecipeDetails (request,response){
 }
 
 function savedRecipe(request,response){
-  // console.log("dragons request data",request.body)
   const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url} = request.body;
-
   const user = [request.oidc.user.email];
-  const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING id;'
-  const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url, user]
-  client.query(SQL, safeValues)
-    .then(results => {
-      console.log(results.rows)
-      response.status(200).redirect(`/recipeBox`)
+  const CHECKDB = 'SELECT saved_by FROM recipies WHERE $1 = spoon_id;';
+  const checkValues = [spoon_id];
+  client.query(CHECKDB,checkValues)
+    .then(results =>{
+      if(results.rowCount !== 0){
+        results.rows[0].saved_by.forEach(savedUser =>{
+          if(user !== savedUser){
+            const UPDATE = `UPDATE recipies SET saved_by = array_append(saved_by,'${user}') WHERE $1 = spoon_id;`;
+            client.query(UPDATE, checkValues)
+              .then(results)
+            response.status(200).redirect(`/recipeBox`)
+          }
+        });
+      }else{
+        console.log('dragonstoreing')
+        const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING id;'
+        const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url, user]
+        client.query(SQL, safeValues)
+          .then(results => {
+            response.status(200).redirect(`/recipeBox`)
+          })
+      }
     })
 }
 
 function userSavedRecipe(request,response){
   const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions} = request.body;
-  
+
   // console.log("dragons request data",request.body)
   const user = [request.oidc.user.email];
   const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id;'
@@ -173,9 +189,7 @@ function userSavedRecipe(request,response){
 }
 
 function recipeBoxHandler(request,response){
-  const SQL = 'SELECT title , image, servings FROM recipies WHERE $1 = ANY(saved_by)';
-  // const SQL = 'SELECT * FROM user_recipies WHERE $1 = ANY(saved_by)';
-
+  const SQL = 'SELECT title , image, servings, id FROM recipies WHERE $1 = ANY(saved_by)';
   let safeValues = [request.oidc.user.email];
   client.query(SQL,safeValues)
     .then(recipies =>{
@@ -193,7 +207,6 @@ function recipeBoxDetail(request,response){
   console.log(request.params)
   const id = request.params.id;
   const SQL = 'SELECT * FROM recipies WHERE id=$1;';
-  // const SQL = 'SELECT * FROM user_recipies WHERE id=$1;';
   const safeValues = [id];
   client.query(SQL,safeValues)
     .then(recipe => {
@@ -217,7 +230,7 @@ function errorHandler(request, response) {
 // constructors
 
 function ResultItem (result) {
-  this.id = result.id;
+  this.spoon_id = result.id;
   this.title = result.title;
   this.image = result.image ? result.image.replace(/^http:\/\//i, 'https://') : 'tempimg.jpg';
   this.vegetarian = `${result.vegetarian}`;
@@ -227,7 +240,7 @@ function ResultItem (result) {
 }
 
 function Recipe (recipeData) {
-  this.id =recipeData.id;
+  this.spoon_id =recipeData.id;
   this.title = recipeData.title;
   this.time = recipeData.readyInMinutes ? recipeData.readyInMinutes : 'not listed';
   this.servings = recipeData.servings ? recipeData.servings : 'not listed';
@@ -236,7 +249,9 @@ function Recipe (recipeData) {
   this.vegan = `${recipeData.vegan}`;
   this.instructionsList = recipeData.instructions;
   this.wine = recipeData.winePairing ? recipeData.winePairing : 'not listed';
-  this.ingredientsList = recipeData.extendedIngredients;
+  this.ingredients_name = recipeData.extendedIngredients.map(ingredient => ingredient.name);
+  this.ingredients_unit = recipeData.extendedIngredients.map(ingredient => ingredient.unit);
+  this.ingredients_amount = recipeData.extendedIngredients.map(ingredient => ingredient.amount);
   this.credit = recipeData.creditsText;
   this.source_name = recipeData.sourceName;
   this.source_url = recipeData.sourceUrl;
