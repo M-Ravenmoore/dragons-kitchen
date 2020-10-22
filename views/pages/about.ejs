@@ -2,27 +2,42 @@
 <html>
   <head>
     <title>TDK: About Us</title>
-    <%- include('partials/head.ejs')%>
+    <%- include('../partials/head.ejs')%>
   </head>
   <body>
 
     <header>
-      <%- include('partials/user-nav.ejs') %>
+      <%- include('../partials/user-nav.ejs') %>
       <h1>The Dragons Behind TDK</h1>
-      <%- include('partials/ham-nav.ejs')%>
+      <%- include('../partials/ham-nav.ejs')%>
     </header>
 
     <main>
-      <section class="about-card">
-        <div class="person">
-          
+      <article>
+        <h2>The Dragons In The Kitchen</h2>
+        <p> These are the people who are putting the time in behind the scenes of this kitchen. The builders the designers the artists ect. Follow them tell people about them find them on your preferd social media location support our team please.</p>
+      </article>
+      <section class="about-cards">
+        <div class="creator-dragon">
+          <h3 class="dragon-title">Project Designer/Developer</h3>
+          <h3 class="dragon-name">Matt Ravenmoore</h3>
+          <p class="dragon-bio">Greetings and salutatiouns, creatures call me Ravenmoore, i am the designer and main driving force behind TDK i am backed by a wonderfull team of friends and collegues that have helped bring TDK to life. I am a developer just getting in to technology, I find that I am drawn to the challenges of learning new things and better ways of doing things that code provides. I am looking forward to Codefellows 401 JS class in December and I am having fun getting ready with this project. </p>
+          </div>
+          <a href=""><img class="dragon-image" src="dragon-MR.png"alt="Photo of Matt Ravenmoore"/></a>
+        </div>
+        <div class="creator-dragon">
+          <h3 class="dragon-title">Graphic Designer</h3>
+          <h3 class="dragon-name">Jeremy Odden</h3>
+          <p class="dragon-bio">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur asperiores magnam tenetur molestias tempore earum delectus quod, deserunt doloremque explicabo vel aliquid ad suscipit fuga hic? Nam, ipsa dolore? Culpa!  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas dicta nisi repellat, libero dolor nam provident ab. Animi ipsam at fugit tenetur laboriosam cum, dolorem in, vero suscipit distinctio iste! </p>
+          </div>
+          <a href="https://www.linkedin.com/in/matt-ravenmoore/"><img class="dragon-image" src="dragon-JO.png"alt="Photo of Jeremy Odden"/></a>
         </div>
       </section>
 
       
       <footer>
         <!-- make sticky -->
-          <%- include('partials/navigation.ejs') %>
+          <%- include('../partials/navigation.ejs') %>
       </footer>
     </main>
 
