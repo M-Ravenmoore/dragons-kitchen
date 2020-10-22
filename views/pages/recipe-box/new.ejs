@@ -16,25 +16,41 @@
 
       <section>
         <div id="recipe-save-form">
-          <form action="/recipeBox" method="POST">
+          <form action="/newRecipe" method="POST">
             <fieldset id="add-details">
+              image url
               <input type="text" name="image" placeholder="image"></input>
+              title
               <input type="text" name="title" placeholder="title"></input>
+              servings
               <input type="number" name="servings" placeholder="4"></input>
-              <input type="number" name="cook_time_hours" placeholder="hours as num"></input>
-              <input type="number" name="cook_time_min" placeholder="min as num"></input>
+              prep time in min
+              <input type="number" name="prep_time" placeholder="Prep Time in">Min</input>
+              cook time in min
+              <input type="number" name="cook_time" placeholder="Cook Time in">Min</input>
               <label for='vegetarian-box'>vegetarian</label>
               <input type="checkbox" id= "vegetarian-box" name="vegetarian" ></input>
               <label for='vegan-box'>vegan</label>
               <input type="checkbox" name="vegan" id="vegan-box"></input>
+              source url
               <input type="url" name="source_url" placeholder="https://recipesource.com" ></input>
+              source name
               <input type="text" name="source_name" placeholder="source Name" ></input>
-            </fieldset>
-            <!-- need to decide how to take in unique info and make it array of objects to then json and put in db. -->
-            <%- include('../../partials/ingredient-form.ejs') %>
-            <feildset> 
+              ingredients
+              <ol>
+                <% for(let i = 1; i <= lineCount ; i++ ){ %>
+                  <%- include('../../partials/ingredient-form.ejs') %>
+                <% } %>
+                <a href=""><li>add more ingredients</li></a>
+              </ol>
+              directions
 
-              <input type="text" name="instructions"></input>
+              <ol>
+                <% for(let i = 1; i <= instructionsLineCount ; i++ ){ %>
+                  <li><input type="text" name="instructions" placeholder="Step by step instructions"></input></li>
+                <% } %>
+              </ol>
+              
               
             </fieldset>
             <input type="submit" value="Save this recipe">

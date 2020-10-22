@@ -76,3 +76,11 @@ this is what lets you see loged in status put at any point for testing auth thro
 * Name of feature worked on: search results details added and ready for storage and heroku app ready for implementation
 * Description of work done: lots of data parsing today
 * DAY LONG PROCESS TOYDAY 8 hours with many breaks
+
+### Log Entry 10
+
+* Name of feature worked on: CRUD applications
+* Description of work done: fixed major problems with user recipe storage and build out starts to a user recipe add/edit. have indivudual storage and recall working no delete yet. limited api calls for recipe data by implementind db for all recipes with user array. cleaned data coming in from api so that it can be passed around to the dbs,
+* took all of week 4 of the project.
+* Total time on work: 26 hours 45 min
+* comments or notes: lots of learning see the retro for more details.

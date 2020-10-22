@@ -18,9 +18,17 @@
       <div class="recipe-card-body">
         <h3 class="card-title">Ingredients</h3>
         <ul class="ingredients">
-        <% ingredientsObject.map(ingredient =>{ %>
-          <li><%= ingredient.string %></li>
+          
+        <% recipe.ingredients_name.forEach(ingredient =>{ %>
+          <li><%= ingredient %></li>
         <% })%>
+        <% recipe.ingredients_unit.forEach(unit =>{ %>
+          <li><%= unit %></li>
+        <% })%>
+        <% recipe.ingredients_amount.forEach(amount =>{ %>
+          <li><%= amount %></li>
+        <% })%>
+        
         </ul>
         <h3>Instructions</h3>
         <p class="recipe-instructions"><%- recipe.instructionsList %></p>
@@ -30,20 +38,29 @@
         <div id="recipe-save-form">
           <form action="/recipeBox" method="POST">
             <fieldset>
-              <input type="hidden" name="spoon_id" value="<%= recipe.id %>"></input>
+              <input type="hidden" name="spoon_id" value="<%= recipe.spoon_id %>"></input>
               <input type="hidden" name="image" value=<%= recipe.image %> ></input>
               <input type="hidden" name="title" value="<%= recipe.title %>"></input>
               <input type="hidden" name="servings" value="<%= recipe.servings %>"></input>
-              <input type="hidden" name="time" value="<%= recipe.time %>"></input>
+              <input type="hidden" name="cook_time" value="<%= recipe.time %>"></input>
               <input type="hidden" name="vegetarian" value="<%= recipe.vegetarian %>"></input>
               <input type="hidden" name="vegan" value="<%= recipe.vegan %>"></input>
               <input type="hidden" name="source_url" value="<%= recipe.sourceUrl %>"></input>
               <input type="hidden" name="source_name" value="<%= recipe.source_name %>"></input>
+              <ol>
+                  <li>
+                    <% recipe.ingredients_name.forEach(ingredient =>{ %>
+                    <input type="hidden" name="ingredients_name" value="<%= ingredient %>"></input>
+                    <% }) %>
+                    <% recipe.ingredients_unit.forEach(unit =>{ %>
+                    <input type="hidden" name="ingredients_unit" value="<%= unit %>"></input>
+                    <% }) %>
+                    <% recipe.ingredients_amount.forEach(amount =>{ %>
+                    <input type="hidden" name="ingredients_amount" value="<%= amount %>"></input>
+                    <% }) %>
+                  </li>
 
-              <!-- BROKEN todo(#) figure out how to store ingredient data so it is usefull and not too messy and apply to this form plan is 4 columns for data points with arrays for each recipe of their ingredients pulled via .map -->
-              <input type="text" name="ingredients" value="<%= recipe.ingredientsList  %>">
-              
-
+              </ol>
               <input type="hidden" name="instructions" value="<%- recipe.instructionsList %>"></input>
               
             </fieldset>
