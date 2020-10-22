@@ -54,8 +54,8 @@ app.get('/recipeBox', requiresAuth(), recipeBoxHandler)
 app.post('/recipeBox', savedRecipe);
 app.get('/recipeBox/:id', recipeBoxDetail);
 // app.get('/edit/:id' recipeEditForm);
-app.get('/newRecipe', newRecipeCard)
-
+app.get('/newRecipe', newRecipeCreate)
+app.post('/newRecipe', userSavedRecipe)
 
 // error proccessing
 app.get('/error', errorHandler)
@@ -70,19 +70,28 @@ function homeHandler(request,response){
   console.log(request.oidc.user)
   response.status(200).render('index.ejs');
 }
-
 function profileHandler(request,response){
   response.status(200).send(JSON.stringify(request.oidc.user));
 }
-
 function aboutHandler(request,response){
   console.log(request.oidc.user)
   response.status(200).send(`you are hee and a about page is coming`);
 }
-function newRecipeCard(request,response){
+
+function newRecipeCreate(request,response){
+  let ingredientNum = 2;
+
+  let instructionsNum = 5;
+
+
   console.log(request.oidc.user)
-  response.status(200).render('pages/recipe-box/new.ejs')
+  response.status(200).render('pages/recipe-box/new.ejs',{
+    lineCount: ingredientNum,
+    instructionsLineCount : instructionsNum})
 }
+
+
+
 // Working route handdling
 
 function getRecipies (request,response){
@@ -104,52 +113,58 @@ function getRecipies (request,response){
     })
 }
 
+// TODO(#)add update saved by array to include new user add
 function getRecipeDetails (request,response){
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
+  const user = [request.oidc.user.email];
   let safeValues = [spoonId];
   const SQL = 'SELECT * FROM recipies WHERE $1=spoon_id'
   client.query(SQL,safeValues)
     .then(results =>{
-
-// WIP TODO(#)if logic to check db first then display it if not then do regular search. works but need to fix ingredients to make work properly.
-
-      // if(results){
-      //   console.log(results.rows[0]);
-      //   const savedRecipe = results.rows[0];
-      //   response.status(200).render('pages/recipe-box/details.ejs',{
-      //     recipe:savedRecipe
-      //   })
-
-// TODO(#)add update saved by array to include new user add
-
-      // }else{
+      if(results.rowCount >= 1){
+        console.log('results are:',results.rows[0]);
+        let id = results.rows[0].id;
+        const UPDATE = `UPDATE recipies SET saved_by = array_append(saved_by,${user});`;
+        client.query(UPDATE)
+          .then(results)
+        response.status(200).redirect(`/recipeBox/${id}`)
+      }else{
         let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
         superagent(url)
           .then(recipeDetails =>{
             // console.log(recipeDetails.body.extendedIngredients);
             const recipe = recipeDetails.body;
             const sendableRecipe = new Recipe(recipe);
-            const sendableIngredients = sendableRecipe.ingredientsList.map(ingredients => new Ingredient(ingredients));
-            // console.log(sendableRecipe);
-            // console.log(sendableIngredients)
+            console.log(sendableRecipe);
             response.status(200).render('pages/search/details.ejs',{
-              recipe : sendableRecipe,
-              ingredientsObject: sendableIngredients});
+              recipe : sendableRecipe});
           })
       }
-    )}
-    // )}end of else
+    })
+}
 
 function savedRecipe(request,response){
-  const {spoon_id, title, time, servings, image, vegetarian, vegan, instructions, source_name, source_url} = request.body;
-  // sepperation of ingredients to work on saving them as objects in JSON may go to arrays of strings.
-  let ingredients = `{"ingredients" :"${request.body.ingredients}"}`;
-  console.log(ingredients)
-  
+  // console.log("dragons request data",request.body)
+  const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url} = request.body;
+
   const user = [request.oidc.user.email];
-  const SQL = 'INSERT INTO recipies (spoon_id, title, time, servings, image, vegetarian, vegan, ingredients, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id;'
-  const safeValues =[spoon_id, title, time, servings, image, vegetarian, vegan, ingredients, instructions, source_name, source_url, user]
+  const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING id;'
+  const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url, user]
+  client.query(SQL, safeValues)
+    .then(results => {
+      console.log(results.rows)
+      response.status(200).redirect(`/recipeBox`)
+    })
+}
+
+function userSavedRecipe(request,response){
+  const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions} = request.body;
+  
+  // console.log("dragons request data",request.body)
+  const user = [request.oidc.user.email];
+  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id;'
+  const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,user, user]
   client.query(SQL, safeValues)
     .then(results => {
       console.log(results.rows)
@@ -158,7 +173,9 @@ function savedRecipe(request,response){
 }
 
 function recipeBoxHandler(request,response){
-  const SQL = 'SELECT * FROM recipies WHERE $1 = ANY(saved_by);';
+  const SQL = 'SELECT title , image, servings FROM recipies WHERE $1 = ANY(saved_by)';
+  // const SQL = 'SELECT * FROM user_recipies WHERE $1 = ANY(saved_by)';
+
   let safeValues = [request.oidc.user.email];
   client.query(SQL,safeValues)
     .then(recipies =>{
@@ -176,6 +193,7 @@ function recipeBoxDetail(request,response){
   console.log(request.params)
   const id = request.params.id;
   const SQL = 'SELECT * FROM recipies WHERE id=$1;';
+  // const SQL = 'SELECT * FROM user_recipies WHERE id=$1;';
   const safeValues = [id];
   client.query(SQL,safeValues)
     .then(recipe => {
@@ -222,14 +240,6 @@ function Recipe (recipeData) {
   this.credit = recipeData.creditsText;
   this.source_name = recipeData.sourceName;
   this.source_url = recipeData.sourceUrl;
-}
-
-function Ingredient(ingredients){
-  this.name = ingredients.name;
-  this.original = ingredients.original;
-  this.amount = ingredients.amount;
-  this.unit = ingredients.unit;
-  this.string = ingredients.originalString;
 }
 
 // connect to db and port
