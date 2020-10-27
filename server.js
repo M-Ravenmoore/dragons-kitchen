@@ -75,22 +75,19 @@ function profileHandler(request,response){
 }
 function aboutHandler(request,response){
   console.log(request.oidc.user)
-  response.status(200).send(`you are hee and a about page is coming`);
+  response.status(200).render('./pages/about.ejs');
 }
 
 function newRecipeCreate(request,response){
   let ingredientNum = 2;
-
   let instructionsNum = 5;
 
-
+// TODO(#): Create addline buttons and functionality
   console.log(request.oidc.user)
   response.status(200).render('pages/recipe-box/new.ejs',{
     lineCount: ingredientNum,
     instructionsLineCount : instructionsNum})
 }
-
-
 
 // Working route handdling
 
