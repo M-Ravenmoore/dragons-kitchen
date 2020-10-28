@@ -26,19 +26,19 @@ a:visited{
 h1{
   text-align: center;
   color: #ddceb8;
-  font-size: 38pt;
+  font-size: 32pt;
   font-family: 'Metal Mania', cursive;
 }
 h2{
   text-align: center;
   color: #ddceb8;
-  font-size: 34pt;
+  font-size: 28pt;
   font-family: 'Metal Mania', cursive;
 }
 h3{
   text-align: center;
   color: #ddceb8;
-  font-size: 30pt;
+  font-size: 24pt;
   font-family: 'Metal Mania', cursive;
 }
 h4{
@@ -48,15 +48,21 @@ h4{
   font-size: 20pt;
   font-family: 'MedievalSharp', cursive;
 }
-h6{
+h5{
   text-align: center;
   color: #ddceb8;
   font-size: 18pt;
   font-family: 'MedievalSharp', cursive;
 }
-p{
+h6{
   text-align: center;
   color: #ddceb8;
   font-size: 16pt;
+  font-family: 'MedievalSharp', cursive;
+}
+p{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 12pt;
   font-family: 'Jolly Lodger', cursive;
 }

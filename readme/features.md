@@ -12,6 +12,7 @@
 
 ## current working goals
 
+* create user info block globaly
 * user profile page
 * user recipies db connection for add/edit capaibilitys
 * clean user interface
