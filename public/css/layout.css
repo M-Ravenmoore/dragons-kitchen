@@ -6,7 +6,10 @@
 .topnav #myLinks, .user-nav #navLinks{
   display: none;
 }
-.dropdown-nav{
-  background-color:rgba(5, 107, 12);
-
+.menu_icon{
+  background-color: #5b0b0b88;
+  width: 35px;
+}
+.logo{
+  height:150px;
 }
