@@ -11,28 +11,12 @@
   display: none;
 }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  user-select: none;
-}
-.next {
-  right: 0;
-}
-
-/* On hover*/
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
-
 /* Caption text */
 .slide-caption {
+  color: #5B0B0B;
   position: absolute;
   bottom: 8px;
-  width: 100%;
+  width: 80%;
   text-align: center;
 }
 
@@ -42,19 +26,6 @@
   top: 0;
 }
 
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  display: inline-block;
-  background-color: rgba(5, 107, 12)
-}
-
-.active, .dot:hover {
-  background-color: #717171;
-}
 
 /* Fading animation */
 .fade {

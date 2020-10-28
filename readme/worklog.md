@@ -84,3 +84,12 @@ this is what lets you see loged in status put at any point for testing auth thro
 * took all of week 4 of the project.
 * Total time on work: 26 hours 45 min
 * comments or notes: lots of learning see the retro for more details.
+
+### Log Entry 11
+
+* Name of feature worked on: navigation menus functionality
+* Description of work done: got the layout of the collapsing menus finished and roughly styled ready for MVP
+* Start time: 12:18 PST
+* Finish time: 13:22 PST
+* Total time on work: 1 hours 4 min
+* comments or notes: need to find fix for mobile sizing and menu rotation need to mod js file.

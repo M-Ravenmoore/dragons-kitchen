@@ -3,13 +3,30 @@
   overflow: hidden;
   position: relative;
 }
-.topnav #myLinks, .user-nav #navLinks{
+.top-nav #myLinks, .user-nav #navLinks{
   display: none;
+  margin:5px;
 }
-.menu_icon{
-  background-color: #5b0b0b88;
-  width: 35px;
+.menu_icon, .user_menu_icon{
+  background-color: #71717185;
+  padding: 2.25px;
+  border-radius: 75%;
+  width: 40px;
+  margin:5px;
 }
 .logo{
   height:150px;
+}
+.top-nav, .user-nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-icon{
+  width: 30px;
+}
+.dropdown-nav li{
+  display: flex;
+  margin:10px;
+  background-color: #71717185;
 }
