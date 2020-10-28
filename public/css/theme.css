@@ -1,0 +1,62 @@
+/* font-family: 'Jolly Lodger', cursive;
+font-family: 'MedievalSharp', cursive;
+font-family: 'Metal Mania', cursive; */
+
+body{
+  background-image: url(../assets/images/stones.jpg);
+  background-repeat: repeat-y;
+  background-size: 100%;
+}
+main{
+  background-color: rgba(0,0,0,0.375);
+}
+
+
+a{
+  color: #ddceb8;
+}
+a:hover{
+  color:#AE9206;
+}
+a:visited{
+  color: rgb(187, 119, 42)
+}
+
+/* Global  TEXT ITEMS */
+h1{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 38pt;
+  font-family: 'Metal Mania', cursive;
+}
+h2{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 34pt;
+  font-family: 'Metal Mania', cursive;
+}
+h3{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 30pt;
+  font-family: 'Metal Mania', cursive;
+}
+h4{
+  text-align: center;
+  text-align: center;
+  color: #ddceb8;
+  font-size: 20pt;
+  font-family: 'MedievalSharp', cursive;
+}
+h6{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 18pt;
+  font-family: 'MedievalSharp', cursive;
+}
+p{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 16pt;
+  font-family: 'Jolly Lodger', cursive;
+}
