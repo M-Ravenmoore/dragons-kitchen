@@ -4,18 +4,21 @@
 body{
   margin: auto;
   width: 90%;
+
 }
 nav ul{
   display: flex;
 }
-header{
+.header-content{
   display:flex;
   width: 100%;
+  border-bottom: #3636db 5px solid;
+  background-color: #5B0B0B;
+
 }
 
 .nav-bar{
   display:flex;
   justify-content: space-between;
-  border-bottom: ridge 2.5px #056b0c;
-  border-top: ridge 2.5px #056b0c;
+  background-color: #5b0b0b7a;
 }
