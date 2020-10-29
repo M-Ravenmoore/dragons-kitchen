@@ -1,16 +1,11 @@
+/* MOBILE */
+
 .header-title{
-  margin:20px;
+  width:70%;
 }
-.menu-icon{
-  width: 20px;
-  height: 20px;
-  margin: 2.125px;
-}
-.dropdown-nav li{
-  display: flex;
-  margin:5px;
-  border-radius: 75%;
-}
+.logo{
+  height: 115px;
+ }
 .header-content{
   display:flex;
   width: 100%;
@@ -18,24 +13,71 @@
   align-items: center;
   z-index: 9;
 }
-#first-row{
+main{
+  padding-top: 5px;
+  margin-bottom:5px;
+}
+#first-row, #results{
   margin: 5px auto;
   padding: 3.5px;
   display: flex;
   flex-direction: column;
 }
-#footer-box{
-  height: 45px;
-  width: 100%;
-  display: flex;
+/* dragons body flexing */
+#footer-box, #action-row, .tdk-recomends, .searchbar form, .result-card-header,.result-card-info{
+  display:flex;
   justify-content: center;
   align-items: center;
 }
-main{
-  padding-top: 5px;
-  margin-bottom:5px;
+.searchbar{
+  width: 75%;
+  margin: 10px;
+  padding: 3.5px;
 }
-.join-login{
-  margin: 15px auto;
-  display: block;
+.searchbar form{
+  padding: 5px;
+}
+footer{
+  width: 50%;
+  height:35px;
+}
+#footer-box{
+  height: 45px;
+  width: 100%;
+}
+#recomends{
+  margin:10px auto;
+  width:95%;
+}
+.recomend-box{
+  margin:2.25px;
+  padding: 2.125px;
+}
+#results{
+  width: 80%;
+}
+#results-blerb{
+  width: 95%;
+  margin: 2px auto;
+}
+.result-card{
+  width:100%;
+}
+.result-icon{
+  margin: 5px;
+  width: 25px;
+}
+.result-image{
+  margin:5px;
+  width: 40%;
+}
+.card-info{
+  width: 50%;
+}
+.card-info-btn{
+ float: right;
+}
+.card-info, .tdk-recomends, #result-details, .result-card{
+  margin: 5px auto;
+  padding: 3px;
 }

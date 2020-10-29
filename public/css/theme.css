@@ -8,7 +8,9 @@ body{
   background-size: 100%;
 }
 main{
-  background-color: rgba(0, 0, 0, 0.459);
+  background-color: #000000ab;
+  border-radius: 0 0 10px 10px;
+  border: outset #717171 3px;
 }
 a{
   color: #ddceb8;
@@ -19,23 +21,40 @@ a:hover{
 a:visited{
   color: #494949
 }
+.card-info li{
+  font-family: 'Julee', cursive;
+  color: #ddceb8;
+}
+button{
+  font-family: 'Julee', cursive;
+  color: #ddceb8;
+  background-color: #717171;
+}
+/* window format */
+.searchbar, #first-row, .recomend-box,.result-info, .result-card{
+  background-color: #5b0b0bb6;
+  border: 3px inset #3636db;
+}
 
 .header-content{
-  border-bottom: #3636db 5px ridge;
+  border-bottom: #3636dbf3 5px outset;
   background-color: #5b0b0bf3;
 }
 .menu_icon, .user_menu_icon{
-  background-color: #AE9206a1;
+  background-color: #ae9206ad;
 }
+/* slideshow */
 .slide-caption {
   color: #5B0B0B;
 }
-
+.slideshow-container, .result-image, .card-info ul{
+  border:#717171 3px inset;
+  background-color: #000000ab; ;
+}
 .dropdown-nav li{
   background-color: #AE9206a1;
-  } 
+}
 #first-row{
-  background-color: #5b0b0ba9;
   width: 90%;
 }
 

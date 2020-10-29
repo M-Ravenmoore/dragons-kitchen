@@ -4,6 +4,7 @@
     <title>TDK:The Dragons Kitchen</title>
     <%- include('../../partials/head.ejs')%>
   </head>
+
   <body>
     <header class="header">
       <div class="header-content">
@@ -15,18 +16,37 @@
       </div>
     </header>
     <div class="top-push"></div>
-  <div class="content">
+    <div class="content">
       <main>
-      <section class="api-results">
-        <% resultItems.forEach(result =>{ %>
-          <div class="card">
-            <h3 class="recipe-name">Dish Name:<%= result.title %></h3>
-            <img class="recipe-image" src="<%= result.image %>">
-            <a href="/recipeDetails/:<%= result.spoon_id %>"><button>Inspect Recipe</button></a>
+        <section id="results-blerb">
+          <div class="result-info">
+            <h3>Your draons have returned with their hunt:</h3>
+            <p>for now we are only searching the api in the near future however this will display so that:
+              The first few are from farther away (spoonauclar API) the others are from The area surrounding the TDK cave.</p>
           </div>
-        <% }) %>
-      </section>
+        </section>
+        <section id="results">
+           <% resultItems.forEach(result =>{ %>
+            <div class="result-card">
+              <div class="result-card-header">
+                <img class="result-icon" src="../../assets/icons/day/myrecipe_scroll_daymode.png">
+                <h4 class="result-name"><%= result.title %></h4>
+              </div>
+              <div class="result-card-info">
+                <img class="result-image" src="<%= result.image %>">
+                <article class="card-info">
+                  <ul>
+                    <li>vegitarian:</li>
+                    <li>vegan:</li>
+                    <li>servings:</li>
+                  </ul>
 
+                  <a class="card-info-btn" href="/recipeDetails/:<%= result.spoon_id %>"><button id="result-details">Inspect Recipe Details</button></a>
+                </article>
+              </div>
+            </div>
+           <% }) %>
+        </section>
     </main>
   </div>
   <div class="push"></div>

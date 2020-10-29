@@ -233,9 +233,9 @@ function recipeBoxDetail(request,response){
 }
 
 function errorHandler(request, response) {
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   app.use((err, req, res, next) => {
     console.log(err)
-    let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
 
     response.status(500).render('500error.ejs',{
       error: err,
@@ -243,7 +243,9 @@ function errorHandler(request, response) {
       logedStatus : userStatus
     });
   });
-  response.status(404).render('404error.ejs');
+  response.status(404).render('404error.ejs',{
+    logedStatus : userStatus
+  });
 }
 
 // constructors

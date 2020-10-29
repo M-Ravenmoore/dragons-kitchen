@@ -1,6 +1,9 @@
 *{
   box-sizing: border-box;
 }
+.top-push{
+  height:125px;
+}
 body{
   margin: auto;
   width: 88%;
@@ -13,38 +16,15 @@ header{
   width:100%;
   z-index: 9;
 }
-nav ul{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.top-push{
-  height:167px;
-}
-.user_menu_icon{
-  width: 35px;
-}
 .content {
   min-height: 100%;
   margin-bottom: -45px;
 }
-.logo{
-  height: 115px;
- }
-.menu_icon, .user_menu_icon{
-  padding: 2.25px;
-  border-radius: 75%;
-  width: 40px;
-  margin:5px;
+.push {
+  height: 80px;
 }
 footer {
   position: fixed;
   left: 25%;
   bottom: 0;
-  width: 50%;
-  height:35px;
-
-}
-.push {
-  height: 70px;
 }
