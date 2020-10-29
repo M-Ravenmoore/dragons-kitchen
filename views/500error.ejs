@@ -4,17 +4,32 @@
     <title>500 Error Splash</title>
   </head>
   <body>
-    <header>
-      <h1>Hello We are 500 Broken dragons</h1>
-
-    </header>
-    <main>
-      <h3>Whelp we have Broken something</h3>
-      <p>you have ended up in a hole of our making here is a ladder and we hope you dont find to many more of these!</p>
+    <body>
+      <header class="header">
+        <div class="header-content">
+          <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
+          <h1 class="header-title">404 No Page Here</h1>
+        </div>
+        <div class="nav-bar">
+          <%- include('partials/header.ejs') %>
+        </div>
+      </header>
+      <div class="top-push"></div>
+      <div class="content">
+      <main>
+        <h3>Whelp we have Broken something</h3>
+        <p>you have ended up in a hole of our making here is a ladder and we hope you dont find to many more of these!</p>
 
         <h5>Error500:</h5><p><%= error %></p>
         <h5>Error Message:</h5><p><%= error_Msg %></p>
-      </ul>
-    </main>
-  </body>
+      </main>
+    </div>
+    <div class="push"></div>
+    <footer>
+      <div class="footer-box">
+        <%- include('partials/navigation.ejs') %>
+      </div>
+    </footer>
+    <script src="../js/nav.js"></script>
+    </body>
 </html>
