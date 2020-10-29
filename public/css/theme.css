@@ -8,35 +8,55 @@ body{
   background-size: 100%;
 }
 main{
-  background-color: rgba(0,0,0,0.375);
+  background-color: rgba(0, 0, 0, 0.459);
 }
-
-
 a{
   color: #ddceb8;
 }
 a:hover{
-  color:#AE9206;
+  color:#717171;
 }
 a:visited{
-  color: rgb(187, 119, 42)
+  color: #494949
+}
+
+.header-content{
+  border-bottom: #3636db 5px ridge;
+  background-color: #5b0b0bf3;
+}
+.menu_icon, .user_menu_icon{
+  background-color: #AE9206a1;
+}
+.slide-caption {
+  color: #5B0B0B;
+}
+
+.dropdown-nav li{
+  background-color: #AE9206a1;
+  } 
+#first-row{
+  background-color: #5b0b0ba9;
+  width: 90%;
 }
 
 /* Global  TEXT ITEMS */
 h1{
   text-align: center;
+  padding: 2.25px;
   color: #ddceb8;
   font-size: 32pt;
   font-family: 'Metal Mania', cursive;
 }
 h2{
   text-align: center;
+  padding: 2.25px;
   color: #ddceb8;
   font-size: 28pt;
   font-family: 'Metal Mania', cursive;
 }
 h3{
   text-align: center;
+  padding: 2.25px;
   color: #ddceb8;
   font-size: 24pt;
   font-family: 'Metal Mania', cursive;
@@ -46,23 +66,24 @@ h4{
   text-align: center;
   color: #ddceb8;
   font-size: 20pt;
-  font-family: 'MedievalSharp', cursive;
+  font-family: 'Metal Mania', cursive;
 }
 h5{
   text-align: center;
   color: #ddceb8;
   font-size: 18pt;
-  font-family: 'MedievalSharp', cursive;
+  font-family: 'Julee', cursive;
 }
 h6{
   text-align: center;
   color: #ddceb8;
   font-size: 16pt;
-  font-family: 'MedievalSharp', cursive;
+  padding: 2.5px;
+  font-family: 'Julee', cursive;
 }
 p{
   text-align: center;
   color: #ddceb8;
   font-size: 12pt;
-  font-family: 'Jolly Lodger', cursive;
+  font-family: 'Julee', cursive;
 }

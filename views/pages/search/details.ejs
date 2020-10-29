@@ -2,17 +2,21 @@
 <html>
   <head>
     <title>TDK:Result Details</title>
-    <%- include('../../partials/head.ejs')%>
+    <%- include('../../partials/head.ejs') %>
   </head>
   <body>
-
-    <header>
-      <%- include('../../partials/user-nav.ejs') %>
-      <h1>TDK: Result Details</h1>
-      <%- include('../../partials/ham-nav.ejs')%>
+    <header class="header">
+      <div class="header-content">
+        <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
+        <h1 class="header-title">The Dragons Kitchen</h1>
+      </div>
+      <div class="nav-bar">
+        <%- include('../../partials/header.ejs') %>
+      </div>
     </header>
-
-    <main>
+    <div class="top-push"></div>
+  <div class="content">
+      <main>
       <section class="recipe-card"></section>
       <%- include('../../partials/recipe-card-header.ejs') %>
       <div class="recipe-card-body">
@@ -48,18 +52,17 @@
               <input type="hidden" name="source_url" value="<%= recipe.sourceUrl %>"></input>
               <input type="hidden" name="source_name" value="<%= recipe.source_name %>"></input>
               <ol>
-                  <li>
-                    <% recipe.ingredients_name.forEach(ingredient =>{ %>
-                    <input type="hidden" name="ingredients_name" value="<%= ingredient %>"></input>
-                    <% }) %>
-                    <% recipe.ingredients_unit.forEach(unit =>{ %>
-                    <input type="hidden" name="ingredients_unit" value="<%= unit %>"></input>
-                    <% }) %>
-                    <% recipe.ingredients_amount.forEach(amount =>{ %>
-                    <input type="hidden" name="ingredients_amount" value="<%= amount %>"></input>
-                    <% }) %>
-                  </li>
-
+                <li>
+                  <% recipe.ingredients_name.forEach(ingredient =>{ %>
+                  <input type="hidden" name="ingredients_name" value="<%= ingredient %>"></input>
+                  <% }) %>
+                  <% recipe.ingredients_unit.forEach(unit =>{ %>
+                  <input type="hidden" name="ingredients_unit" value="<%= unit %>"></input>
+                  <% }) %>
+                  <% recipe.ingredients_amount.forEach(amount =>{ %>
+                  <input type="hidden" name="ingredients_amount" value="<%= amount %>"></input>
+                  <% }) %>
+                </li>
               </ol>
               <input type="hidden" name="instructions" value="<%- recipe.instructionsList %>"></input>
               
@@ -70,13 +73,14 @@
 
         </div>
       </section>
-
-      
-      <footer>
-        <!-- make sticky -->
-          <%- include('../../partials/navigation.ejs') %>
-      </footer>
     </main>
+  </div>
+  <div class="push"></div>
+  <footer>
+    <div class="footer-box">
+      <%- include('../../partials/navigation.ejs') %>
+    </div>
+  </footer>
 
     <script src="../../js/nav.js"></script>
   </body>

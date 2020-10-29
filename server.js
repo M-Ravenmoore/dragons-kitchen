@@ -63,19 +63,24 @@ app.use('*', errorHandler);
 
 
 // universals
+// let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+// ,{logedStatus : userStatus}
 
 function homeHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(userStatus);
   console.log(request.oidc.user)
-  response.status(200).render('index.ejs');
+  response.status(200).render('index.ejs',{
+    logedStatus : userStatus});
 }
 function profileHandler(request,response){
   response.status(200).send(JSON.stringify(request.oidc.user));
 }
 function aboutHandler(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(request.oidc.user)
-  response.status(200).render('./pages/about.ejs');
+  response.status(200).render('./pages/about.ejs',{
+    logedStatus : userStatus});
 }
 
 function newRecipeCreate(request,response){
@@ -92,6 +97,7 @@ function newRecipeCreate(request,response){
 // Working route handdling
 
 function getRecipies (request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(request.oidc.user);
   const queryContent = request.body.content;
   const queryType = request.body.type;
@@ -104,11 +110,13 @@ function getRecipies (request,response){
     .then(results => {
       const resultsArr = results.body.results;
       const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
-      response.status(200).render('pages/search/show',{resultItems : sendableResults})
+      response.status(200).render('pages/search/show',{resultItems : sendableResults,
+        logedStatus: userStatus})
     })
 }
 
 function getRecipeDetails (request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
   const user = [request.oidc.user.email];
@@ -124,7 +132,8 @@ function getRecipeDetails (request,response){
             const savedRecipe= results.rows[0];
             console.log('this is tdk recipe',savedRecipe);
             response.status(200).render(`pages/search/details.ejs`,{
-              recipe : savedRecipe
+              recipe : savedRecipe,
+              logedStatus : userStatus
             });
           }
         })
@@ -137,7 +146,8 @@ function getRecipeDetails (request,response){
             const sendableRecipe = new Recipe(recipe);
             console.log(sendableRecipe);
             response.status(200).render('pages/search/details.ejs',{
-              recipe : sendableRecipe});
+              recipe : sendableRecipe,
+              logedStatus: userStatus});
           })
       }
     })
@@ -186,6 +196,7 @@ function userSavedRecipe(request,response){
 }
 
 function recipeBoxHandler(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   const SQL = 'SELECT title , image, servings, id FROM recipies WHERE $1 = ANY(saved_by)';
   let safeValues = [request.oidc.user.email];
   client.query(SQL,safeValues)
@@ -195,12 +206,14 @@ function recipeBoxHandler(request,response){
       // console.log('return from db 1',recipies.rows[0])
       response.status(200).render('pages/recipe-box/recipebox.ejs',{
         recipeTotal : recipeCount,
-        savedRecipesList :savedRecipesArr
+        savedRecipesList :savedRecipesArr,
+        logedStatus : userStatus
       });
     })
 }
 
 function recipeBoxDetail(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(request.params)
   const id = request.params.id;
   const SQL = 'SELECT * FROM recipies WHERE id=$1;';
@@ -211,7 +224,8 @@ function recipeBoxDetail(request,response){
       const savedRecipe = recipe.rows[0];
       console.log('this is db recipe;',savedRecipe)
       response.render('pages/recipe-box/details.ejs',{
-        recipe:savedRecipe
+        recipe:savedRecipe,
+        logedStatus: userStatus
       })
     })
 }
@@ -219,7 +233,9 @@ function recipeBoxDetail(request,response){
 function errorHandler(request, response) {
   app.use((err, req, res, next) => {
     console.log(err)
-    response.status(500).render('500error.ejs',{error: err, error_Msg: err.message});
+    response.status(500).render('500error.ejs',{
+      error: err,
+      error_Msg: err.message});
   });
   response.status(404).render('404error.ejs');
 }

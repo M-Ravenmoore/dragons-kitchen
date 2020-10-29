@@ -4,13 +4,28 @@
     <title>404 Error Splash</title>
   </head>
   <body>
-    <header>
-      <h1>Hello We are 404 Broken dragons</h1>
-
+    <header class="header">
+      <div class="header-content">
+        <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
+        <h1 class="header-title">404 No Page Here</h1>
+      </div>
+      <div class="nav-bar">
+        <%- include('partials/header.ejs') %>
+      </div>
     </header>
-    <main>
-      <h4>well something went wrong!</h4>
-      <p>you ended up some where weird use the link above to find your way back if you are a deve the error should print below</p>
+    <div class="top-push"></div>
+  <div class="content">
+      <main>
+      <h4>You seem to be lost, dragon friend</h4>
+      <p>somehow you have mananged to end up at a dead end cave please redirect and try again. if you feel you shouldtn have reached this page then please subnit a comment on the contact page.</p>
     </main>
+  </div>
+  <div class="push"></div>
+  <footer>
+    <div class="footer-box">
+      <%- include('partials/navigation.ejs') %>
+    </div>
+  </footer>
+  <script src="../js/nav.js"></script>
   </body>
 </html>
