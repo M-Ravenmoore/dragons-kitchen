@@ -2,13 +2,14 @@
 <html lang="en">
   <head>
     <title>500 Error Splash</title>
+    <%- include('partials/head.ejs')%>
   </head>
   <body>
     <body>
       <header class="header">
         <div class="header-content">
           <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
-          <h1 class="header-title">404 No Page Here</h1>
+          <h1 class="header-title">500 server error Here</h1>
         </div>
         <div class="nav-bar">
           <%- include('partials/header.ejs') %>
@@ -20,8 +21,8 @@
         <h3>Whelp we have Broken something</h3>
         <p>you have ended up in a hole of our making here is a ladder and we hope you dont find to many more of these!</p>
 
-        <h5>Error500:</h5><p><%= error %></p>
-        <h5>Error Message:</h5><p><%= error_Msg %></p>
+        <h5>Error500:</h5><p><%- error %></p>
+        <h5>Error Message:</h5><p><%- error_Msg %></p>
       </main>
     </div>
     <div class="push"></div>

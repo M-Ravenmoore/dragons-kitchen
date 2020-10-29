@@ -86,12 +86,14 @@ function aboutHandler(request,response){
 function newRecipeCreate(request,response){
   let ingredientNum = 2;
   let instructionsNum = 5;
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
 
 // TODO(#): Create addline buttons and functionality
   console.log(request.oidc.user)
   response.status(200).render('pages/recipe-box/new.ejs',{
     lineCount: ingredientNum,
-    instructionsLineCount : instructionsNum})
+    instructionsLineCount : instructionsNum,
+    logedStatus : userStatus})
 }
 
 // Working route handdling
@@ -233,9 +235,13 @@ function recipeBoxDetail(request,response){
 function errorHandler(request, response) {
   app.use((err, req, res, next) => {
     console.log(err)
+    let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+
     response.status(500).render('500error.ejs',{
       error: err,
-      error_Msg: err.message});
+      error_Msg: err.message,
+      logedStatus : userStatus
+    });
   });
   response.status(404).render('404error.ejs');
 }
