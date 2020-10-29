@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TDK:The Dragons Kitchen</title>
+    <title>TDK:Your Recipies</title>
     <%- include('../../partials/head.ejs')%>
   </head>
   <body>
-
-    <header>
-      <%- include('../../partials/user-nav.ejs') %>
-      <h1>TDK: The Dragons Kitchen</h1>
-      <%- include('../../partials/ham-nav.ejs')%>
-    </header>
-
-    <main>
-      <div>
-        <a href="/newRecipe"><button>Create Recipe</button></a>
+    <header class="header">
+      <div class="header-content">
+        <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
+        <h1 class="header-title">Recipe Box</h1>
       </div>
-      <section class="recipebox-list">
-        <% savedRecipesList.forEach(recipe =>{ %>
-          <div class="card">
+      <div class="nav-bar">
+        <%- include('partials/header.ejs') %>
+      </div>
+    </header>The Dragons Kitchen
             <h3 class="recipe-name">Dish Name:<%= recipe.title %></h3>
             <img class="recipe-image" src="<%= recipe.image %>">
             <a href="/recipeBox/<%= recipe.id %>"><button>Inspect Recipe</button></a>
@@ -26,13 +21,14 @@
         <% }) %>
       </section>
 
-      
-      <footer>
-        <!-- make sticky -->
-          <%- include('../../partials/navigation.ejs') %>
-      </footer>
     </main>
-
+  </div>
+  <div class="push"></div>
+  <footer>
+    <div class="footer-box">
+      <%- include('partials/navigation.ejs') %>
+    </div>
+  </footer>
     <script src="../../js/nav.js"></script>
   </body>
 </html>

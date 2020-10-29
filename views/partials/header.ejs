@@ -2,20 +2,22 @@
   <!-- Navigation links (hidden by default) -->
   <a class="icon" onclick="navMenu()"><img class="menu_icon" src="../assets/icons/day/menu_claws1_daymode.png"></a>
   <ul id="myLinks" class="dropdown-nav">
-    <li><img class="menu-icon" src="../assets/icons/day/home_cave_daymode.png"><a href="/" ><h5>home</h5></a></li>
-    <li><img class="menu-icon" src="../assets/icons/day/about_sign_daymode.png"><a href="/about" ><h5>About</h5></a></li>
-    <li><img class="menu-icon" src="../assets/icons/day/contact_quill_daymode.png"><a href="" ><h5>contact</h5></a></li>
+    <li><img class="menu-icon" src="../assets/icons/day/home_cave_daymode.png"><a href="/" ><h6>home</h6></a></li>
+    <li><img class="menu-icon" src="../assets/icons/day/about_sign_daymode.png"><a href="/about" ><h6>About</h6></a></li>
+    <li><img class="menu-icon" src="../assets/icons/day/contact_quill_daymode.png"><a href="" ><h6>contact</h6></a></li>
   </ul>
 </div>
 
 <div class="user-nav" >
   
   <ul id="navLinks" class="dropdown-nav">
-    <li><img class="menu-icon" src="../assets/icons/day/user_menu_daymode.png"><a href="/profile"><h5>Profile</h5></a></li>
-    <li><img class="menu-icon" src="../assets/icons/day/recipe_chest_daymode.png"><a href="/recipeBox"><h5>My Recipies</h5></a></li>
-    <li><img class="menu-icon" src="../assets/icons/day/spotify_daymode.png"><a href=""><h5>Spotify</h5></a></li>
-    <li><img class="menu-icon" src="../assets/icons/day/login_key_daymode.png"><a href="/login"><h5>login</h5></a></li>
-    <li><img class="menu-icon" src="../assets/icons/day/logout_handle_daymode.png"><a href="/logout"><h5>log Out</h5></a></li>
+    <li><img class="menu-icon" src="../assets/icons/day/user_menu_daymode.png"><a href="/profile"><h6>Profile</h6></a></li>
+    <li><img class="menu-icon" src="../assets/icons/day/recipe_chest_daymode.png"><a href="/recipeBox"><h6>Recipe-Box</h6></a></li>
+    <li><% if (logedStatus === 'Logged in'){ %>
+      <img class="menu-icon" src="../assets/icons/day/logout_handle_daymode.png"><a href="/logout"><h6>log Out</h6></a>
+   <% }else{ %>
+      <img class="menu-icon" src="../assets/icons/day/login_key_daymode.png"><a href="/login"><h6>login</h6></a>
+   <% } %></li>
   </ul>
   <a class="icon" onclick="userMenu()"><img class="user_menu_icon" src="../assets/icons/day/profile_cultist_daymode.png" class="user-nav-image"></a>
 </div> 
