@@ -1,8 +1,7 @@
 # the-dragons-kitchen
 
 **Author**: Matt Ravenmoore
-**Current Version**: 0.0.2
-
+**Current Version**: 0.6.1
 ## Overview
 
 A not so simple kitchen life helper app for mobile tablet and desktop use.
@@ -50,6 +49,9 @@ Languages:
 * version--0.4.2 10-12-2020 22:30 PST TKD now will show results and details road paved for storage and retrival.
 * version--0.4.4 10-13-2020 22:05 PST TKD has the start to a style and look work in progres.
 * version--0.5.1 10-22-2020 01:00 PST TKD can now store usersaved recipes to dependant accounts with no repeating in the db.
+* version--0.5.2 10-27-2020 21:00 PST colors and fonts made live for designers
+* version--0.5.3 10-28-2020 13:24 PST the navigation have been made user friendly
+* version--0.6.1 10-29-2020 20:45 PST Main css and theme uploaded and built most of main functions are built and i am setting up for peer review.
 
 ## Project Scope
 

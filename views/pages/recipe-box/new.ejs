@@ -5,67 +5,66 @@
     <%- include('../../partials/head.ejs')%>
   </head>
   <body>
-
-    <header>
-      <%- include('../../partials/user-nav.ejs') %>
-      <h1>TDK: New Recipe</h1>
-      <%- include('../../partials/ham-nav.ejs')%>
+    <header class="header">  
+      <%- include('../../partials/header.ejs') %>
     </header>
+    <div class="top-push"></div>
+    <div class="content">
+      <main>
+        <section>
+          <div id="recipe-save-form">
+            <form action="/newRecipe" method="POST">
+              <fieldset id="add-details">
+                image url
+                <input type="text" name="image" placeholder="image"></input>
+                title
+                <input type="text" name="title" placeholder="title"></input>
+                servings
+                <input type="number" name="servings" placeholder="4"></input>
+                prep time in min
+                <input type="number" name="prep_time" placeholder="Prep Time in">Min</input>
+                cook time in min
+                <input type="number" name="cook_time" placeholder="Cook Time in">Min</input>
+                <label for='vegetarian-box'>vegetarian</label>
+                <input type="checkbox" id= "vegetarian-box" name="vegetarian" ></input>
+                <label for='vegan-box'>vegan</label>
+                <input type="checkbox" name="vegan" id="vegan-box"></input>
+                source url
+                <input type="url" name="source_url" placeholder="https://recipesource.com" ></input>
+                source name
+                <input type="text" name="source_name" placeholder="source Name" ></input>
+                ingredients
+                <ol>
+                  <% for(let i = 1; i <= lineCount ; i++ ){ %>
+                    <%- include('../../partials/ingredient-form.ejs') %>
+                  <% } %>
+                  <a href=""><li>add more ingredients</li></a>
+                </ol>
+                directions
 
-    <main>
+                <ol>
+                  <% for(let i = 1; i <= instructionsLineCount ; i++ ){ %>
+                    <li><input type="text" name="instructions" placeholder="Step by step instructions"></input></li>
+                  <% } %>
+                </ol>
+                
+                
+              </fieldset>
+              <input type="submit" value="Save this recipe">
 
-      <section>
-        <div id="recipe-save-form">
-          <form action="/newRecipe" method="POST">
-            <fieldset id="add-details">
-              image url
-              <input type="text" name="image" placeholder="image"></input>
-              title
-              <input type="text" name="title" placeholder="title"></input>
-              servings
-              <input type="number" name="servings" placeholder="4"></input>
-              prep time in min
-              <input type="number" name="prep_time" placeholder="Prep Time in">Min</input>
-              cook time in min
-              <input type="number" name="cook_time" placeholder="Cook Time in">Min</input>
-              <label for='vegetarian-box'>vegetarian</label>
-              <input type="checkbox" id= "vegetarian-box" name="vegetarian" ></input>
-              <label for='vegan-box'>vegan</label>
-              <input type="checkbox" name="vegan" id="vegan-box"></input>
-              source url
-              <input type="url" name="source_url" placeholder="https://recipesource.com" ></input>
-              source name
-              <input type="text" name="source_name" placeholder="source Name" ></input>
-              ingredients
-              <ol>
-                <% for(let i = 1; i <= lineCount ; i++ ){ %>
-                  <%- include('../../partials/ingredient-form.ejs') %>
-                <% } %>
-                <a href=""><li>add more ingredients</li></a>
-              </ol>
-              directions
+            </form>
 
-              <ol>
-                <% for(let i = 1; i <= instructionsLineCount ; i++ ){ %>
-                  <li><input type="text" name="instructions" placeholder="Step by step instructions"></input></li>
-                <% } %>
-              </ol>
-              
-              
-            </fieldset>
-            <input type="submit" value="Save this recipe">
+          </div>
+        </section>
 
-          </form>
-
-        </div>
-      </section>
-
-      
-      <footer>
-        <!-- make sticky -->
-          <%- include('../../partials/navigation.ejs') %>
-      </footer>
-    </main>
+      </main>
+    </div>
+    <div class="push"></div>
+    <footer>
+      <div class="footer-box">
+        <%- include('../../partials/navigation.ejs') %>
+      </div>
+    </footer>
     <script src="../../js/nav.js"></script>
     <script src="../../js/recipe-form.js"></script>
   </body>

@@ -5,19 +5,20 @@
 * user login and accounts (DONE using Auth0)
 * recipe db table with attachment to account (complete)
 * recipe finder with multiple options for getting meals (2 of 3 working on random btn) including:
-  * random meal (up to 3)
-  * meal by main ingredient (max 10)
-  * meal by xx
+  * by recipe
+  * cuisine
 * api hit reducing logic for the search using a searchcache db(or array)that clears on site load.
+* clean user interface
+* about the creators page
 
 ## current working goals
 
+* create user info block globaly
 * user profile page
 * user recipies db connection for add/edit capaibilitys
-* clean user interface
-* about the creators page
 * add more ingredients button
 * add more instructions button
+* build table list of search types to create calls in backend
 
 ## **stretch goals**
 

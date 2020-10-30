@@ -25,4 +25,19 @@ Today was a better day than yesterday on this. after doing user auth the hard an
 
 * 10/12/2020
 
-Today was long but productive, i did a lot of data parseing and look10-08-2020 12:00
+Today was long but productive, i did a lot of data parseing and looking at spoons documentation. i have the road to CRUD paved and im ready to implement my Recipe db tomorrow. still need to figure out if i need to move my db for users from auth0 or if i just want to make one of my own along side for basic user linking to user save recipes.
+
+spotify is with in reach as is mvp being on time.. i belive i will have functionality by end of day tomorrow and then spend 2 days on css.
+
+* 10/27/2020
+
+Whelp things happened and my harddrive burnt out so i lost a few days of code because i was silly and didnt acp so now im back at it got most of the clean up back and preped for doing style cleanup.
+
+* 10/28/2020
+
+I got back most of the work i lost this last week today and build out much of my style i will update the styleguide after i get some review and settle on final colors and fonts.
+images will need to be gotten for instruction slideshow but i got that back up and running. and i have a good plan moving into the rest of my week.
+
+* 10/29/2020
+
+Refinded the css most of today and got some simple js funcions working show and hide kind of things i am still fightng join for sql waiting on chris to have some time but work has him swamped... feel that im close to mvp so i will be pushing to main tonight to share with people and get feedback.

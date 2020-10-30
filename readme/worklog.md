@@ -84,3 +84,30 @@ this is what lets you see loged in status put at any point for testing auth thro
 * took all of week 4 of the project.
 * Total time on work: 26 hours 45 min
 * comments or notes: lots of learning see the retro for more details.
+
+### Log Entry 11
+
+* Name of feature worked on: navigation menus functionality
+* Description of work done: got the layout of the collapsing menus finished and roughly styled ready for MVP
+* Start time: 12:18 PST
+* Finish time: 13:22 PST
+* Total time on work: 1 hours 4 min
+* comments or notes: need to find fix for mobile sizing and menu rotation need to mod js file.
+
+### Log Entry 12
+
+* Name of feature worked on: colors and layout
+* Description of work done: site wide css complete  have a general look and devinition to the site
+* Start time: 16:20 PST
+* Finish time: 20:00 PST
+* Total time on work: 6 hours -- min
+* comments or notes: 2 hour yesterday where spent and untracked
+
+### Log Entry 13
+
+* Name of feature worked on: show/hide login
+* Description of work done: show hide funtionality on homepage and menus for login prompts
+* Start time: 17:22 PST
+* Finish time: 17:40 PST
+* Total time on work: - hours 18 min
+* comments or notes:

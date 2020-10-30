@@ -61,37 +61,42 @@ app.post('/newRecipe', userSavedRecipe)
 app.get('/error', errorHandler)
 app.use('*', errorHandler);
 
-
 // universals
 
 function homeHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(userStatus);
   console.log(request.oidc.user)
-  response.status(200).render('index.ejs');
+  response.status(200).render('index.ejs',{
+    logedStatus : userStatus});
 }
 function profileHandler(request,response){
   response.status(200).send(JSON.stringify(request.oidc.user));
 }
 function aboutHandler(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(request.oidc.user)
-  response.status(200).render('./pages/about.ejs');
+  response.status(200).render('./pages/about.ejs',{
+    logedStatus : userStatus});
 }
 
 function newRecipeCreate(request,response){
   let ingredientNum = 2;
   let instructionsNum = 5;
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
 
-// TODO(#): Create addline buttons and functionality
+// TODO(2): Create addline buttons and functionality
   console.log(request.oidc.user)
   response.status(200).render('pages/recipe-box/new.ejs',{
     lineCount: ingredientNum,
-    instructionsLineCount : instructionsNum})
+    instructionsLineCount : instructionsNum,
+    logedStatus : userStatus})
 }
 
 // Working route handdling
 
 function getRecipies (request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(request.oidc.user);
   const queryContent = request.body.content;
   const queryType = request.body.type;
@@ -104,11 +109,13 @@ function getRecipies (request,response){
     .then(results => {
       const resultsArr = results.body.results;
       const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
-      response.status(200).render('pages/search/show',{resultItems : sendableResults})
+      response.status(200).render('pages/search/show',{resultItems : sendableResults,
+        logedStatus: userStatus})
     })
 }
 
 function getRecipeDetails (request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
   const user = [request.oidc.user.email];
@@ -124,7 +131,8 @@ function getRecipeDetails (request,response){
             const savedRecipe= results.rows[0];
             console.log('this is tdk recipe',savedRecipe);
             response.status(200).render(`pages/search/details.ejs`,{
-              recipe : savedRecipe
+              recipe : savedRecipe,
+              logedStatus : userStatus
             });
           }
         })
@@ -132,19 +140,20 @@ function getRecipeDetails (request,response){
         let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
         superagent(url)
           .then(recipeDetails =>{
-            // console.log(recipeDetails.body.extendedIngredients);
+            console.log(recipeDetails.body.extendedIngredients);
             const recipe = recipeDetails.body;
             const sendableRecipe = new Recipe(recipe);
             console.log(sendableRecipe);
             response.status(200).render('pages/search/details.ejs',{
-              recipe : sendableRecipe});
+              recipe : sendableRecipe,
+              logedStatus: userStatus});
           })
       }
     })
 }
 
 function savedRecipe(request,response){
-  const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url} = request.body;
+  const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount,ingredients_string, instructions, source_name, source_url} = request.body;
   const user = [request.oidc.user.email];
   const CHECKDB = 'SELECT saved_by FROM recipies WHERE $1 = spoon_id;';
   const checkValues = [spoon_id];
@@ -161,8 +170,8 @@ function savedRecipe(request,response){
         });
       }else{
         console.log('dragonstoreing')
-        const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING id;'
-        const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url, user]
+        const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount,ingredients_string, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING id;'
+        const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount,ingredients_string, instructions, source_name, source_url, user]
         client.query(SQL, safeValues)
           .then(results => {
             response.status(200).redirect(`/recipeBox`)
@@ -172,12 +181,12 @@ function savedRecipe(request,response){
 }
 
 function userSavedRecipe(request,response){
-  const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions} = request.body;
+  const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions} = request.body;
 
   // console.log("dragons request data",request.body)
   const user = [request.oidc.user.email];
-  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id;'
-  const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,user, user]
+  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) RETURNING id;'
+  const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,user, user]
   client.query(SQL, safeValues)
     .then(results => {
       console.log(results.rows)
@@ -186,6 +195,7 @@ function userSavedRecipe(request,response){
 }
 
 function recipeBoxHandler(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   const SQL = 'SELECT title , image, servings, id FROM recipies WHERE $1 = ANY(saved_by)';
   let safeValues = [request.oidc.user.email];
   client.query(SQL,safeValues)
@@ -195,12 +205,14 @@ function recipeBoxHandler(request,response){
       // console.log('return from db 1',recipies.rows[0])
       response.status(200).render('pages/recipe-box/recipebox.ejs',{
         recipeTotal : recipeCount,
-        savedRecipesList :savedRecipesArr
+        savedRecipesList :savedRecipesArr,
+        logedStatus : userStatus
       });
     })
 }
 
 function recipeBoxDetail(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   console.log(request.params)
   const id = request.params.id;
   const SQL = 'SELECT * FROM recipies WHERE id=$1;';
@@ -211,17 +223,26 @@ function recipeBoxDetail(request,response){
       const savedRecipe = recipe.rows[0];
       console.log('this is db recipe;',savedRecipe)
       response.render('pages/recipe-box/details.ejs',{
-        recipe:savedRecipe
+        recipe:savedRecipe,
+        logedStatus: userStatus
       })
     })
 }
 
 function errorHandler(request, response) {
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   app.use((err, req, res, next) => {
     console.log(err)
-    response.status(500).render('500error.ejs',{error: err, error_Msg: err.message});
+
+    response.status(500).render('500error.ejs',{
+      error: err,
+      error_Msg: err.message,
+      logedStatus : userStatus
+    });
   });
-  response.status(404).render('404error.ejs');
+  response.status(404).render('404error.ejs',{
+    logedStatus : userStatus
+  });
 }
 
 // constructors
@@ -244,8 +265,9 @@ function Recipe (recipeData) {
   this.image = recipeData.image;
   this.vegetarian = `${recipeData.vegetarian}`;
   this.vegan = `${recipeData.vegan}`;
-  this.instructionsList = recipeData.instructions;
+  this.instructions = recipeData.instructions;
   this.wine = recipeData.winePairing ? recipeData.winePairing : 'not listed';
+  this.ingredients_string = recipeData.extendedIngredients.map(ingredient => ingredient.originalString)
   this.ingredients_name = recipeData.extendedIngredients.map(ingredient => ingredient.name);
   this.ingredients_unit = recipeData.extendedIngredients.map(ingredient => ingredient.unit);
   this.ingredients_amount = recipeData.extendedIngredients.map(ingredient => ingredient.amount);

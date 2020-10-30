@@ -1,24 +1,30 @@
 *{
   box-sizing: border-box;
 }
+.top-push{
+  height:125px;
+}
 body{
   margin: auto;
-  width: 90%;
-
+  width: 88%;
+  z-index: 8;
 }
-nav ul{
-  display: flex;
+header{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width:100%;
+  z-index: 9;
 }
-.header-content{
-  display:flex;
-  width: 100%;
-  border-bottom: #3636db 5px solid;
-  background-color: #5B0B0B;
-
+.content {
+  min-height: 100%;
+  margin-bottom: -45px;
 }
-
-.nav-bar{
-  display:flex;
-  justify-content: space-between;
-  background-color: #5b0b0b7a;
+.push {
+  height: 80px;
+}
+footer {
+  position: fixed;
+  left: 25%;
+  bottom: 0;
 }

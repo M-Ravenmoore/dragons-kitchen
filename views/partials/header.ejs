@@ -1,25 +1,29 @@
-<div class="topnav">
-  <!-- Navigation links (hidden by default) -->
-  <a class="icon" onclick="navMenu()">
-    <img class="menu_icon" src="../assets/icons/day/menu_claws1_daymode.png">
-  </a>
-  <div id="myLinks" class="dropdown-nav">
-    <a href="/" ><h4>home</h4></a>
-    <a href="/recipeBox" ><h4>Recipe-Box</h4></a>
-    <a href="/about" ><h4>About</h4></a>
-    <a href="" ><h4>contact</h4></a>
+<section class="header-content">
+  <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
+  <h1 class="header-title">The Dragons Kitchen</h1>
+</section>
+<section class="nav-bar">
+  <div class="top-nav">
+    <!-- Navigation links (hidden by default) -->
+    <a class="icon" onclick="navMenu()"><img class="menu_icon" src="../assets/icons/day/menu_claws1_daymode.png"></a>
+    <ul id="myLinks" class="dropdown-nav">
+      <li><img class="menu-icon" src="../assets/icons/day/home_cave_daymode.png"><a href="/" ><h6>home</h6></a></li>
+      <li><img class="menu-icon" src="../assets/icons/day/about_sign_daymode.png"><a href="/about" ><h6>About</h6></a></li>
+      <li><img class="menu-icon" src="../assets/icons/day/contact_quill_daymode.png"><a href="" ><h6>contact</h6></a></li>
+    </ul>
   </div>
-</div>
 
-<div class="user-nav" >
-  <a class="icon" onclick="userMenu()">
-    <img class="menu_icon" src="../assets/icons/day/profile_cultist_daymode.png" class="user-nav-image"></a>
-  <div id="navLinks" class="dropdown-nav">
-    <a href="/profile"><h4>Profile</h4></a>
-    <a href="/recipeBox"><h4>My Recipies</h4></a>
-    <a href=""><h4>spotify Login</h4></a>
-    <a href="/login"><h4>login</h4></a>
-    <a href="/logout"><h4>log Out</h4></a>
-  </div>
-</div> 
-
+  <div class="user-nav" >
+    
+    <ul id="navLinks" class="dropdown-nav">
+      <li><img class="menu-icon" src="../assets/icons/day/user_menu_daymode.png"><a href="/profile"><h6>Profile</h6></a></li>
+      <li><img class="menu-icon" src="../assets/icons/day/recipe_chest_daymode.png"><a href="/recipeBox"><h6>Recipe-Box</h6></a></li>
+      <li><% if (logedStatus === 'Logged in'){ %>
+        <img class="menu-icon" src="../assets/icons/day/logout_handle_daymode.png"><a href="/logout"><h6>log Out</h6></a>
+    <% }else{ %>
+        <img class="menu-icon" src="../assets/icons/day/login_key_daymode.png"><a href="/login"><h6>login</h6></a>
+    <% } %></li>
+    </ul>
+    <a class="icon" onclick="userMenu()"><img class="user_menu_icon" src="../assets/icons/day/profile_cultist_daymode.png" class="user-nav-image"></a>
+  </div> 
+</section>

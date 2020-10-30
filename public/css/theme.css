@@ -8,37 +8,76 @@ body{
   background-size: 100%;
 }
 main{
-  background-color: rgba(0,0,0,0.375);
+  background-color: #000000ab;
+  border-radius: 0 0 10px 10px;
+  border: outset #717171 3px;
 }
-
-
 a{
   color: #ddceb8;
 }
 a:hover{
-  color:#AE9206;
+  color:#717171;
 }
 a:visited{
-  color: rgb(187, 119, 42)
+  color: #494949
+}
+.card-info li, .recipe-card li{
+  font-family: 'Julee', cursive;
+  color: #ddceb8;
+}
+button{
+  font-family: 'Julee', cursive;
+  color: #ddceb8;
+  background-color: #717171;
+}
+/* window format */
+.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions{
+  background-color: #5b0b0bb6;
+  border: 3px inset #3636db;
+}
+
+.header-content{
+  border-bottom: #3636dbf3 5px outset;
+  background-color: #5b0b0bf3;
+}
+.menu_icon, .user_menu_icon{
+  background-color: #ae9206ad;
+}
+/* slideshow */
+.slide-caption {
+  color: #5B0B0B;
+}
+.slideshow-container, .result-image, .card-info ul,.recipe-image{
+  border:#717171 3px inset;
+  background-color: #000000ab; ;
+}
+.dropdown-nav li{
+  background-color: #AE9206a1;
+}
+#first-row{
+  width: 90%;
 }
 
 /* Global  TEXT ITEMS */
 h1{
   text-align: center;
+  padding: 2.25px;
   color: #ddceb8;
-  font-size: 38pt;
+  font-size: 32pt;
   font-family: 'Metal Mania', cursive;
 }
 h2{
   text-align: center;
+  padding: 2.25px;
   color: #ddceb8;
-  font-size: 34pt;
+  font-size: 28pt;
   font-family: 'Metal Mania', cursive;
 }
 h3{
   text-align: center;
+  padding: 2.25px;
   color: #ddceb8;
-  font-size: 30pt;
+  font-size: 24pt;
   font-family: 'Metal Mania', cursive;
 }
 h4{
@@ -46,17 +85,24 @@ h4{
   text-align: center;
   color: #ddceb8;
   font-size: 20pt;
-  font-family: 'MedievalSharp', cursive;
+  font-family: 'Metal Mania', cursive;
+}
+h5{
+  text-align: center;
+  color: #ddceb8;
+  font-size: 18pt;
+  font-family: 'Julee', cursive;
 }
 h6{
   text-align: center;
   color: #ddceb8;
-  font-size: 18pt;
-  font-family: 'MedievalSharp', cursive;
+  font-size: 16pt;
+  padding: 2.5px;
+  font-family: 'Julee', cursive;
 }
 p{
   text-align: center;
   color: #ddceb8;
-  font-size: 16pt;
-  font-family: 'Jolly Lodger', cursive;
+  font-size: 12pt;
+  font-family: 'Julee', cursive;
 }

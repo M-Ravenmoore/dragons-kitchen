@@ -2,20 +2,29 @@
 <html lang="en">
   <head>
     <title>500 Error Splash</title>
+    <%- include('partials/head.ejs')%>
   </head>
   <body>
-    <header>
-      <h1>Hello We are 500 Broken dragons</h1>
+    <body>
+      <header class="header">
+          <%- include('partials/header.ejs') %>
+      </header>
+      <div class="top-push"></div>
+      <div class="content">
+      <main>
+        <h3>Whelp we have Broken something</h3>
+        <p>you have ended up in a hole of our making here is a ladder and we hope you dont find to many more of these!</p>
 
-    </header>
-    <main>
-      <h4>well something went wrong!</h4>
-      <p>you ended up some where weird use the link above to find your way back if you are a deve the error should print below</p>
-
-      <ul>
-        <li>Error500:<%- error %></li>
-        <li>Error Message: <%- error_Msg %></li>
-      </ul>
-    </main>
-  </body>
+        <h5>Error500:</h5><p><%- error %></p>
+        <h5>Error Message:</h5><p><%- error_Msg %></p>
+      </main>
+    </div>
+    <div class="push"></div>
+    <footer>
+      <div class="footer-box">
+        <%- include('partials/navigation.ejs') %>
+      </div>
+    </footer>
+    <script src="../js/nav.js"></script>
+    </body>
 </html>
