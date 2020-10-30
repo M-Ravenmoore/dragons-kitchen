@@ -21,7 +21,7 @@ a:hover{
 a:visited{
   color: #494949
 }
-.card-info li{
+.card-info li, .recipe-card li{
   font-family: 'Julee', cursive;
   color: #ddceb8;
 }
@@ -31,7 +31,7 @@ button{
   background-color: #717171;
 }
 /* window format */
-.searchbar, #first-row, .recomend-box,.result-info, .result-card{
+.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions{
   background-color: #5b0b0bb6;
   border: 3px inset #3636db;
 }
@@ -47,7 +47,7 @@ button{
 .slide-caption {
   color: #5B0B0B;
 }
-.slideshow-container, .result-image, .card-info ul{
+.slideshow-container, .result-image, .card-info ul,.recipe-image{
   border:#717171 3px inset;
   background-color: #000000ab; ;
 }

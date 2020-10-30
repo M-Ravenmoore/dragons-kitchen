@@ -61,10 +61,7 @@ app.post('/newRecipe', userSavedRecipe)
 app.get('/error', errorHandler)
 app.use('*', errorHandler);
 
-
 // universals
-// let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
-// ,{logedStatus : userStatus}
 
 function homeHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
@@ -88,7 +85,7 @@ function newRecipeCreate(request,response){
   let instructionsNum = 5;
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
 
-// TODO(#): Create addline buttons and functionality
+// TODO(2): Create addline buttons and functionality
   console.log(request.oidc.user)
   response.status(200).render('pages/recipe-box/new.ejs',{
     lineCount: ingredientNum,
@@ -143,7 +140,7 @@ function getRecipeDetails (request,response){
         let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
         superagent(url)
           .then(recipeDetails =>{
-            // console.log(recipeDetails.body.extendedIngredients);
+            console.log(recipeDetails.body.extendedIngredients);
             const recipe = recipeDetails.body;
             const sendableRecipe = new Recipe(recipe);
             console.log(sendableRecipe);
@@ -156,7 +153,7 @@ function getRecipeDetails (request,response){
 }
 
 function savedRecipe(request,response){
-  const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url} = request.body;
+  const {spoon_id, title, cook_time, servings, image, vegetarian, vegan,ingredients_name,ingredients_unit,ingredients_amount,ingredients_string, instructions, source_name, source_url} = request.body;
   const user = [request.oidc.user.email];
   const CHECKDB = 'SELECT saved_by FROM recipies WHERE $1 = spoon_id;';
   const checkValues = [spoon_id];
@@ -173,8 +170,8 @@ function savedRecipe(request,response){
         });
       }else{
         console.log('dragonstoreing')
-        const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING id;'
-        const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount, instructions, source_name, source_url, user]
+        const SQL = 'INSERT INTO recipies (spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount,ingredients_string, instructions, source_name, source_url,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING id;'
+        const safeValues =[spoon_id, title, cook_time, servings, image, vegetarian, vegan, ingredients_name,ingredients_unit,ingredients_amount,ingredients_string, instructions, source_name, source_url, user]
         client.query(SQL, safeValues)
           .then(results => {
             response.status(200).redirect(`/recipeBox`)
@@ -184,12 +181,12 @@ function savedRecipe(request,response){
 }
 
 function userSavedRecipe(request,response){
-  const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions} = request.body;
+  const {image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url,ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions} = request.body;
 
   // console.log("dragons request data",request.body)
   const user = [request.oidc.user.email];
-  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING id;'
-  const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep, instructions,user, user]
+  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) RETURNING id;'
+  const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,user, user]
   client.query(SQL, safeValues)
     .then(results => {
       console.log(results.rows)
@@ -268,8 +265,9 @@ function Recipe (recipeData) {
   this.image = recipeData.image;
   this.vegetarian = `${recipeData.vegetarian}`;
   this.vegan = `${recipeData.vegan}`;
-  this.instructionsList = recipeData.instructions;
+  this.instructions = recipeData.instructions;
   this.wine = recipeData.winePairing ? recipeData.winePairing : 'not listed';
+  this.ingredients_string = recipeData.extendedIngredients.map(ingredient => ingredient.originalString)
   this.ingredients_name = recipeData.extendedIngredients.map(ingredient => ingredient.name);
   this.ingredients_unit = recipeData.extendedIngredients.map(ingredient => ingredient.unit);
   this.ingredients_amount = recipeData.extendedIngredients.map(ingredient => ingredient.amount);

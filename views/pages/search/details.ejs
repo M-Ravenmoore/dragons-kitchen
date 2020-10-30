@@ -4,41 +4,15 @@
     <title>TDK:Result Details</title>
     <%- include('../../partials/head.ejs') %>
   </head>
+
   <body>
     <header class="header">
-      <div class="header-content">
-        <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
-        <h1 class="header-title">The Dragons Kitchen</h1>
-      </div>
-      <div class="nav-bar">
-        <%- include('../../partials/header.ejs') %>
-      </div>
+      <%- include('../../partials/header.ejs') %>
     </header>
     <div class="top-push"></div>
-  <div class="content">
+    <div class="content">
       <main>
-      <section class="recipe-card"></section>
-      <%- include('../../partials/recipe-card-header.ejs') %>
-      <div class="recipe-card-body">
-        <h3 class="card-title">Ingredients</h3>
-        <ul class="ingredients">
-          
-        <% recipe.ingredients_name.forEach(ingredient =>{ %>
-          <li><%= ingredient %></li>
-        <% })%>
-        <% recipe.ingredients_unit.forEach(unit =>{ %>
-          <li><%= unit %></li>
-        <% })%>
-        <% recipe.ingredients_amount.forEach(amount =>{ %>
-          <li><%= amount %></li>
-        <% })%>
-        
-        </ul>
-        <h3>Instructions</h3>
-        <p class="recipe-instructions"><%- recipe.instructionsList %></p>
-      </div>
-
-      <section>
+        <%- include('../../partials/recipe-card.ejs') %>
         <div id="recipe-save-form">
           <form action="/recipeBox" method="POST">
             <fieldset>
@@ -62,25 +36,25 @@
                   <% recipe.ingredients_amount.forEach(amount =>{ %>
                   <input type="hidden" name="ingredients_amount" value="<%= amount %>"></input>
                   <% }) %>
+                  <% recipe.ingredients_string.forEach(string =>{ %>
+                    <input type="hidden" name="ingredients_string" value="<%= string %>"></input>
+                    <% }) %>
                 </li>
               </ol>
-              <input type="hidden" name="instructions" value="<%- recipe.instructionsList %>"></input>
-              
+              <input type="hidden" name="instructions" value="<%= recipe.instructions %>"></input>
             </fieldset>
             <input type="submit" value="Save this recipe">
-
           </form>
-
         </div>
       </section>
     </main>
-  </div>
-  <div class="push"></div>
-  <footer>
-    <div class="footer-box">
-      <%- include('../../partials/navigation.ejs') %>
     </div>
-  </footer>
+    <div class="push"></div>
+    <footer>
+      <div class="footer-box">
+        <%- include('../../partials/navigation.ejs') %>
+      </div>
+    </footer>
 
     <script src="../../js/nav.js"></script>
   </body>

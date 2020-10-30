@@ -1,5 +1,15 @@
 /* MOBILE */
 
+/* dragons body flexing and general */
+#footer-box, #action-row, .tdk-recomends, .searchbar form, .result-card-header,.result-card-info{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-info, .tdk-recomends, #result-details, .result-card,.recipe-card-info, .recipe-image, .recipe-title, .recipebox-list{
+  margin: 5px auto;
+  padding: 3px;
+}
 .header-title{
   width:70%;
 }
@@ -17,17 +27,20 @@ main{
   padding-top: 5px;
   margin-bottom:5px;
 }
-#first-row, #results{
+footer{
+  width: 50%;
+  height:35px;
+}
+#footer-box{
+  height: 45px;
+  width: 100%;
+}
+/* index home page */
+#first-row, #results, .recipe-card, .recipebox-list{
   margin: 5px auto;
   padding: 3.5px;
   display: flex;
   flex-direction: column;
-}
-/* dragons body flexing */
-#footer-box, #action-row, .tdk-recomends, .searchbar form, .result-card-header,.result-card-info{
-  display:flex;
-  justify-content: center;
-  align-items: center;
 }
 .searchbar{
   width: 75%;
@@ -37,14 +50,6 @@ main{
 .searchbar form{
   padding: 5px;
 }
-footer{
-  width: 50%;
-  height:35px;
-}
-#footer-box{
-  height: 45px;
-  width: 100%;
-}
 #recomends{
   margin:10px auto;
   width:95%;
@@ -53,7 +58,8 @@ footer{
   margin:2.25px;
   padding: 2.125px;
 }
-#results{
+/* Results short cards for searches */
+#results ,.recipebox-list{
   width: 80%;
 }
 #results-blerb{
@@ -77,7 +83,14 @@ footer{
 .card-info-btn{
  float: right;
 }
-.card-info, .tdk-recomends, #result-details, .result-card{
+/* Recipe details card for reading recipes*/
+.recipe-title{
+  width: 80%;
+}
+.recipe-image{
   margin: 5px auto;
-  padding: 3px;
+  width: 90%;
+}
+.recipe-card-ingredients{
+  width: 45%;
 }
