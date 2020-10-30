@@ -15,6 +15,7 @@ CREATE TABLE recipies(
   ingredients_name TEXT[],
   ingredients_amount TEXT[],
   ingredients_unit TEXT[],
+  ingredients_string TEXT[],
   instructions TEXT,
   saved_by TEXT[]
 );
@@ -36,6 +37,7 @@ CREATE TABLE user_recipies(
   ingredient_amount TEXT[],
   ingredient_unit TEXT[],
   ingredient_prep TEXT[],
+  ingredient_string TEXT[],
   instructions TEXT[],
   created_by VARCHAR(225),
   saved_by TEXT[],

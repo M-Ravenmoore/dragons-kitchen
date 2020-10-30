@@ -5,48 +5,48 @@
     <title>TDK:The Dragons Kitchen</title>
     <%- include('partials/head.ejs')%>
   </head>
-    
+
   <body>
     <header class="header">
-      <div class="header-content">
-        <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
-        <h1 class="header-title">The Dragons Kitchen</h1>
-      </div>
-      <div class="nav-bar">
         <%- include('partials/header.ejs') %>
-      </div>
     </header>
+
     <div class="top-push"></div>
-  <div class="content">
+
+    <div class="content">
       <main>
         <section id="first-row">
           <div class="welcome">
             <h3>Welcome to the Dragon's Kitchen</h3>
             <p>This is a tool for creatures of all walks to create and build fantastic feasts for them and theirs. there is a simple toutorial of our app below when your ready create an account and join the Dragons in the Kitchen.</p>
           </div>
-          <!-- only apears if loged out -->
+        </section>
+        <section id="action-row">
+          <% if (logedStatus === 'Logged out'){ %>
           <div class="join-login">
-            <a href="/join"><button>Come Join The Dragons In the Kitchen</button></a>
+            <a href="/login"><button id="join">Come Join The Dragons In the Kitchen</button></a>
           </div>
+          <% }else{ %>
+  <!-- TODO(1)Add further search features -->
+          <div class="searchbar">
+            <form action="/searchRecipies" method="POST">
+              <feildset>
+                <label for="search-recipes"><h6>Hunt for Recipies:</h6></label>
+                <input type="text" id="search-recipes" name="content" placeholder="lamb roast"></input>
+                <label for="search-select"><h6>Hunt by:</h6></label>
+                  <select name="type" id="search-select" placeholder="Select">
+                    <option value="query">Recipe</option>
+                    <option value="cuisine">Cuisine</option>
+                  </select>
+                <label for="result-count"><h6>Return with:</h6></label>
+                <input type="number" id="result-count" name="count" min="5" max="20">
+              </feildset>
+              <button type="submit">search</button>
+            </form>
+          </div>
+          <% } %>        
         </section>
-<!-- make only aper if loged in -->
-        <section id="searchbar">
-          <form action="/searchRecipies" method="POST">
-            <feildset>
-              <label for="search-recipes">Hunt for Recipies:</label>
-              <input type="text" id="search-recipes" name="content" placeholder="Search for a Recipe" default="lamb"></input>
-              <label for="search-select">Hunt by:</label>
-                <select name="type" id="search-select" placeholder="Select a type">
-                  <option value="query">Recipe</option>
-                  <option value="cuisine">Cuisine</option>
-                </select>
-              <label for="result-count">Return with:</label>
-              <input type="number" id="result-count" name="count" default="2" min="2" max="25">
-            </feildset>
-            <button type="submit">search</button>
-          </form>
-        </section>
-        <section>
+        <section id="slideshow">
           <div class="slideshow-container">
             <div class="homeSlide fade">
               <h6 class="slide-count">1 / 3</h6>
@@ -65,16 +65,28 @@
             </div>
           </div>
         </section>
+        <section id="recomends">
+          <div>
+            <h4> Feature Comming Soon</h4>
+            <p>A TDK Reccomends recipes section with 10 random recipes from the TDK Database, in comming months will become 10, 3 and above rated recipies</p>
+          </div>
+          <div class="tdk-recomends">
+            <%- include('partials/recomended.ejs') %>
+          </div>
+        </section>
       </main>
     </div>
+
     <div class="push"></div>
+
     <footer>
       <div class="footer-box">
         <%- include('partials/navigation.ejs') %>
       </div>
     </footer>
+
     <script src="../js/slideshow.js"></script>
     <script src="../js/nav.js"></script>
-  
+
   </body>
 </html>

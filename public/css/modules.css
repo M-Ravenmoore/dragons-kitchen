@@ -1,8 +1,7 @@
 
 /* Slideshow*/
-
 .slideshow-container {
-  max-width: 400px;
+  max-width: 85%;
   position: relative;
   margin: auto;
 }
@@ -47,7 +46,31 @@
   display:flex;
   justify-content: space-between;
 }
+.user_menu_icon{
+  width: 35px;
+}
 .top-nav, .user-nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.menu-icon{
+  width: 25px;
+  height: 25px;
+  margin: 3px;
+}
+.dropdown-nav li{
+  display: flex;
+  margin:5px;
+  border-radius: 75%;
+}
+.menu_icon, .user_menu_icon{
+  padding: 2.25px;
+  border-radius: 75%;
+  width: 40px;
+  margin:5px;
+}
+nav ul{
   display: flex;
   justify-content: center;
   align-items: center;
