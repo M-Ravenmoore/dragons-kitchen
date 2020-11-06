@@ -56,6 +56,8 @@ app.get('/recipeBox/:id', recipeBoxDetail);
 // app.get('/edit/:id' recipeEditForm);
 app.get('/newRecipe', newRecipeCreate)
 app.post('/newRecipe', userSavedRecipe)
+app.get('/join' , requiresAuth(), joinHandler)
+app.get('/delete/:id', deleteRecipe)
 
 // error proccessing
 app.get('/error', errorHandler)
@@ -65,39 +67,65 @@ app.use('*', errorHandler);
 
 function homeHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
   console.log(userStatus);
-  console.log(request.oidc.user)
+  console.log(userInfo);
   response.status(200).render('index.ejs',{
-    logedStatus : userStatus});
+    userStatus : userStatus,
+    userInfo : userInfo});
 }
-function profileHandler(request,response){
-  response.status(200).send(JSON.stringify(request.oidc.user));
+function joinHandler(request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
+  response.status(200).render('pages/join.ejs',{
+    userStatus : userStatus,
+    userInfo : userInfo});
 }
+function profileHandler (request,response){
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
+  response.status(200).render('pages/profile.ejs',{
+    userStatus : userStatus,
+    userInfo :userInfo
+  });
+}
+
 function aboutHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
-  console.log(request.oidc.user)
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
   response.status(200).render('./pages/about.ejs',{
-    logedStatus : userStatus});
+    userStatus : userStatus,
+    userInfo : userInfo});
 }
 
 function newRecipeCreate(request,response){
   let ingredientNum = 2;
   let instructionsNum = 5;
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
 
 // TODO(2): Create addline buttons and functionality
-  console.log(request.oidc.user)
   response.status(200).render('pages/recipe-box/new.ejs',{
     lineCount: ingredientNum,
     instructionsLineCount : instructionsNum,
-    logedStatus : userStatus})
+    userStatus : userStatus,
+    userInfo : userInfo})
 }
 
 // Working route handdling
 
 function getRecipies (request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
-  console.log(request.oidc.user);
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
   const queryContent = request.body.content;
   const queryType = request.body.type;
   const queryCount = request.body.count;
@@ -110,32 +138,37 @@ function getRecipies (request,response){
       const resultsArr = results.body.results;
       const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
       response.status(200).render('pages/search/show',{resultItems : sendableResults,
-        logedStatus: userStatus})
+        userStatus: userStatus,
+        userInfo : userInfo})
     })
 }
 
 function getRecipeDetails (request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
-  const user = [request.oidc.user.email];
+  const user = request.oidc.user.email;
   let safeValues = [spoonId];
   const SQL = 'SELECT * FROM recipies WHERE $1=spoon_id'
   client.query(SQL,safeValues)
     .then(results =>{
       if(results.rowCount !== 0){
-        results.rows[0].saved_by.forEach(savedUser =>{
-          if(user === savedUser){
-            response.status(200).redirect('/recipeBox');
-          }else{
-            const savedRecipe= results.rows[0];
-            console.log('this is tdk recipe',savedRecipe);
-            response.status(200).render(`pages/search/details.ejs`,{
-              recipe : savedRecipe,
-              logedStatus : userStatus
-            });
-          }
-        })
+        console.log(results.rows[0].saved_by, user)
+        if(results.rows[0].saved_by.includes(user)){
+          let id = results.rows[0].id;
+          response.status(200).redirect(`/recipeBox/${id}`);
+        }else{
+          const savedRecipe= results.rows[0];
+          console.log('this is tdk recipe',savedRecipe);
+          response.status(200).render(`pages/search/details.ejs`,{
+            recipe : savedRecipe,
+            userStatus : userStatus,
+            userInfo: userInfo
+          });
+        }
       }else{
         let url = `https://api.spoonacular.com/recipes/${spoonId}/information?apiKey=${process.env.SPOON_API_KEY}&includeNutrition=false`;
         superagent(url)
@@ -146,7 +179,8 @@ function getRecipeDetails (request,response){
             console.log(sendableRecipe);
             response.status(200).render('pages/search/details.ejs',{
               recipe : sendableRecipe,
-              logedStatus: userStatus});
+              userStatus: userStatus,
+              userInfo: userInfo});
           })
       }
     })
@@ -185,7 +219,7 @@ function userSavedRecipe(request,response){
 
   // console.log("dragons request data",request.body)
   const user = [request.oidc.user.email];
-  const SQL = 'INSERT INTO user_recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) RETURNING id;'
+  const SQL = 'INSERT INTO recipies (image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,created_by,saved_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) RETURNING id;'
   const safeValues =[image, title, servings, prep_time, cook_time, vegetarian, vegan, source_name, source_url, ingredient_name,ingredient_unit,ingredient_amount,ingredient_prep,ingredient_string, instructions,user, user]
   client.query(SQL, safeValues)
     .then(results => {
@@ -196,6 +230,10 @@ function userSavedRecipe(request,response){
 
 function recipeBoxHandler(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
+
   const SQL = 'SELECT title , image, servings, id FROM recipies WHERE $1 = ANY(saved_by)';
   let safeValues = [request.oidc.user.email];
   client.query(SQL,safeValues)
@@ -206,13 +244,17 @@ function recipeBoxHandler(request,response){
       response.status(200).render('pages/recipe-box/recipebox.ejs',{
         recipeTotal : recipeCount,
         savedRecipesList :savedRecipesArr,
-        logedStatus : userStatus
+        userStatus : userStatus,
+        userInfo : userInfo
       });
     })
 }
 
 function recipeBoxDetail(request,response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
   console.log(request.params)
   const id = request.params.id;
   const SQL = 'SELECT * FROM recipies WHERE id=$1;';
@@ -224,24 +266,43 @@ function recipeBoxDetail(request,response){
       console.log('this is db recipe;',savedRecipe)
       response.render('pages/recipe-box/details.ejs',{
         recipe:savedRecipe,
-        logedStatus: userStatus
+        userStatus: userStatus,
+        userInfo : userInfo
       })
     })
 }
 
+function deleteRecipe (request, response){
+  const id = request.params.id;
+  console.log(id);
+  const user = [request.oidc.user.email];
+  const SQL = `UPDATE recipies SET saved_by = array_remove(saved_by,'${user}') WHERE $1 = id;`;
+  const safeValues = [id];
+  client.query(SQL,safeValues)
+    .then(() => {
+      response.redirect('/recipeBox');
+    })
+
+}
+
 function errorHandler(request, response) {
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let userInfo = request.oidc.user;
+  console.log(userStatus);
+  console.log(userInfo);
   app.use((err, req, res, next) => {
     console.log(err)
 
     response.status(500).render('500error.ejs',{
       error: err,
       error_Msg: err.message,
-      logedStatus : userStatus
+      userStatus : userStatus,
+      userInfo : userInfo
     });
   });
   response.status(404).render('404error.ejs',{
-    logedStatus : userStatus
+    userStatus : userStatus,
+    userInfo : userInfo
   });
 }
 

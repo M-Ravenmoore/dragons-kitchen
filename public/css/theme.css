@@ -51,6 +51,9 @@ button{
   border:#717171 3px inset;
   background-color: #000000ab; ;
 }
+.dropdown-nav{
+  background-color: #000000ab;
+}
 .dropdown-nav li{
   background-color: #AE9206a1;
 }
