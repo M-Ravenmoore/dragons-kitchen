@@ -13,7 +13,7 @@
       <main>
         <%- include('../../partials/recipe-card.ejs') %>
       <section class="btn-bar">
-        <button class="delete-btn" value="Delete">Delete Me</button>
+        <a href="/delete/<%= recipe.id %>"><button class="delete-btn" >Delete Me</button></a>
   
       </section>
 

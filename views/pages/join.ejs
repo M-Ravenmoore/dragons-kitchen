@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TKD: join TDK</title>
+    <%- include('../partials/head.ejs')%>
+  </head>
+  <body>
+    <header class="header">
+        <%- include('../partials/header.ejs') %>
+    </header>
+    <div class="top-push"></div>
+    <div class="content">
+      <main>
+        <article>
+          <h4>This is Your TDK Profile</h4>
+          <p>Step 2 is to set up your profile on TDK</p>
+        </article>
+        <section id=edit-user-info>
+          <form>
+            <fieldset>
+              <input type="text" name="display_name" placeholder="what to call you?"></input>
+              <input type="hidden" name="user_email" value="user"></input>
+              <input type="textbox" name="user_bio" placeholder="A short bit about you!"></input>
+              <select name="user_image" id="user_image" placeholder="Select a image">
+                <option value="cup"><img src="" alt="user image 1"></option>
+                <option value="Tbsp">Tablespoon(Tbsp)</option>
+              </select>
+
+            </fieldset>
+          </form>               
+        </section>
+      </main>
+    </div>
+    <div class="push"></div>
+    <footer>
+      <div class="footer-box">
+        <%- include('../partials/navigation.ejs') %>
+      </div>
+    </footer>
+    <script src="../js/nav.js"></script>
+  </body>
+</html>
+
+
+<li></li>
