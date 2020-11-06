@@ -2,6 +2,7 @@
 
 **Author**: Matt Ravenmoore
 **Current Version**: 0.6.1
+
 ## Overview
 
 A not so simple kitchen life helper app for mobile tablet and desktop use.
@@ -52,6 +53,7 @@ Languages:
 * version--0.5.2 10-27-2020 21:00 PST colors and fonts made live for designers
 * version--0.5.3 10-28-2020 13:24 PST the navigation have been made user friendly
 * version--0.6.1 10-29-2020 20:45 PST Main css and theme uploaded and built most of main functions are built and i am setting up for peer review.
+* version--0.7.1 11-06-2020 02:30 PST Crud functionality working. major bugs caught.
 
 ## Project Scope
 
@@ -70,11 +72,7 @@ a general site plan
 the mobile looks should end up like this:
 ![mobile](./readme/readme-img/mobile.png "mobile wireframe")
 the desktop version should look close to this:
-![alt text](./readme/readme-img/desktop.png "Desktop wireframe")
-
-## work log
-
-[Worklog](./readme/worklog.md)
+![alt text](./readme/readme-img/deskto<!-- add AJAX append to add lines using app.js and jqery -->
 
 this style guide is a template to be worked on as i get ideas:
 ![Style Guide](./readme/readme-img/style-guide.png "style-guide")

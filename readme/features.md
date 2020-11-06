@@ -4,15 +4,15 @@
 
 * user login and accounts (DONE using Auth0)
 * recipe db table with attachment to account (complete)
-* recipe finder with multiple options for getting meals (2 of 3 working on random btn) including:
+* recipe finder with multiple options for getting meals (2 of 3 still working on random btn) including:
   * by recipe
   * cuisine
 * api hit reducing logic for the search using a searchcache db(or array)that clears on site load.
-* clean user interface
 * about the creators page
 
 ## current working goals
 
+* clean user interface
 * create user info block globaly
 * user profile page
 * user recipies db connection for add/edit capaibilitys
@@ -25,9 +25,20 @@
 * shopping list maker (from ingredient lists)
 * expand shopping list for meal planning future feature
 * connect to spotify via account page
-  * if connected on cookit page generate 5 playlists based on some aspect of the meal
+  * if connected on cook-it page generate 5 playlists based on some aspect of the meal
 * have top 5 video results from youtube display below directions or in sidebar during cook this.
 * timer with mobile compatiblity
 * top 10 site searches section on home
 * seasonal sugestion section on home
 * db of factoids food and region related for use in the cook me page or other places in the app.
+
+## Problems Questions and Blocks
+
+* need some hepl understanding the syntax of join in SQL
+* how to call user info as a function to save code?
+* custom route for login  so i can build user db for bio ratings ect... auth 0 stuff
+  effectively login btns => auth0 login/signup for security =>
+  if {
+    user email is not in userdb then dump to /join then join=> /profile/:id }
+  else{
+    user email in userdb then dump to /profile/:id}

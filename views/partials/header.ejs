@@ -1,6 +1,18 @@
 <section class="header-content">
   <img class="logo" src="../assets/logos/right/tdk_logo_right_250.png">
   <h1 class="header-title">The Dragons Kitchen</h1>
+  <div class="user-block">
+    <% if (userStatus === 'Logged in'){ %>
+     <img class="user-image" src="<%= userInfo.picture %>" alt="user image">
+     <h5 class="user-name">Welcome back</h5>
+     <p><%= userInfo.nickname %></p>
+    <% }else{ %>
+      <h5 class="user-name">Welcome To TDK</h5>
+      <p>New Adventurer</p>
+    <% } %>
+
+  </div>
+
 </section>
 <section class="nav-bar">
   <div class="top-nav">
@@ -18,7 +30,7 @@
     <ul id="navLinks" class="dropdown-nav">
       <li><img class="menu-icon" src="../assets/icons/day/user_menu_daymode.png"><a href="/profile"><h6>Profile</h6></a></li>
       <li><img class="menu-icon" src="../assets/icons/day/recipe_chest_daymode.png"><a href="/recipeBox"><h6>Recipe-Box</h6></a></li>
-      <li><% if (logedStatus === 'Logged in'){ %>
+      <li><% if (userStatus === 'Logged in'){ %>
         <img class="menu-icon" src="../assets/icons/day/logout_handle_daymode.png"><a href="/logout"><h6>log Out</h6></a>
     <% }else{ %>
         <img class="menu-icon" src="../assets/icons/day/login_key_daymode.png"><a href="/login"><h6>login</h6></a>
