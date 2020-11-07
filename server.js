@@ -10,6 +10,7 @@ const {requiresAuth} = require('express-openid-connect');
 const pg = require('pg');
 const superagent = require('superagent');
 const methodOverRide = require('method-override')
+const session = require('express-session')
 const app = express();
 app.use(cors());
 
@@ -62,25 +63,35 @@ app.use('*', errorHandler);
 // custom middle ware
 // goal is to use db for user block from req header
 // i think i need to implememt use of session here but might need support.
-// app.use(tdkUserAdd);
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
+app.use(tdkUserAdd);
 
 // if loged in check user aginst tdkuser db and set as request.tdkUser{name image email}
-// function tdkUserAdd(request,response,next){
-//   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
-//   let user = request.oidc.user;
-//   if(userStatus === 'Logged in'){
-//     const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
-//     const safeValues = [user.email];
-//     client.query(SQL,safeValues)
-//       .then(results =>{
-//         let userinfo = results.rows[0];
-//         request.tdkUser.display_name =`${userinfo.display_name}`;
-//         request.tdkUser.user_image = `${userinfo.user_image}`;
-//         request.tdkUser.user_email = `${userinfo.user_email}`;
-//       })
-//   }
-//   next();
-// }
+function tdkUserAdd(request,response,next){
+  console.log("im here")
+  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
+  let user = request.oidc.user;
+  if(userStatus === 'Logged in'){
+    const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
+    const safeValues = [user.email];
+    client.query(SQL,safeValues)
+      .then(results =>{
+        let userinfo = results.rows[0];
+        request.session.tdkUser = {
+          display_name: `${userinfo.display_name}`,
+          user_image: `${userinfo.user_image}`,
+          user_email: `${userinfo.user_email}`,
+        };
+      })
+  }
+  next();
+}
 
 
 // universals
@@ -99,7 +110,7 @@ function getUserInfo (request){
 // render route Handlers
 
 function homeHandler(request,response){
-  console.log(request)
+  console.log(request.session)
   response.status(200).render('index.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)
