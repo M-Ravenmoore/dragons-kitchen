@@ -3,9 +3,9 @@
   <h1 class="header-title">The Dragons Kitchen</h1>
   <div class="user-block">
     <% if (userStatus === 'Logged in'){ %>
-     <img class="user-image" src="<%= userInfo.picture %>" alt="user image">
+     <img class="user-image" src="<%= userInfo.user_image %>" alt="user image">
      <h5 class="user-name">Welcome back</h5>
-     <p><%= userInfo.nickname %></p>
+     <p><%= userInfo.display_name%></p>
     <% }else{ %>
       <h5 class="user-name">Welcome To TDK</h5>
       <p>New Adventurer</p>

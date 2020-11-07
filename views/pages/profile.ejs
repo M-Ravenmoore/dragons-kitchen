@@ -17,11 +17,11 @@
           soon you will be able to login to spotify and see your saved recipes as a list and more. keep coming back for new features.</p>
         </article>
         <section id=user-info>
-          <h4>name</h4>fill from data
-          <p>email</p> fill from data
-          <p>TDK USER NAME</p> auto created but editable
-          <p>bio</p>if empty fill with defalult im a person bio
-          <p>profile img</p>
+          <h4><%= profile.display_name %></h4>
+          <p><%= profile.user_email %></p>
+          <p>Username: <%= userInfo.display_name %></p>
+          <p><%= profile.user_bio %></p>
+          <img src="<%= profile.user_image %>">
         </section>
         <!-- <img class="menu-icon" src="../assets/icons/day/spotify_daymode.png"><a href=""><h6>Spotify</h6></a> -->
       </main>

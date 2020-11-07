@@ -72,7 +72,7 @@ a general site plan
 the mobile looks should end up like this:
 ![mobile](./readme/readme-img/mobile.png "mobile wireframe")
 the desktop version should look close to this:
-![alt text](./readme/readme-img/deskto<!-- add AJAX append to add lines using app.js and jqery -->
+![alt text](./readme/readme-img/desktop.png)
 
 this style guide is a template to be worked on as i get ideas:
 ![Style Guide](./readme/readme-img/style-guide.png "style-guide")

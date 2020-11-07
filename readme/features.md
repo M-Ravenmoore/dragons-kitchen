@@ -34,11 +34,3 @@
 
 ## Problems Questions and Blocks
 
-* need some hepl understanding the syntax of join in SQL
-* how to call user info as a function to save code?
-* custom route for login  so i can build user db for bio ratings ect... auth 0 stuff
-  effectively login btns => auth0 login/signup for security =>
-  if {
-    user email is not in userdb then dump to /join then join=> /profile/:id }
-  else{
-    user email in userdb then dump to /profile/:id}
