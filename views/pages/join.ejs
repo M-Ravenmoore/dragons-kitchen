@@ -16,17 +16,17 @@
           <p>Step 2 is to set up your profile on TDK</p>
         </article>
         <section id=edit-user-info>
-          <form>
+            <form action="/join" method="POST">
             <fieldset>
               <input type="text" name="display_name" placeholder="what to call you?"></input>
-              <input type="hidden" name="user_email" value="user"></input>
+              <input type="hidden" name="user_email" value="<%= userInfo.user_email %>"></input>
               <input type="textbox" name="user_bio" placeholder="A short bit about you!"></input>
               <select name="user_image" id="user_image" placeholder="Select a image">
-                <option value="cup"><img src="" alt="user image 1"></option>
-                <option value="Tbsp">Tablespoon(Tbsp)</option>
+                <option value="../assets/profile/cultist_1.png"> Cult red</option>`~
               </select>
 
             </fieldset>
+            <button type="submit">see profile</button>
           </form>               
         </section>
       </main>

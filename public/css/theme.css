@@ -1,7 +1,3 @@
-/* font-family: 'Jolly Lodger', cursive;
-font-family: 'MedievalSharp', cursive;
-font-family: 'Metal Mania', cursive; */
-
 body{
   background-image: url(../assets/images/stones.jpg);
   background-repeat: repeat-y;
@@ -10,13 +6,13 @@ body{
 main{
   background-color: #000000ab;
   border-radius: 0 0 10px 10px;
-  border: outset #717171 3px;
+  border: outset #959595 3px;
 }
 a{
   color: #ddceb8;
 }
 a:hover{
-  color:#717171;
+  color:#959595;
 }
 a:visited{
   color: #494949
@@ -28,16 +24,16 @@ a:visited{
 button{
   font-family: 'Julee', cursive;
   color: #ddceb8;
-  background-color: #717171;
+  background-color: #959595;
 }
 /* window format */
-.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions{
+.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions,.profile-intro,#user-info ,#recipe-save-form{
   background-color: #5b0b0bb6;
-  border: 3px inset #3636db;
+  border: 3px inset #979595;
 }
 
 .header-content{
-  border-bottom: #3636dbf3 5px outset;
+  border-bottom: #959595f3 5px outset;
   background-color: #5b0b0bf3;
 }
 .menu_icon, .user_menu_icon{
@@ -48,7 +44,7 @@ button{
   color: #5B0B0B;
 }
 .slideshow-container, .result-image, .card-info ul,.recipe-image{
-  border:#717171 3px inset;
+  border:#959595 3px inset;
   background-color: #000000ab; ;
 }
 .dropdown-nav{

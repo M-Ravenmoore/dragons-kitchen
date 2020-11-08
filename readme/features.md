@@ -9,16 +9,19 @@
   * cuisine
 * api hit reducing logic for the search using a searchcache db(or array)that clears on site load.
 * about the creators page
+* clean user interface rough but easy to manipulate for most.
+* create user info block globaly (with some weirdness need to finish session setup to get working fully)
+* user profile page
+* user recipies db connection for add/edit capaibilitys
+* build table list of search types to create calls in backend
 
 ## current working goals
 
-* clean user interface
-* create user info block globaly
-* user profile page
-* user recipies db connection for add/edit capaibilitys
+### ajax and front end js for user recipes
+
+* create array of measure types and have render dropdown
 * add more ingredients button
 * add more instructions button
-* build table list of search types to create calls in backend
 
 ## **stretch goals**
 
@@ -34,11 +37,4 @@
 
 ## Problems Questions and Blocks
 
-* need some hepl understanding the syntax of join in SQL
-* how to call user info as a function to save code?
-* custom route for login  so i can build user db for bio ratings ect... auth 0 stuff
-  effectively login btns => auth0 login/signup for security =>
-  if {
-    user email is not in userdb then dump to /join then join=> /profile/:id }
-  else{
-    user email in userdb then dump to /profile/:id}
+* currently stuck with getting data in to req via express-session if anyone reads this and can help please contact me!!

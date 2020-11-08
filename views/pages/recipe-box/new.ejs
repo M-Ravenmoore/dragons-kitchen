@@ -34,26 +34,19 @@
                 source name
                 <input type="text" name="source_name" placeholder="source Name" ></input>
                 ingredients
+                <!-- add AJAX append to add lines using app.js and jqery -->
+                
                 <ol>
-                  <% for(let i = 1; i <= lineCount ; i++ ){ %>
                     <%- include('../../partials/ingredient-form.ejs') %>
-                  <% } %>
                   <a href=""><li>add more ingredients</li></a>
                 </ol>
                 directions
-<!-- add AJAX append to add lines using app.js and jqery -->
                 <ol>
-                  <% for(let i = 1; i <= instructionsLineCount ; i++ ){ %>
-                    <li><input type="text" name="instructions${i}" placeholder="Step by step instructions"></input></li>
-                  <% } %>
+                    <li><input type="text" name="instructions" placeholder="Step by step instructions"></input></li>
                 </ol>
-                
-                
               </fieldset>
               <input type="submit" value="Save this recipe">
-
             </form>
-
           </div>
         </section>
 

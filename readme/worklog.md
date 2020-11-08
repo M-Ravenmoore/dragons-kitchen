@@ -14,15 +14,14 @@
 * comments or notes:
 
 ## log
+### Log Entry xx
 
-### Log Entry 1
-
-* Name of feature worked on: Wireframing and planing
-* Description of work done: Built out file structure and wireframes for mobile and desktop, with the start to a color palet to be modified. readme built out and solid ground work made.
-* Start time: 4:15 pm
-* Finish time: 9:45pm
-* Total time on work: 5 hours 30 min
-* comments or notes:
+* Name of feature worked on:
+* Description of work done:
+* Start time: -:-- pm
+* Finish time: -:--pm
+* Total time on work: - hours -- min
+* comments or notes:tes:
 
 ### Log Entry 02
 
@@ -111,3 +110,19 @@ this is what lets you see loged in status put at any point for testing auth thro
 * Finish time: 17:40 PST
 * Total time on work: - hours 18 min
 * comments or notes:
+
+### Log Entry 14
+
+* Name of feature worked on: fixing CRUD
+* Description of work done: got data working properly and with update working.
+* Total time on work: 10 hours -- min
+* comments or notes: took a lot of work and a 3 hour session with my mentor but got it working.
+
+### Log Entry 15
+
+* Name of feature worked on: MVP clean up
+* Description of work done: compleated search params for user search and added random recipes option to search. also cleaned up user prfiles and the nav menu css. preped for TDK user experience working on session req problem.
+* Start time: 14:45 PST
+* Finish time: 19:27 PST
+* Total time on work: 4 hours 22 min
+* comments or notes: ALMOST THERE I CAN SEE THE END of this leg.
