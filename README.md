@@ -54,6 +54,7 @@ Languages:
 * version--0.5.3 10-28-2020 13:24 PST the navigation have been made user friendly
 * version--0.6.1 10-29-2020 20:45 PST Main css and theme uploaded and built most of main functions are built and i am setting up for peer review.
 * version--0.7.1 11-06-2020 02:30 PST Crud functionality working. major bugs caught.
+* version--0.8.1 11-07-2020 19:30 PST Large update towards mvp going to main tonight.
 
 ## Project Scope
 

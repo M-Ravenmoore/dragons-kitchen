@@ -27,7 +27,7 @@ button{
   background-color: #959595;
 }
 /* window format */
-.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions,.profile-intro,#user-info{
+.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions,.profile-intro,#user-info ,#recipe-save-form{
   background-color: #5b0b0bb6;
   border: 3px inset #979595;
 }

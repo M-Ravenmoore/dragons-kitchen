@@ -54,12 +54,12 @@ footer{
   display: flex;
   flex-direction: column;
 }
-.searchbar{
+.searchbar, #recipe-save-form{
   width: 75%;
   margin: 10px;
   padding: 3.5px;
 }
-.searchbar form{
+.searchbar form, #recipe-save-form form{
   padding: 5px;
 }
 .search-full{
@@ -68,9 +68,6 @@ footer{
   justify-content: space-evenly;
   border: 3px black ridge;
 }
-.search-main {
-}
-
 #recomends{
   margin:10px auto;
   width:95%;
