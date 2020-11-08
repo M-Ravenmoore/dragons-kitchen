@@ -42,6 +42,12 @@
   display: none;
   margin:5px;
 }
+.user-nav .icon{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+}
 .nav-bar{
   display:flex;
   justify-content: space-between;
@@ -49,10 +55,12 @@
 .user_menu_icon{
   width: 35px;
 }
-.top-nav, .user-nav{
+.top-nav{
   display: flex;
-  justify-content: center;
-  align-items: center;
+  float:left
+}
+.top-nav ul{
+  height: 40px;
 }
 .menu-icon{
   width: 25px;

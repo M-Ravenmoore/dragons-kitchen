@@ -6,9 +6,20 @@
   justify-content: center;
   align-items: center;
 }
-.card-info, .tdk-recomends, #result-details, .result-card,.recipe-card-info, .recipe-image, .recipe-title, .recipebox-list{
+.card-info, .tdk-recomends, #result-details, .result-card,.recipe-card-info, .recipe-image, .recipe-title, .recipebox-list, .profile-intro{
   margin: 5px auto;
   padding: 3px;
+}
+#user-info{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px auto;
+  padding: 5px;
+  width: 80%
+}
+.profile-intro{
+  width: 90%
 }
 .header-title{
   width:70%;
@@ -23,6 +34,7 @@
   align-items: center;
   z-index: 9;
 }
+
 main{
   padding-top: 5px;
   margin-bottom:5px;
@@ -42,13 +54,19 @@ footer{
   display: flex;
   flex-direction: column;
 }
-.searchbar{
+.searchbar, #recipe-save-form{
   width: 75%;
   margin: 10px;
   padding: 3.5px;
 }
-.searchbar form{
+.searchbar form, #recipe-save-form form{
   padding: 5px;
+}
+.search-full{
+  margin: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  border: 3px black ridge;
 }
 #recomends{
   margin:10px auto;
@@ -94,3 +112,13 @@ footer{
 .recipe-card-ingredients{
   width: 45%;
 }
+
+/* user profile */
+
+.profile-image{
+  width: 25%;
+}
+.user-id{
+  width :55%;
+}
+

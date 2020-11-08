@@ -41,3 +41,9 @@ images will need to be gotten for instruction slideshow but i got that back up a
 * 10/29/2020
 
 Refinded the css most of today and got some simple js funcions working show and hide kind of things i am still fightng join for sql waiting on chris to have some time but work has him swamped... feel that im close to mvp so i will be pushing to main tonight to share with people and get feedback.
+
+*11/07/2020
+
+After avoiding the data storage problems and a few other small things for a week i finaly got things working forward again and have gotten close to mvp plan is to tidy up the last few mvp feature and put theis project out for people to use and critique untill the end of my 401 then come back and refactor it for and upgrade after to stay busy after class and befor i find a job.
+
+I have really enjoyed the challenge of getting user information moving and saving safely and learning alot on my own is great... cant wait to cement this in class commng up in decemger one month to go.
