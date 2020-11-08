@@ -11,17 +11,19 @@
     <div class="top-push"></div>
     <div class="content">
       <main>
-        <article>
+        <article class="profile-intro">
           <h4>This is Your TDK Profile</h4>
           <p>This is how we see you. right now you can change your screen name, pick a icon...
           soon you will be able to login to spotify and see your saved recipes as a list and more. keep coming back for new features.</p>
         </article>
         <section id=user-info>
-          <h4><%= profile.display_name %></h4>
-          <p><%= profile.user_email %></p>
-          <p>Username: <%= userInfo.display_name %></p>
-          <p><%= profile.user_bio %></p>
-          <img src="<%= profile.user_image %>">
+          <img class="profile-image" src="<%= profile.user_image %>">
+          <div class="user-id">
+            <h3><%= profile.display_name %></h3>
+            <h5>user email</h5><p><%= profile.user_email %></p>
+            <h5>Username:</h5><p> <%= userInfo.display_name %></p>
+            <h5>user bio</h5><p><%= profile.user_bio %></p>
+          </div>
         </section>
         <!-- <img class="menu-icon" src="../assets/icons/day/spotify_daymode.png"><a href=""><h6>Spotify</h6></a> -->
       </main>

@@ -42,8 +42,11 @@
   display: none;
   margin:5px;
 }
-.user-nav{
-  display:block
+.user-nav .icon{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
 }
 .nav-bar{
   display:flex;
@@ -54,8 +57,10 @@
 }
 .top-nav{
   display: flex;
-  justify-content: center;
-  align-items: top ;
+  float:left
+}
+.top-nav ul{
+  height: 40px;
 }
 .menu-icon{
   width: 25px;
