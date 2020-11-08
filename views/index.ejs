@@ -27,6 +27,7 @@
             <a href="/join"><button id="join">Come Join The Dragons In the Kitchen</button></a>
           </div>
           <% }else{ %>
+
   <!-- TODO(1)Add further search features -->
           <div class="searchbar">
             <form action="/searchRecipies" method="POST">
@@ -37,11 +38,20 @@
                   <select name="type" id="search-select" placeholder="Select">
                     <option value="query">Recipe</option>
                     <option value="cuisine">Cuisine</option>
+                    <option value="author">author</option>
                   </select>
+                  <label for="vegetarian"><h6>Vegetarian</h6></label>
+                  <input type="checkbox" name="vegetarian" id="vegetarian" value="vegetarian">
+                  <label for="vegan"><h6>Vegan</h6></label>
+                  <input type="checkbox" name="vegan" id="vegan" value="vegan">
                 <label for="result-count"><h6>Return with:</h6></label>
-                <input type="number" id="result-count" name="count" min="5" max="20">
+                <input type="number" id="result-count" name="count" min="1" max="25" value="1">
               </feildset>
               <button type="submit">search</button>
+            </form>
+            <form action="/randomRecipies" method="POST">
+              <input type="hidden" value="random">
+              <button type="submit">5 Random Recipies</button>
             </form>
           </div>
           <% } %>        

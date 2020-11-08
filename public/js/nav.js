@@ -10,10 +10,10 @@ function navMenu() {
 
 function userMenu() {
   var x = document.getElementById("navLinks");
-  if (x.style.display === "flex") {
+  if (x.style.display === "block") {
     x.style.display = "none";
   } else {
-    x.style.display = "flex";
+    x.style.display = "block";
   }
 }
 

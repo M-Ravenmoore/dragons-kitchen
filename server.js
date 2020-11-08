@@ -12,7 +12,6 @@ const superagent = require('superagent');
 const methodOverRide = require('method-override')
 const session = require('express-session')
 const app = express();
-app.use(cors());
 
 // port setup and error catch
 const PORT = process.env.PORT || 4004;
@@ -34,35 +33,12 @@ const auth0Config = {
 
 // middleware garrage
 app.set('view engine', 'ejs');
+app.use(cors());
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverRide('_method'));
 app.use(auth(auth0Config));
 
-
-// route landing
-app.get('/', homeHandler);
-app.get('/profile', requiresAuth(), profileHandler);
-app.get('/about', aboutHandler);
-app.post('/searchRecipies',requiresAuth(), getRecipies);
-app.get('/recipeDetails/:id', getRecipeDetails)
-app.get('/recipeBox', requiresAuth(), recipeBoxHandler)
-app.post('/recipeBox', savedRecipe);
-app.get('/recipeBox/:id', recipeBoxDetail);
-app.get('/newRecipe', newRecipeCreate)
-app.post('/newRecipe', userSavedRecipe)
-app.get('/join' , requiresAuth(), joinHandler)
-app.post('/join', saveUser)
-app.get('/delete/:id', deleteRecipe)
-
-// error proccessing
-app.get('/error', errorHandler)
-app.use('*', errorHandler);
-
-
-// custom middle ware
-// goal is to use db for user block from req header
-// i think i need to implememt use of session here but might need support.
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -72,9 +48,29 @@ app.use(session({
 
 app.use(tdkUserAdd);
 
-// if loged in check user aginst tdkuser db and set as request.tdkUser{name image email}
+// route landing
+app.get('/', homeHandler);
+app.get('/profile', requiresAuth(), profileHandler);
+app.get('/about', aboutHandler);
+app.get('/recipeDetails/:id', getRecipeDetails)
+app.get('/recipeBox', requiresAuth(), recipeBoxHandler)
+app.get('/recipeBox/:id', recipeBoxDetail);
+app.get('/newRecipe', newRecipeCreate)
+app.get('/join' , requiresAuth(), joinHandler)
+app.get('/delete/:id', deleteRecipe)
+app.post('/searchRecipies',requiresAuth(), getRecipies);
+app.post('/randomRecipies',requiresAuth(), getRandom)
+app.post('/recipeBox', savedRecipe);
+app.post('/newRecipe', userSavedRecipe)
+app.post('/join', saveUser)
+
+// error proccessing
+app.get('/error', errorHandler)
+app.use('*', errorHandler);
+
+
+// TODO(get some help getting this working session works and i can see it at the end of the proccessing but not when it want to read the data it is hitting in the wrong order and i cant find why.)
 function tdkUserAdd(request,response,next){
-  console.log("im here")
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   let user = request.oidc.user;
   if(userStatus === 'Logged in'){
@@ -88,11 +84,12 @@ function tdkUserAdd(request,response,next){
           user_image: `${userinfo.user_image}`,
           user_email: `${userinfo.user_email}`,
         };
+        console.log("im here", userStatus, request.session.tdkUser);
+        // not getting this out of here..
       })
   }
   next();
 }
-
 
 // universals
 function getUserStatus (request){
@@ -110,7 +107,7 @@ function getUserInfo (request){
 // render route Handlers
 
 function homeHandler(request,response){
-  console.log(request.session)
+  console.log('user Data',request.session)
   response.status(200).render('index.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)
@@ -178,15 +175,34 @@ function getRecipies (request,response){
   const queryContent = request.body.content;
   const queryType = request.body.type;
   const queryCount = request.body.count;
+  const queryVegi = request.body.vegetarian;
+  const queryVegan = request.body.vegan;
   let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.SPOON_API_KEY}&
-  instructionsRequired=true&addRecipeInformation=true&number=${queryCount}&analyzedInstructions`;
+  instructionsRequired=true&addRecipeInformation=true&number=${queryCount}&analyzedInstructions&sort=random`;
   if (queryType === 'query'){ url += `&query=${queryContent}`}
-  if (queryType === 'cuisine'){url += `&query=${queryContent}`}
+  if (queryType === 'cuisine'){url += `&cuisine=${queryContent}`}
+  if (queryType === 'author'){url += `&author=${queryContent}`}
+  if (queryVegi ){url += `&diet=${queryVegi}`}
+  if (queryVegan ){url += `&diet=${queryVegan}`}
   superagent(url)
     .then(results => {
       const resultsArr = results.body.results;
+      // console.log(results.body.results)
       const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
       response.status(200).render('pages/search/show',{resultItems : sendableResults,
+        userStatus : getUserStatus(request),
+        userInfo : getUserInfo(request)})
+    })
+}
+function getRandom (request,response){
+  let url = `https://api.spoonacular.com/recipes/random?apiKey=${process.env.SPOON_API_KEY}&
+  instructionsRequired=true&addRecipeInformation=true&number=5`;
+  superagent(url)
+    .then(results => {
+      const resultsArr = results.body.recipes;
+      const sendableResults = resultsArr.map(resultData => new ResultItem(resultData));
+      response.status(200).render('pages/search/show',{
+        resultItems : sendableResults,
         userStatus : getUserStatus(request),
         userInfo : getUserInfo(request)})
     })
