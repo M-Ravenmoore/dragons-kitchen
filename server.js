@@ -47,9 +47,8 @@ app.use(session({
 }));
 
 app.use(tdkUserAdd);
-
 // route landing
-app.get('/', homeHandler);
+app.get('/',homeHandler);
 app.get('/profile', requiresAuth(), profileHandler);
 app.get('/about', aboutHandler);
 app.get('/recipeDetails/:id', getRecipeDetails)
@@ -65,12 +64,13 @@ app.post('/newRecipe', userSavedRecipe)
 app.post('/join', saveUser)
 
 // error proccessing
+
 app.get('/error', errorHandler)
 app.use('*', errorHandler);
 
 
 // TODO(get some help getting this working session works and i can see it at the end of the proccessing but not when it want to read the data it is hitting in the wrong order and i cant find why.)
-function tdkUserAdd(request,response,next){
+function fetch(request, response){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   let user = request.oidc.user;
   if(userStatus === 'Logged in'){
@@ -78,16 +78,21 @@ function tdkUserAdd(request,response,next){
     const safeValues = [user.email];
     client.query(SQL,safeValues)
       .then(results =>{
+        console.log('in the tdk user' ,results.rows[0])
         let userinfo = results.rows[0];
         request.session.tdkUser = {
           display_name: `${userinfo.display_name}`,
           user_image: `${userinfo.user_image}`,
           user_email: `${userinfo.user_email}`,
         };
-        console.log("im here", userStatus, request.session.tdkUser);
+        console.log('im here inside sql ln 88', userStatus, request.session);
         // not getting this out of here..
       })
   }
+}
+function tdkUserAdd(request,response,next){
+  request.session.test = 'testing session works';
+  request.session.tdkUser = fetch(request);
   next();
 }
 
@@ -107,7 +112,7 @@ function getUserInfo (request){
 // render route Handlers
 
 function homeHandler(request,response){
-  console.log('user Data',request.session)
+  console.log('user Data page load ln 114',request.session)
   response.status(200).render('index.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)
