@@ -2,6 +2,7 @@ body{
   background-image: url(../assets/images/stones.jpg);
   background-repeat: repeat-y;
   background-size: 100%;
+  color: #ddceb8;
 }
 main{
   background-color: #000000ab;
@@ -17,7 +18,7 @@ a:hover{
 a:visited{
   color: #494949
 }
-.card-info li, .recipe-card li{
+.card-info li, #recipe-card li{
   font-family: 'Julee', cursive;
   color: #ddceb8;
 }
@@ -27,9 +28,10 @@ button{
   background-color: #959595;
 }
 /* window format */
-.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-card-info,.recipe-card-ingredients,.recipe-card-instructions,.profile-intro,#user-info ,#recipe-save-form{
+.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-title,.recipe-card-ingredients,.recipe-card-instructions,.profile-intro,#user-info ,#recipe-save-form, .recipe-card-info{
   background-color: #5b0b0bb6;
   border: 3px inset #979595;
+
 }
 
 .header-content{

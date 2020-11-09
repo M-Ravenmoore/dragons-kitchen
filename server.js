@@ -125,7 +125,7 @@ function joinHandler(request,response){
   client.query(SQL,safeValues)
     .then(results =>{
       if(results.rowCount !== 0){
-        response.status(200).redirect('/profile')
+        response.status(200).redirect('/')
       }else{
         response.status(200).render('pages/join.ejs',{
           userStatus : getUserStatus(request),
@@ -365,13 +365,12 @@ function ResultItem (result) {
 function Recipe (recipeData) {
   this.spoon_id =recipeData.id;
   this.title = recipeData.title;
-  this.time = recipeData.readyInMinutes ? recipeData.readyInMinutes : 'not listed';
-  this.servings = recipeData.servings ? recipeData.servings : 'not listed';
+  this.time = recipeData.readyInMinutes ? recipeData.readyInMinutes : 'N/A';
+  this.servings = recipeData.servings ? recipeData.servings : 'N/A';
   this.image = recipeData.image;
   this.vegetarian = `${recipeData.vegetarian}`;
   this.vegan = `${recipeData.vegan}`;
   this.instructions = recipeData.instructions;
-  this.wine = recipeData.winePairing ? recipeData.winePairing : 'not listed';
   this.ingredients_string = recipeData.extendedIngredients.map(ingredient => ingredient.originalString)
   this.ingredients_name = recipeData.extendedIngredients.map(ingredient => ingredient.name);
   this.ingredients_unit = recipeData.extendedIngredients.map(ingredient => ingredient.unit);

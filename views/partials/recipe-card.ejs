@@ -1,22 +1,28 @@
-<section class="recipe-card">
-  <h3 class="recipe-title"><%= recipe.title %></h3>
-  <img class="recipe-image" src="<%= recipe.image %>">
+<section id="recipe-card">
   <div class="recipe-card-header">
-    <ul class="recipe-card-info">
-      <li class="-recipe-serving">Servings: <%= recipe.servings %></li>
-      <li class="recipe-time">time to cook: <%= recipe.time %></li>
-      <li class="recipe-vegetarian">vegetarian: <%= recipe.vegetarian %></li>
-      <li class="recipe-vegan">vegan: <%= recipe.vegan %></li>
-      <li class="recipe-source">source: <a href= "<%=recipe.source_url %>" > <%= recipe.source_name %></a></li>
-    </ul>
+    <h3 class="recipe-title"><%= recipe.title %></h3>
+    <img class="recipe-image" src="<%= recipe.image %>">
   </div>
-  <div class="recipe-card-ingredients">
-    <h4 class="ingredients-title">Ingredients</h4>
-    <ul class="recipe-ingredients">
-     <% recipe.ingredients_string.forEach(ingredient =>{ %>
-      <li><%= ingredient %></li>
-     <% })%>          
-    </ul>
+  <div class="upper-card">
+    <div class="recipe-card-ingredients">
+      <h4 class="ingredients-title">Ingredients</h4>
+      <ul class="recipe-ingredients">
+      <% recipe.ingredients_string.forEach(ingredient =>{ %>
+        <li><%= ingredient %></li>
+        <% })%>          
+      </ul>
+    </div>
+    <div class="recipe-card-info">
+      <h4>Info</h4>
+      <ul>
+        <li class="recipe-serving">Servings: <%= recipe.servings %></li>
+        <li class="recipe-time">time to cook: <%= recipe.time %></li>
+        <!-- todo make vegetarian and vegan into checkboxes -->
+        <li class="recipe-vegetarian">vegetarian: <%= recipe.vegetarian %></li>
+        <li class="recipe-vegan">vegan: <%= recipe.vegan %></li>
+        <li class="recipe-source">source: <a href= "<%=recipe.source_url %>" > <%= recipe.source_name %></a></li>
+      </ul>
+    </div>
   </div>
   <div class="recipe-card-instructions">
     <h3>Instructions</h3>

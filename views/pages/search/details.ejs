@@ -13,7 +13,7 @@
     <div class="content">
       <main>
         <%- include('../../partials/recipe-card.ejs') %>
-        <div id="recipe-save-form">
+        <div>
           <form action="/recipeBox" method="POST">
             <fieldset>
               <input type="hidden" name="spoon_id" value="<%= recipe.spoon_id %>"></input>
@@ -25,23 +25,19 @@
               <input type="hidden" name="vegan" value="<%= recipe.vegan %>"></input>
               <input type="hidden" name="source_url" value="<%= recipe.sourceUrl %>"></input>
               <input type="hidden" name="source_name" value="<%= recipe.source_name %>"></input>
-              <ol>
-                <li>
-                  <% recipe.ingredients_name.forEach(ingredient =>{ %>
-                  <input type="hidden" name="ingredients_name" value="<%= ingredient %>"></input>
-                  <% }) %>
-                  <% recipe.ingredients_unit.forEach(unit =>{ %>
-                  <input type="hidden" name="ingredients_unit" value="<%= unit %>"></input>
-                  <% }) %>
-                  <% recipe.ingredients_amount.forEach(amount =>{ %>
-                  <input type="hidden" name="ingredients_amount" value="<%= amount %>"></input>
-                  <% }) %>
-                  <% recipe.ingredients_string.forEach(string =>{ %>
-                    <input type="hidden" name="ingredients_string" value="<%= string %>"></input>
-                    <% }) %>
-                </li>
-              </ol>
-              <input type="hidden" name="instructions" value="<%= recipe.instructions %>"></input>
+              <% recipe.ingredients_name.forEach(ingredient =>{ %>
+                <input type="hidden" name="ingredients_name" value="<%= ingredient %>"></input>
+              <% }) %>
+              <% recipe.ingredients_unit.forEach(unit =>{ %>
+                <input type="hidden" name="ingredients_unit" value="<%= unit %>"></input>
+              <% }) %>
+              <% recipe.ingredients_amount.forEach(amount =>{ %>
+                <input type="hidden" name="ingredients_amount" value="<%= amount %>"></input>
+              <% }) %>
+              <% recipe.ingredients_string.forEach(string =>{ %>
+                <input type="hidden" name="ingredients_string" value="<%= string %>"></input>
+              <% }) %>
+              <input type="hidden" name="instructions" value="<%- recipe.instructions %>"></input>
             </fieldset>
             <input type="submit" value="Save this recipe">
           </form>
