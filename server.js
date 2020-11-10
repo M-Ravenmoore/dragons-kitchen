@@ -91,7 +91,6 @@ function getUserInfo (request){
 // render route Handlers
 
 function homeHandler(request,response){
-  console.log('user Data page load ln 114',request.session)
   response.status(200).render('index.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)
@@ -116,10 +115,8 @@ function joinHandler(request,response){
     })
 }
 function profileHandler (request,response){
-  console.log('user Data page load ln 119',request.session)
-  let user = new User(request.oidc.user);
   const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
-  const safeValues = [user.user_email];
+  const safeValues = [getUserInfo(request).user_email];
   console.log(safeValues)
   client.query(SQL,safeValues)
     .then(results =>{
@@ -199,14 +196,14 @@ function getRandom (request,response){
 function getRecipeDetails (request,response){
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
-  const user = request.oidc.user.email;
+  const user = getUserInfo(request);
   let safeValues = [spoonId];
   const SQL = 'SELECT * FROM recipies WHERE $1=spoon_id'
   client.query(SQL,safeValues)
     .then(results =>{
       if(results.rowCount !== 0){
-        console.log(results.rows[0].saved_by, user)
-        if(results.rows[0].saved_by.includes(user)){
+        console.log(results.rows[0].saved_by, user.user_email)
+        if(results.rows[0].saved_by.includes(user.user_email)){
           let id = results.rows[0].id;
           response.status(200).redirect(`/recipeBox/${id}`);
         }else{

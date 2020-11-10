@@ -19,9 +19,17 @@
   width: 80%
 }
 .profile-intro{
-  width: 90%
-}
-.header-title{
+  width: 90% <div class="recipe-card-info">
+  <h4>Info</h4>
+  <ul>
+    <li class="recipe-serving">Servings: <%= recipe.servings %></li>
+    <li class="recipe-time">time to cook: <%= recipe.time %></li>
+    <!-- todo make vegetarian and vegan into checkboxes -->
+    <li class="recipe-vegetarian">vegetarian: <%= recipe.vegetarian %></li>
+    <li class="recipe-vegan">vegan: <%= recipe.vegan %></li>
+    <li class="recipe-source">source: <a href= "<%=recipe.source_url %>" > <%= recipe.source_name %></a></li>
+  </ul>
+</div>
   width:70%;
 }
 .logo{
@@ -125,7 +133,9 @@ footer{
 }
 .recipe-card-instructions ol{
   list-style-type: decimal;
+  
 }
+.upper-card
 /* user profile */
 
 .profile-image{
