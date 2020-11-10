@@ -68,35 +68,14 @@ app.post('/join', saveUser)
 app.get('/error', errorHandler)
 app.use('*', errorHandler);
 
-
-// TODO(get some help getting this working session works and i can see it at the end of the proccessing but not when it want to read the data it is hitting in the wrong order and i cant find why.)
-function fetch(request, response){
-  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
-  let user = request.oidc.user;
-  if(userStatus === 'Logged in'){
-    const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
-    const safeValues = [user.email];
-    client.query(SQL,safeValues)
-      .then(results =>{
-        console.log('in the tdk user' ,results.rows[0])
-        let userinfo = results.rows[0];
-        request.session.tdkUser = {
-          display_name: `${userinfo.display_name}`,
-          user_image: `${userinfo.user_image}`,
-          user_email: `${userinfo.user_email}`,
-        };
-        console.log('im here inside sql ln 88', userStatus, request.session);
-        // not getting this out of here..
-      })
-  }
-}
+let sessUser;
+// universals
 function tdkUserAdd(request,response,next){
+  // can add things to req here
   request.session.test = 'testing session works';
-  request.session.tdkUser = fetch(request);
+  request.session.tdkUser = sessUser;
   next();
 }
-
-// universals
 function getUserStatus (request){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   return userStatus;
@@ -104,7 +83,7 @@ function getUserStatus (request){
 
 function getUserInfo (request){
   if (getUserStatus(request)=== 'Logged in'){
-    let user = new User(request.oidc.user);
+    let user = request.session.tdkUser;
     return user;
   }
 }
@@ -118,6 +97,7 @@ function homeHandler(request,response){
     userInfo : getUserInfo(request)
   });
 }
+
 function joinHandler(request,response){
   let user = request.oidc.user;
   const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
@@ -125,16 +105,18 @@ function joinHandler(request,response){
   client.query(SQL,safeValues)
     .then(results =>{
       if(results.rowCount !== 0){
+        sessUser = results.rows[0];
         response.status(200).redirect('/')
       }else{
         response.status(200).render('pages/join.ejs',{
           userStatus : getUserStatus(request),
-          userInfo : getUserInfo(request)
+          userInfo : getUserInfo(request),
         });
       }
     })
 }
 function profileHandler (request,response){
+  console.log('user Data page load ln 119',request.session)
   let user = new User(request.oidc.user);
   const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
   const safeValues = [user.user_email];
@@ -158,6 +140,8 @@ function aboutHandler(request,response){
   });
 }
 function newRecipeCreate(request,response){
+  // let ingredientCount;
+  // let directionCount;
   response.status(200).render('pages/recipe-box/new.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)})
