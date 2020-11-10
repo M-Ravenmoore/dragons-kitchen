@@ -1,12 +1,12 @@
 /* MOBILE */
 
 /* dragons body flexing and general */
-#footer-box, #action-row, .tdk-recomends, .searchbar form, .result-card-header,.result-card-info{
+#footer-box, #action-row,#recipe-card, .tdk-recomends, .searchbar form, .result-card-header,.result-card-info, .recipe-image, .upper-card{
   display:flex;
   justify-content: center;
   align-items: center;
 }
-.card-info, .tdk-recomends, #result-details, .result-card,.recipe-card-info, .recipe-image, .recipe-title, .recipebox-list, .profile-intro{
+.card-info, .tdk-recomends, #result-details, .result-card,.recipe-card-header,.recipe-card-instructions, .recipe-title, .recipebox-list, .profile-intro, .upper-card{
   margin: 5px auto;
   padding: 3px;
 }
@@ -19,9 +19,17 @@
   width: 80%
 }
 .profile-intro{
-  width: 90%
-}
-.header-title{
+  width: 90% <div class="recipe-card-info">
+  <h4>Info</h4>
+  <ul>
+    <li class="recipe-serving">Servings: <%= recipe.servings %></li>
+    <li class="recipe-time">time to cook: <%= recipe.time %></li>
+    <!-- todo make vegetarian and vegan into checkboxes -->
+    <li class="recipe-vegetarian">vegetarian: <%= recipe.vegetarian %></li>
+    <li class="recipe-vegan">vegan: <%= recipe.vegan %></li>
+    <li class="recipe-source">source: <a href= "<%=recipe.source_url %>" > <%= recipe.source_name %></a></li>
+  </ul>
+</div>
   width:70%;
 }
 .logo{
@@ -48,7 +56,7 @@ footer{
   width: 100%;
 }
 /* index home page */
-#first-row, #results, .recipe-card, .recipebox-list{
+#first-row, #results, #recipe-card, .recipebox-list{
   margin: 5px auto;
   padding: 3.5px;
   display: flex;
@@ -102,17 +110,32 @@ footer{
  float: right;
 }
 /* Recipe details card for reading recipes*/
+.upper-card{
+  width:95%;
+}
 .recipe-title{
   width: 80%;
+}
+.recipe-card-info{
+  margin: 10px auto;
+  width: 30%
 }
 .recipe-image{
   margin: 5px auto;
   width: 90%;
 }
 .recipe-card-ingredients{
+  margin: 10px,auto;
   width: 45%;
 }
-
+#recipe-card ul {
+  list-style-type: square;
+}
+.recipe-card-instructions ol{
+  list-style-type: decimal;
+  
+}
+.upper-card
 /* user profile */
 
 .profile-image{

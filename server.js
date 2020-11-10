@@ -68,35 +68,14 @@ app.post('/join', saveUser)
 app.get('/error', errorHandler)
 app.use('*', errorHandler);
 
-
-// TODO(get some help getting this working session works and i can see it at the end of the proccessing but not when it want to read the data it is hitting in the wrong order and i cant find why.)
-function fetch(request, response){
-  let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
-  let user = request.oidc.user;
-  if(userStatus === 'Logged in'){
-    const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
-    const safeValues = [user.email];
-    client.query(SQL,safeValues)
-      .then(results =>{
-        console.log('in the tdk user' ,results.rows[0])
-        let userinfo = results.rows[0];
-        request.session.tdkUser = {
-          display_name: `${userinfo.display_name}`,
-          user_image: `${userinfo.user_image}`,
-          user_email: `${userinfo.user_email}`,
-        };
-        console.log('im here inside sql ln 88', userStatus, request.session);
-        // not getting this out of here..
-      })
-  }
-}
+let sessUser;
+// universals
 function tdkUserAdd(request,response,next){
+  // can add things to req here
   request.session.test = 'testing session works';
-  request.session.tdkUser = fetch(request);
+  request.session.tdkUser = sessUser;
   next();
 }
-
-// universals
 function getUserStatus (request){
   let userStatus = request.oidc.isAuthenticated() ? 'Logged in' : 'Logged out';
   return userStatus;
@@ -104,7 +83,7 @@ function getUserStatus (request){
 
 function getUserInfo (request){
   if (getUserStatus(request)=== 'Logged in'){
-    let user = new User(request.oidc.user);
+    let user = request.session.tdkUser;
     return user;
   }
 }
@@ -112,12 +91,12 @@ function getUserInfo (request){
 // render route Handlers
 
 function homeHandler(request,response){
-  console.log('user Data page load ln 114',request.session)
   response.status(200).render('index.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)
   });
 }
+
 function joinHandler(request,response){
   let user = request.oidc.user;
   const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
@@ -125,19 +104,19 @@ function joinHandler(request,response){
   client.query(SQL,safeValues)
     .then(results =>{
       if(results.rowCount !== 0){
-        response.status(200).redirect('/profile')
+        sessUser = results.rows[0];
+        response.status(200).redirect('/')
       }else{
         response.status(200).render('pages/join.ejs',{
           userStatus : getUserStatus(request),
-          userInfo : getUserInfo(request)
+          userInfo : getUserInfo(request),
         });
       }
     })
 }
 function profileHandler (request,response){
-  let user = new User(request.oidc.user);
   const SQL = 'SELECT * FROM userdata WHERE user_email = $1;';
-  const safeValues = [user.user_email];
+  const safeValues = [getUserInfo(request).user_email];
   console.log(safeValues)
   client.query(SQL,safeValues)
     .then(results =>{
@@ -158,6 +137,8 @@ function aboutHandler(request,response){
   });
 }
 function newRecipeCreate(request,response){
+  // let ingredientCount;
+  // let directionCount;
   response.status(200).render('pages/recipe-box/new.ejs',{
     userStatus : getUserStatus(request),
     userInfo : getUserInfo(request)})
@@ -215,14 +196,14 @@ function getRandom (request,response){
 function getRecipeDetails (request,response){
   const spoonId = request.params.id.slice(1);
   console.log(spoonId)
-  const user = request.oidc.user.email;
+  const user = getUserInfo(request);
   let safeValues = [spoonId];
   const SQL = 'SELECT * FROM recipies WHERE $1=spoon_id'
   client.query(SQL,safeValues)
     .then(results =>{
       if(results.rowCount !== 0){
-        console.log(results.rows[0].saved_by, user)
-        if(results.rows[0].saved_by.includes(user)){
+        console.log(results.rows[0].saved_by, user.user_email)
+        if(results.rows[0].saved_by.includes(user.user_email)){
           let id = results.rows[0].id;
           response.status(200).redirect(`/recipeBox/${id}`);
         }else{
@@ -365,13 +346,12 @@ function ResultItem (result) {
 function Recipe (recipeData) {
   this.spoon_id =recipeData.id;
   this.title = recipeData.title;
-  this.time = recipeData.readyInMinutes ? recipeData.readyInMinutes : 'not listed';
-  this.servings = recipeData.servings ? recipeData.servings : 'not listed';
+  this.time = recipeData.readyInMinutes ? recipeData.readyInMinutes : 'N/A';
+  this.servings = recipeData.servings ? recipeData.servings : 'N/A';
   this.image = recipeData.image;
   this.vegetarian = `${recipeData.vegetarian}`;
   this.vegan = `${recipeData.vegan}`;
   this.instructions = recipeData.instructions;
-  this.wine = recipeData.winePairing ? recipeData.winePairing : 'not listed';
   this.ingredients_string = recipeData.extendedIngredients.map(ingredient => ingredient.originalString)
   this.ingredients_name = recipeData.extendedIngredients.map(ingredient => ingredient.name);
   this.ingredients_unit = recipeData.extendedIngredients.map(ingredient => ingredient.unit);
