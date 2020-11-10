@@ -109,7 +109,7 @@ function joinHandler(request,response){
       }else{
         response.status(200).render('pages/join.ejs',{
           userStatus : getUserStatus(request),
-          userInfo : getUserInfo(request),
+          userInfo : user,
         });
       }
     })
@@ -148,12 +148,14 @@ function newRecipeCreate(request,response){
 
 function saveUser (request, response){
   console.log('im a req.body',request.body);
-  let user_email = request.oidc.user.email;
-  const {display_name, user_bio, user_image} = request.body;
+  // let user_email = request.oidc.user.email;
+  const {display_name,user_email, user_bio, user_image} = request.body;
   const SQL = 'INSERT INTO userdata (display_name, user_email, user_bio, user_image) VALUES ($1,$2,$3,$4) RETURNING user_email;';
   const safeValues = [display_name, user_email, user_bio, user_image];
   client.query(SQL,safeValues)
     .then(results =>{
+      sessUser = request.body;
+      console.log(results)
       response.status(200).redirect('/profile')
     })
 }
