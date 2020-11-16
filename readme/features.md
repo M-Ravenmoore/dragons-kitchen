@@ -17,6 +17,15 @@
 
 ## current working goals
 
+### css notes
+
+step in comming soon on index
+space and padding for forms
+new button look
+update the slides and slow them down
+on recipe search fill details
+check mark img from designer
+
 ### ajax and front end js for user recipes
 
 * create array of measure types and have render dropdown
