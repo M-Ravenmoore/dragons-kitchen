@@ -52,9 +52,6 @@
   display:flex;
   justify-content: space-between;
 }
-.user_menu_icon{
-  width: 35px;
-}
 .top-nav{
   display: flex;
   float:left
@@ -72,11 +69,18 @@
   margin:5px;
   border-radius: 75%;
 }
-.menu_icon, .user_menu_icon{
+.menu_icon{
   padding: 2.25px;
   border-radius: 75%;
-  width: 40px;
+  width: 45%;
   margin:5px;
+}
+.user_menu_icon{
+  padding: 2.25px;
+  border-radius: 75%;
+  width: 15%;
+  margin:5px;
+  float: right;
 }
 nav ul{
   display: flex;

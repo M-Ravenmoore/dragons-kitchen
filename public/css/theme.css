@@ -6,7 +6,7 @@ body{
 }
 main{
   background-color: #000000ab;
-  border-radius: 0 0 10px 10px;
+  border-radius: 8px;
   border: outset #959595 3px;
 }
 a{
@@ -28,17 +28,12 @@ button{
   background-color: #959595;
 }
 /* window format */
-.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-title,.recipe-card-instructions,.profile-intro,#user-info ,#recipe-save-form,.upper-card{
+.searchbar, #first-row, .recomend-box,.result-info, .result-card,.recipe-title,.recipe-card-instructions,.profile-intro,#user-info ,#recipe-save-form,.upper-card, .lower-card{
   background-color: #5b0b0bb6;
   border: 3px inset #979595;
   border-radius: 8px;
 
 }
-.recipe-card-info,.recipe-card-ingredients{
-  background-color: #000000b2;
-  border: 3px inset #979595;
-}
-
 .header-content{
   border-bottom: #959595f3 5px outset;
   background-color: #5b0b0bf3;
@@ -50,9 +45,10 @@ button{
 .slide-caption {
   color: #5B0B0B;
 }
-.slideshow-container, .result-image, .card-info ul,.recipe-image{
+.slideshow-container, .result-image, .card-info ul,.recipe-image,.recipe-card-info,.recipe-card-ingredients, .recipe-card-instructions,.search-full{
   border:#959595 3px inset;
-  background-color: #000000ab; ;
+  background-color: #000000ab;
+  border-radius: 8px;
 }
 .dropdown-nav{
   background-color: #000000ab;

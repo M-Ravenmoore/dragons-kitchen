@@ -9,6 +9,8 @@
   <body>
     <header class="header">
         <%- include('partials/header.ejs') %>
+        <%- include('partials/nav-bar.ejs')%>
+
     </header>
 
     <div class="top-push"></div>
@@ -32,12 +34,12 @@
               <feildset class="search-main">
                 <label for="search-recipes"><h6>Hunt for:</h6></label>
                 <input type="text" id="search-recipes" name="content" placeholder="lamb roast"></input>
-                <label for="search-select"><h6>Hunt by:</h6></label>
-                  <select name="type" id="search-select" placeholder="Select">
-                    <option value="query">Recipe</option>
-                    <option value="cuisine">Cuisine</option>
-                    <option value="author">author</option>
-                  </select>
+                <select name="type" id="search-select" placeholder="Select">
+                  <option value="query">Recipe</option>
+                  <option value="cuisine">Cuisine</option>
+                  <option value="author">author</option>
+                </select>
+                <label for="search-select"><h6>Hunt Details:</h6></label>
                   <label for="vegetarian">Vegetarian</label>
                   <input type="checkbox" name="vegetarian" id="vegetarian" value="vegetarian">
                   <label for="vegan">Vegan</label>

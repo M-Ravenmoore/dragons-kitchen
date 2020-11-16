@@ -4,14 +4,7 @@
     <img class="recipe-image" src="<%= recipe.image %>">
   </div>
   <div class="upper-card">
-    <div class="recipe-card-ingredients">
-      <h4 class="ingredients-title">Ingredients</h4>
-      <ul class="recipe-ingredients">
-      <% recipe.ingredients_string.forEach(ingredient =>{ %>
-        <li><%= ingredient %></li>
-        <% })%>          
-      </ul>
-    </div>
+    
     <div class="recipe-card-info">
       <h4>Info</h4>
       <ul>
@@ -23,9 +16,20 @@
         <li class="recipe-source">source: <a href= "<%=recipe.source_url %>" > <%= recipe.source_name %></a></li>
       </ul>
     </div>
+    <div class="recipe-card-ingredients">
+      <h4 class="ingredients-title">Ingredients</h4>
+      <ul class="recipe-ingredients">
+      <% recipe.ingredients_string.forEach(ingredient =>{ %>
+        <li><%= ingredient %></li>
+        <% })%>          
+      </ul>
+    </div>
   </div>
-  <div class="recipe-card-instructions">
-    <h3>Instructions</h3>
-    <%- recipe.instructions %>
+  <div class="lower-card">
+    <div class="recipe-card-instructions">
+      <h3>Instructions</h3>
+      <%- recipe.instructions %>
+    </div> 
   </div>
+  
 <section>
